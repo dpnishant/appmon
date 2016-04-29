@@ -35,6 +35,21 @@ So far I have grouped the methods of interesting classes into logical categories
 
 In the current release, we have the ability to hook both the Apple’s CoreFoundation API’s as well as the Objective-C methods (even if its done in a Swift app via the bridging header). Swift support is not yet available in frida-gum and hence we'll have to wait until then. All I want to from you all is to watch the Video Demo (link above), take a look at the source-code and then provide your feedbacks/comments/suggestions/rants. And also it would be really helpful if you can provide me and missing feature you would like to see in the tool.
 
+Setup & Install
+-----------------
+> Tested on:
+> - **Host**: MacOS X 10.11
+> - **Target Device**: iPhone 5S (iOS 8.1) _(other devices, OS is supported as long as Frida supports it)_
+
+Setup Host Environment
+```
+$ sudo -H pip install argparse frida flask termcolor
+```
+
+Setup Target Device
+
+> - Follow the instructions to install Frida on the target device i.e. the iOS device, as mentioned in the [**Official Frida Docs**](http://www.frida.re/docs/ios/)
+> - Do the smoke-test as mentioned in the [**Official Frida Docs**](http://www.frida.re/docs/ios/) and make sure everything is working as expected.
 
 Usage
 -------------
