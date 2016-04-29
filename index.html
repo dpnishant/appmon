@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>AppMon by dpnishant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">AppMon</h1>
+      <h2 class="project-tagline"></h2>
+      <a href="https://github.com/dpnishant/appmon" class="btn">View on GitHub</a>
+      <a href="https://github.com/dpnishant/appmon/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/dpnishant/appmon/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="welcome-to-appmon" class="anchor" href="#welcome-to-appmon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to AppMon!</h1>
+
+<p>This project was only possible because of <strong>Ole André Vadla Ravnås</strong> and I dedicate it to him.</p>
+
+<p>Follow him on <a href="https://github.com/oleavr"><strong>GitHub</strong></a>, <a href="https://twitter.com/oleavr"><strong>Twitter</strong></a></p>
+
+<p><em>TL;DR</em>
+AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps. You may call it the <a href="https://en.wikipedia.org/wiki/Greasemonkey"><strong>GreaseMonkey</strong></a> for native mobile apps. ;-)</p>
+
+<hr>
+
+<h2>
+<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation</h2>
+
+<p>Being a big fan of the Sysinternals Suite (acquired by Microsoft) and the recent spike in the number of mobile app releases we see an increase in Mobile app security assessments and the lack of toolset for doing it easily and thoroughly, easily, became the motivation for this idea. </p>
+
+<p>AppMon is my vision is to make become the iOS/Android equivalent of the this project <a href="http://www.rohitab.com/apimonitor"><strong>apimonitor</strong></a> and <a href="https://en.wikipedia.org/wiki/Greasemonkey"><strong>GreaseMonkey</strong></a>. This should become a useful tool for the mobile penetration testers to not only monitor the app’s overall activity and focus on things that seem suspicious, as a starting point but also use pre-defined user-scripts to modify the app’s functionality/logic in the runtime e.g. spoofing the DeviceID, spoofing the GPS co-ordinates, faking In-App purchases etc. </p>
+
+<p>And as the tool matures, with time (i.e. as I get more spare time) we can have even more refinement as to add pattern detection into this monitoring where we can tag/classify the data (e.g. PII etc.) </p>
+
+<p>Dynamic instrumentation of native mobile apps is not something new to us, there are tools, available since 2011, to do one or the other thing. But those tools (say <a href="https://isecpartners.github.io/Introspy-iOS/"><strong>Introspy</strong></a>) are not as flexible as this one i.e. extending the capabilities and adding new features is very hard and cumbersome process. And more over they are very tightly bound to a specific version of the OS.</p>
+
+<p>To build this I’m currently using the reverse-engineering &amp; dynamic instrumentation framework called <a href="http://www.frida.re"><strong>Frida</strong></a>. The best thing about it is that it supports instrumentation on Windows, Linux, Mac, iOS, Android via JavaScript (as its powered by <a href="https://developers.google.com/v8/"><strong>Chrome V8</strong></a> &amp; <a href="http://www.capstone-engine.org/"><strong>Capstone Engine</strong></a>) which gets injected into the target process. While researching for the right platform to build the tool, I studied <a href="http://www.cycript.org/"><strong>Cycript</strong></a> (requires <a href="http://www.cydiasubstrate.com/"><strong>Cydia Substrate</strong></a>), <a href="http://repo.xposed.info/"><strong>Xposed Framework</strong></a> (specific to Android only and it’s instrumentation methodology is really old-school and slow). Hence to save some effort on the learning curve I planned to use Frida as Javascript is something I’m really comfortable with plus it has support for both Node.JS and Python bindings to write standalone apps. In short, Frida is <em>the</em> platform going forward.</p>
+
+<p>In the current phase of the project, I’m concentrating on iOS and eventually Android. So far I have grouped the methods of interesting classes into logical categories of APIs that I’m going to intercept/manipulate into e.g.</p>
+
+<blockquote>
+<p><strong>Categories:</strong></p>
+
+<ul>
+<li>Disk I/O (R/W)</li>
+<li>Network (HTTP GET, POST etc.)</li>
+<li>Crypto (HMAC, Hash function, block ciphers, X.509 certs etc.)</li>
+<li>XML/JSON</li>
+<li>KeyChain</li>
+<li>Database (e.g. SQLite)</li>
+<li>WebView</li>
+<li>UserDefaults (SharedPreferences equiv.) &amp; more.</li>
+</ul>
+</blockquote>
+
+<p>In the current release, we have the ability to hook both the Apple’s CoreFoundation API’s as well as the Objective-C methods (even if its done in a Swift app via the bridging header). Swift support is not yet available in frida-gum and hence we'll have to wait until then. All I want to from you all is to watch the Video Demo (link above), take a look at the source-code and then provide your feedbacks/comments/suggestions/rants. And also it would be really helpful if you can provide me and missing feature you would like to see in the tool.</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<h4>
+<a id="appmon-sniffer" class="anchor" href="#appmon-sniffer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AppMon Sniffer</h4>
+
+<pre><code>usage: appmon.py [-h] [-a APP_NAME] [-p PLATFORM] [-s SCRIPT_PATH]
+                 [-o OUTPUT_DIR] [-ls LIST_APPS] [-v]
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -a APP_NAME     Process Name; Accepts "Twitter" for iOS;
+                  "com.twitter.android" for Android; "Twitter" for MacOS X
+  -p PLATFORM     Platform Type; Accepts "ios", "android" or "mac"
+  -s SCRIPT_PATH  Path to agent script file; Can be relative/absolute path for
+                  a file or directory; Multiple scripts in a directory shall
+                  be merged; Needs "-a APP_NAME"
+  -o OUTPUT_DIR   (Optional) Path to store any dumps/logs; Accepts
+                  relative/absolute paths
+  -ls LIST_APPS   Optional; Accepts 1 or 0; Lists running Apps on target
+                  device; Needs "-p PLATFORM"
+  -v              show program's version number and exit
+</code></pre>
+
+<hr>
+
+<h4>
+<a id="appmon-intruder" class="anchor" href="#appmon-intruder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AppMon Intruder</h4>
+
+<pre><code>usage: appintruder.py [-h] [-a APP_NAME] [-p PLATFORM] [-ls LIST_APPS]
+                      [-s SCRIPT_PATH] [-v]
+
+optional arguments:
+  -h, --help      show this help message and exit
+  -a APP_NAME     Process Identifier; Accepts "Twitter" for iOS;
+                  "com.twitter.android" for Android; "Twitter" for MacOS X
+  -p PLATFORM     Platform Type; Accepts "ios", "android" or "mac"
+  -ls LIST_APPS   Optional; Accepts 1 or 0; Lists running Apps on target
+                  device; Needs "-p PLATFORM"
+  -s SCRIPT_PATH  Path to agent script file; Can be relative/absolute path for
+                  a file or directory; Multiple scripts in a directory shall
+                  be merged; Needs "-a APP_NAME"
+  -v              show program's version number and exit
+</code></pre>
+
+<hr>
+
+<h2>
+<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
+
+<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/1.png?raw=true" alt="Screenshot#1" title="Screenshot#1"></p>
+
+<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/2.png?raw=true" alt="Screenshot#2" title="Screenshot#2"></p>
+
+<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/3.png?raw=true" alt="Screenshot#3" title="Screenshot#3"></p>
+
+<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/4.png?raw=true" alt="Screenshot#4" title="Screenshot#4"></p>
+
+<h2>
+<a id="videos" class="anchor" href="#videos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Video(s)</h2>
+
+<h3>
+<a id="touchid-bypass-using-appmon-intruder" class="anchor" href="#touchid-bypass-using-appmon-intruder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TouchID Bypass using AppMon Intruder</h3>
+
+<p><a href="https://youtu.be/ECnkgz3jnPM"><img src="https://img.youtube.com/vi/ECnkgz3jnPM/0.jpg" alt="TouchID Bypass using AppMon Intruder"></a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/dpnishant/appmon">AppMon</a> is maintained by <a href="https://github.com/dpnishant">dpnishant</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
