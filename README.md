@@ -48,8 +48,8 @@ $ sudo -H pip install argparse frida flask termcolor
 
 Setup Target Device
 
-> - Follow the instructions to install Frida on the target device i.e. the iOS device, as mentioned in the [**Official Frida Docs**](http://www.frida.re/docs/ios/)
-> - Do the smoke-test as mentioned in the [**Official Frida Docs**](http://www.frida.re/docs/ios/) and make sure everything is working as expected.
+> - Follow the instructions to install Frida on the target device i.e. the iOS device, as mentioned in the [**Official Frida Docs**](http://www.frida.re/docs/ios/#with-jailbreak)
+> - Do the smoke-test as mentioned in the [**Official Frida Docs**](http://www.frida.re/docs/ios/#with-jailbreak) and make sure everything is working as expected.
 
 Usage
 -------------
