@@ -27,7 +27,7 @@
 <p>Follow him on <a href="https://github.com/oleavr"><strong>GitHub</strong></a>, <a href="https://twitter.com/oleavr"><strong>Twitter</strong></a></p>
 
 <p><em>TL;DR</em>
-AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps. You may call it the <a href="https://en.wikipedia.org/wiki/Greasemonkey"><strong>GreaseMonkey</strong></a> for native mobile apps. ;-)</p>
+AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps (upcoming). It is based on <a href="http://www.frida.re"><strong>Frida</strong></a>. You may call it the <a href="https://en.wikipedia.org/wiki/Greasemonkey"><strong>GreaseMonkey</strong></a> for native mobile apps. ;-)</p>
 
 <hr>
 
@@ -60,6 +60,36 @@ AppMon is an automated framework for monitoring and tampering system API calls o
 </blockquote>
 
 <p>In the current release, we have the ability to hook both the Apple’s CoreFoundation API’s as well as the Objective-C methods (even if its done in a Swift app via the bridging header). Swift support is not yet available in frida-gum and hence we'll have to wait until then. All I want to from you all is to watch the Video Demo (link above), take a look at the source-code and then provide your feedbacks/comments/suggestions/rants. And also it would be really helpful if you can provide me and missing feature you would like to see in the tool.</p>
+
+<h2>
+<a id="setup--install" class="anchor" href="#setup--install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup &amp; Install</h2>
+
+<blockquote>
+<p>Tested on:</p>
+
+<ul>
+<li>
+<strong>Host</strong>: MacOS X 10.11</li>
+<li>
+<strong>Target Device</strong>: iPhone 5S (iOS 8.1) <em>(other devices, OS is supported as long as Frida supports it)</em>
+</li>
+</ul>
+</blockquote>
+
+<p>Setup Host Environment</p>
+
+<pre><code>$ sudo -H pip install argparse frida flask termcolor
+</code></pre>
+
+<p>Setup Target Device</p>
+
+<blockquote>
+<ul>
+<li>Follow the instructions to install Frida on the target device i.e. the iOS device, as mentioned in the <a href="http://www.frida.re/docs/ios/#with-jailbreak"><strong>Official Frida Docs</strong></a>
+</li>
+<li>Do the smoke-test as mentioned in the <a href="http://www.frida.re/docs/ios/#with-jailbreak"><strong>Official Frida Docs</strong></a> and make sure everything is working as expected.</li>
+</ul>
+</blockquote>
 
 <h2>
 <a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
