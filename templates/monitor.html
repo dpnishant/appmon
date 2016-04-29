@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/zf-5.5.2/jqc-1.12.0,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,fc-3.2.1,fh-3.1.1,kt-2.1.1,r-2.0.2,rr-1.1.1,sc-1.4.1,se-1.1.2/datatables.min.css"/>
+    
+    <script type="text/javascript" src="https://cdn.datatables.net/t/zf-5.5.2/jqc-1.12.0,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,fc-3.2.1,fh-3.1.1,kt-2.1.1,r-2.0.2,rr-1.1.1,sc-1.4.1,se-1.1.2/datatables.min.js"></script>
+
+<style>
+
+#colSearchContainer {
+    width: 15%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.dataTables_filter {
+    float: left;
+}
+.dt-buttons.button-group {
+    float: left;
+}
+
+.dataTables_filter label {
+    color: #fff;
+    display: none;
+}
+
+#tblResultView_filter.searchbox_visible {
+    float: left;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+}
+
+#tblResultView_filter.searchbox_visible input {
+    height: 1.75rem;
+}
+
+div.dataTables_wrapper div.dataTables_filter input{
+    margin-left: 0.9rem;
+}
+
+.dataTables_filter {
+    background: #008cba none repeat scroll 0 0;
+    float: left;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    padding-top: 0.72rem;
+    padding-bottom: 0.72rem;
+}
+
+.search-button {
+    color: #fff;
+    cursor: pointer;
+    float: left;
+    padding: 0px;
+}
+
+td {
+    font-family: Consolas, monaco, monospace;
+    font-size: 10pt;
+    vertical-align: top;
+    word-wrap: break-word;
+ }
+
+ body {
+    font-family: Consolas, monaco, monospace;
+    font-size: 10pt;
+ }
+
+table {
+    table-layout: fixed;
+    width:auto;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navbar-default {
+    background-color: #008cba;
+    border-color: #008cba;
+}
+
+.navbar-default .navbar-brand {
+    color: #FFF;
+}
+
+.navbar {
+    border-radius: 0px;
+}
+
+</style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    AppMon: API Monitor for Native Mobile Apps
+                </a>
+            </div>
+        </div>
+    </nav>
+    {% autoescape false %}
+    <table id="tblResultView" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Sequence</th>
+                <th>Time</th>
+                <th>Operation</th>
+                <th>Method</th>
+                <th>Module</th>
+                <th>Remark</th>
+                <th>Artifact</th>
+            </tr>
+        </thead>
+        </tbody>
+    </table>
+    <div id="colSearchContainer" ></div>
+    {% endautoescape %}
+    <script>
+
+    function get_LastRowId() {
+        var max = 0;
+        $("td[data-dt-column='0']").each(function() {
+            $this = parseInt($(this).text());
+            if ($this > max) 
+                max = $this;
+        });
+        //console.log(max);
+        return max;
+    }
+
+    function ui_rearrange() {
+        $( "#tblResultView_filter").prepend("<div class=\"search-button\"><i class=\"fa fa-search\"></i></div>" );
+        $('.search-button').click(function() {
+
+            $('.dataTables_filter label').slideToggle("fast");
+            var box = $('.dataTables_filter input').clone(true, true);
+            $('label').html(box);
+            if ( $('.dataTables_filter input').is(':visible') ) {
+                $("#tblResultView_filter").addClass('searchbox_visible');
+                $("div.dataTables_wrapper div.dataTables_filter input").addClass('searchbox_visible');
+            } else {
+            $('#tblResultView_filter').removeClass("searchbox_visible");
+            $('div.dataTables_filter input').removeClass( "searchbox_visible");
+        }
+        $('.dataTables_filter input').focus();
+    });
+    }
+
+    $(document).ready(function() {
+        /*
+        $.extend( true, $.fn.dataTable.defaults, {
+            column: {
+                render: $.fn.dataTable.render.text()
+            }
+        });
+        */
+        $('#tblResultView').DataTable({
+            ajax: {
+                "url": "/api/fetch",
+                "data": function (d) {
+                    d.id = get_LastRowId(),
+                    d.app = "{{ app_name }}"
+                }
+            },
+            search: {
+                "caseInsensitive": true,
+                "smart": true
+            },
+            fixedHeader: true,
+            colReorder: true,
+            keys: true,
+            "scrollY": true,
+            "scrollX": true,
+            dom: 'Bfrtip',
+            lengthMenu: [
+                [ 15, 30, 50, 100, -1 ],
+                [ '15 rows', '30 rows', '50 rows', '100 rows', 'Show all' ]
+            ],
+            buttons: [
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF'
+            },
+            {
+                extend: 'pageLength',
+                text: '<i class="fa fa-bars"></i>',
+                titleAttr: 'Table Length'
+            },
+            {
+                extend: 'colvis',
+                text: '<i class="fa fa-eye-slash"></i>',
+                postfixButtons: ['colvisRestore']
+            },
+            {
+                text: 'Refresh',
+                action: function ( e, dt, node, config ) {
+                    dt.ajax.reload();
+                }
+            }
+            ],
+        });
+        
+
+        ui_rearrange();
+
+        //var refresh = window.setInterval($('#tblResultView').DataTable().ajax.reload, 2000);
+        
+        /*
+
+        // DataTable
+        var table = $('#tblResultView').DataTable();
+        
+        // Setup - add a text input to each footer cell
+        
+        // $('#tblResultView thead th').each(function () {
+        //    var title = $(this).text();
+        //   $('#colSearchContainer').html($('#colSearchContainer').html() + '<input type="text" placeholder="Search ' + title + '" />' );
+        // });
+
+        // Apply the search
+        
+        table.columns().every( function () {
+        var that = this;
+        $('input', this.footer() ).on( 'keyup change', function () {
+            if (that.search() !== this.value ) {
+                that.search(this.value).draw();
+            }
+        });
+    });
+    */
+    });
+</script>
+</body>
+</html>

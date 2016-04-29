@@ -1,0 +1,69 @@
+<html>
+
+<head>
+<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<style>
+
+.menu_container {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  float: left;
+}
+
+.navbar-default {
+  background-color: #0cbee5;
+  border-color: #0cbee5;
+}
+.navbar-default .navbar-brand {
+  color: #ecf0f1;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #ffffff;
+}
+
+p .btn_container {
+	float: right;
+}
+</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand">
+					AppMon
+				</a>
+			</div>
+		</div>
+	</nav>
+	<div class="menu_container" id="divmenucontainer">
+		<p>
+			<select class="selectpicker show-tick show-menu-arrow" id="selectMenu" data-live-search="true" title="Select an App..." data-style="btn-success" data-width="auto">
+			{% for app in apps %}
+			<option>{{ app }}</option>
+			{% endfor %}
+		</select>
+	</p>
+	<p class="btn_container">
+		<button class="btn btn-primary btn-block" id="btnNext">Next</button>
+	</p>
+	</div>
+	<script type="text/javascript">
+	$('#btnNext').click(function(){
+        window.location= '/monitor?app=' + $('#selectMenu').val();
+    });
+	</script>
+</body>
+</html>
