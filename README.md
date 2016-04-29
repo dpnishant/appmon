@@ -43,7 +43,7 @@ Setup & Install
 
 Setup Host Environment
 ```
-$ sudo -H pip install argparse frida flask termcolor
+$ sudo -H pip install argparse frida flask termcolor dataset
 ```
 
 Setup Target Device
