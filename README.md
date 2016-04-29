@@ -20,11 +20,9 @@ AppMon is my vision is to make become the iOS/Android equivalent of the this pro
 
 And as the tool matures, with time (i.e. as I get more spare time) we can have even more refinement as to add pattern detection into this monitoring where we can tag/classify the data (e.g. PII etc.) 
 
-Dynamic instrumentation of native mobile apps is not something new to us, there are tools, available since 2011, to do one or the other thing. But those tools (say [**Introspy**](https://isecpartners.github.io/Introspy-iOS/)) are not as flexible as this one i.e. extending the capabilities and adding new features is very hard and cumbersome process. And more over they are very tightly bound to a specific version of the OS.
+Dynamic instrumentation of native mobile apps is not something new to us, there are tools, available since 2011, to do one or the other thing. But the tools I have used so far are not as flexible as it is to do with Frida i.e. extending the capabilities and adding new features is very hard and cumbersome process with similar alternatives. And more over most of them are very tightly bound to a specific version of the mobile OS.
 
-To build this I’m currently using the reverse-engineering & dynamic instrumentation framework called [**Frida**](http://www.frida.re). The best thing about it is that it supports instrumentation on Windows, Linux, Mac, iOS, Android via JavaScript (as its powered by [**Chrome V8**](https://developers.google.com/v8/) & [**Capstone Engine**](http://www.capstone-engine.org/)) which gets injected into the target process. While researching for the right platform to build the tool, I studied [**Cycript**](http://www.cycript.org/) (requires [**Cydia Substrate**](http://www.cydiasubstrate.com/)), [**Xposed Framework**](http://repo.xposed.info/) (specific to Android only and it’s instrumentation methodology is really old-school and slow). Hence to save some effort on the learning curve I planned to use Frida as Javascript is something I’m really comfortable with plus it has support for both Node.JS and Python bindings to write standalone apps. In short, Frida is *the* platform going forward.
-
-In the current phase of the project, I’m concentrating on iOS and eventually Android. So far I have grouped the methods of interesting classes into logical categories of APIs that I’m going to intercept/manipulate into e.g.
+So far I have grouped the methods of interesting classes into logical categories of APIs that I’m going to intercept/manipulate into e.g.
 > **Categories:**
 > - Disk I/O (R/W)
 > - Network (HTTP GET, POST etc.)
