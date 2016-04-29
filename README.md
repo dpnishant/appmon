@@ -1,6 +1,9 @@
 Welcome to AppMon!
 ==================
 
+This project was only possible because of Ole André Vadla Ravnås and I dedicate it to him.
+Follow him: [GitHub](https://github.com/oleavr) [Twitter](https://twitter.com/oleavr)
+
 _TL;DR_
 AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps. You may call it the [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey) for native mobile apps. ;-)
 
@@ -17,7 +20,7 @@ And as the tool matures, with time (i.e. as I get more spare time) we can have e
 
 Dynamic instrumentation of native mobile apps is not something new to us, there are tools, available since 2011, to do one or the other thing. But those tools (say [**Introspy**](https://isecpartners.github.io/Introspy-iOS/)) are not as flexible as this one i.e. extending the capabilities and adding new features is very hard and cumbersome process. And more over they are very tightly bound to a specific version of the OS.
 
-To build this I’m currently using the reverse-engineering & dynamic instrumentation framework called [**Frida**](http://www.frida.re). The best thing about it is that it supports instrumentation on Windows, Linux, Mac, iOS, Android via JavaScript (as its powered by [**Chrome V8**](https://developers.google.com/v8/) & [**Capstone Engine**](http://www.capstone-engine.org/)) which gets injected into the target process. While researching for the right platform to build the tool, I studied [**Cycript**](http://www.cycript.org/) (requires [**Cydia Substrate**](http://www.cydiasubstrate.com/)), [**Xposed Framework**](http://repo.xposed.info/) (specific to Android only and it’s instrumentation methodology is really old-school and slow). Hence to save some effort on the learning curve I planned to use Frida as Javascript is something I’m really comfortable with plus it has support for both Node.JS and Python bindings to write standalone apps. In short, Frida is *the* platform going forward. Having said that, there is not very elaborate documentation of the Frida APIs and real-world examples but enough to get going. Hence I spent many hours of sleepless night chatting with the Frida custodians for their help whenever I got stuck.
+To build this I’m currently using the reverse-engineering & dynamic instrumentation framework called [**Frida**](http://www.frida.re). The best thing about it is that it supports instrumentation on Windows, Linux, Mac, iOS, Android via JavaScript (as its powered by [**Chrome V8**](https://developers.google.com/v8/) & [**Capstone Engine**](http://www.capstone-engine.org/)) which gets injected into the target process. While researching for the right platform to build the tool, I studied [**Cycript**](http://www.cycript.org/) (requires [**Cydia Substrate**](http://www.cydiasubstrate.com/)), [**Xposed Framework**](http://repo.xposed.info/) (specific to Android only and it’s instrumentation methodology is really old-school and slow). Hence to save some effort on the learning curve I planned to use Frida as Javascript is something I’m really comfortable with plus it has support for both Node.JS and Python bindings to write standalone apps. In short, Frida is *the* platform going forward.
 
 In the current phase of the project, I’m concentrating on iOS and eventually Android. So far I have grouped the methods of interesting classes into logical categories of APIs that I’m going to intercept/manipulate into e.g.
 > **Categories:**
