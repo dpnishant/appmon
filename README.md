@@ -1,8 +1,8 @@
 Welcome to AppMon!
 ==================
 
-This project was only possible because of Ole André Vadla Ravnås and I dedicate it to him.
-Follow him: [GitHub](https://github.com/oleavr) [Twitter](https://twitter.com/oleavr)
+This project was only possible because of **Ole André Vadla Ravnås** and I dedicate it to him.
+Follow him: [**GitHub**](https://github.com/oleavr) [**Twitter**](https://twitter.com/oleavr)
 
 _TL;DR_
 AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps. You may call it the [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey) for native mobile apps. ;-)
