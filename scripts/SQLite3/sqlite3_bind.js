@@ -13,12 +13,14 @@ Interceptor.attach(sqlite3_bind_int, {
       send_data.lib = 'libsqlite3.dylib';
       send_data.method = 'sqlite3_bind_int';
       send_data.artifact = [];
-      var data = {};
-      data.name = "SQL Query - Values Bound";
-      data.value = sql_query;
-      data.argSeq = 3;
-      send_data.artifact.push(data);
-      send(JSON.stringify(send_data));
+      if (!sql_query.toString().match(/\?\s?[\=\s\,\;]?/gi)) {
+        var data = {};
+        data.name = "SQL Query - Values Bound";
+        data.value = sql_query;
+        data.argSeq = 3;
+        send_data.artifact.push(data);
+        send(JSON.stringify(send_data));  
+      }
     }
     /** Omitting onLeave due to performance overhead **/
     /**
@@ -41,12 +43,14 @@ Interceptor.attach(sqlite3_bind_text, {
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
-      var data = {};
-      data.name = "SQL Query - Values Bound";
-      data.value = sql_query;
-      data.argSeq = 3;
-      send_data.artifact.push(data);
-      send(JSON.stringify(send_data));
+      if (!sql_query.toString().match(/\?\s?[\=\s\,\;]?/gi)) {
+        var data = {};
+        data.name = "SQL Query - Values Bound";
+        data.value = sql_query;
+        data.argSeq = 3;
+        send_data.artifact.push(data);
+        send(JSON.stringify(send_data));  
+      }
     }
     /** Omitting onLeave due to performance overhead **/
     /**
