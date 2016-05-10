@@ -3,7 +3,6 @@ Welcome to AppMon!
 
 This project was only possible because of **Ole André Vadla Ravnås** and I dedicate it to him.
 
-
 Follow him on [**GitHub**](https://github.com/oleavr), [**Twitter**](https://twitter.com/oleavr)
 
 _TL;DR_
@@ -11,18 +10,23 @@ AppMon is an automated framework for monitoring and tampering system API calls o
 
 ----------
 
+Introduction
+-------------
+AppMon is an automated framework for monitoring and tampering system API calls of native apps on  iOS, Mac OS X and Android apps (upcoming). You may call it the GreaseMonkey for native mobile apps. ;-)
+
+AppMon is my vision is to make become the Mac OS X/iOS/Android equivalent of the this project [**apimonitor**](http://www.rohitab.com/apimonitor) and [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey). This should become a useful tool for the mobile penetration testers to validate the security issues report by a source code scanner and by inspecting the APIs in runtime and monitoring the app’s overall activity and focus on things that seem suspicious. You can also use pre-defined user-scripts to modify the app’s functionality/logic in the runtime e.g. spoofing the DeviceID, spoofing the GPS co-ordinates, faking In-App purchases, bypassing TouchID etc.
+
+In the current release, we have the ability to hook both the Apple’s CoreFoundation API’s as well as the Objective-C methods (even if its done in a Swift app via the bridging header).
+
 Motivation
 -------------
 
 Being a big fan of the Sysinternals Suite (acquired by Microsoft) and the recent spike in the number of mobile app releases we see an increase in Mobile app security assessments and the lack of toolset for doing it easily and thoroughly, easily, became the motivation for this idea. 
 
-AppMon is my vision is to make become the iOS/Android equivalent of the this project [**apimonitor**](http://www.rohitab.com/apimonitor) and [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey). This should become a useful tool for the mobile penetration testers to not only monitor the app’s overall activity and focus on things that seem suspicious, as a starting point but also use pre-defined user-scripts to modify the app’s functionality/logic in the runtime e.g. spoofing the DeviceID, spoofing the GPS co-ordinates, faking In-App purchases etc. 
-
 And as the tool matures, with time (i.e. as I get more spare time) we can have even more refinement as to add pattern detection into this monitoring where we can tag/classify the data (e.g. PII etc.) 
 
-Dynamic instrumentation of native mobile apps is not something new to us, there are tools, available since 2011, to do one or the other thing. But the tools I have used so far are not as flexible as it is to do with Frida i.e. extending the capabilities and adding new features is very hard and cumbersome process with similar alternatives. And more over most of them are very tightly bound to a specific version of the mobile OS.
-
-So far I have grouped the methods of interesting classes into logical categories of APIs that I’m going to intercept/manipulate into e.g.
+APIs
+----------
 > **Categories:**
 > - Disk I/O (R/W)
 > - Network (HTTP GET, POST etc.)
