@@ -1,3 +1,4 @@
+![](https://raw.githubusercontent.com/dpnishant/appmon/master/resources/logo.png)
 Welcome to AppMon!
 ==================
 
