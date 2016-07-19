@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import os, sys, argparse, time, codecs, binascii, frida, json, traceback
 from flask import Flask, request, render_template
 from termcolor import colored
