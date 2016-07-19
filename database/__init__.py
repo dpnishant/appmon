@@ -12,6 +12,13 @@ def save_to_database(db_path, str_json):
     module=str_json['lib'],
     remark=''))
 
+def stringify(data):
+  str_data = ""
+  if type(data) == dict or type(data) == list:
+    return json.dumps(data)
+  else:
+    return data
+
 def read_from_database(db_path, index=0):
   result_set = {}
   parent_holder = []
@@ -29,7 +36,7 @@ def read_from_database(db_path, index=0):
     artifacts = json.loads(capture['artifact'])
     
     for artifact in artifacts:
-      str_artifact += 'Name: ' + artifact['name'] + '\n' + artifact['value'] + '\n\n' # artifact['value'], str(artifact['argSeq'])
+      str_artifact += 'Name: ' + stringify(artifact['name']) + '\n' + stringify(artifact['value']) + '\n\n' # artifact['value'], str(artifact['argSeq'])
       #str_artifact = str_artifact.replace("<", "&lt;").replace(">", "&gt;")
       str_artifact = str_artifact.replace('\n', '<br/>').replace('Name: ', '<b>Name: </b>')
 
