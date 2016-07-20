@@ -13,7 +13,7 @@ Java.perform(function() {
     responseHeaders = "";
     responseBody = "";
     var Connection = this;
-    var stream = this.getInputStream.overloads[0].call(this);
+    var stream = this.getInputStream.overloads[0].apply(this, arguments);
 
     var requestURL = Connection.getURL().toString();
     var requestMethod = Connection.getRequestMethod();
@@ -23,19 +23,20 @@ Java.perform(function() {
       var Keys = Connection.getHeaderFields().keySet().toArray();
       var Values = Connection.getHeaderFields().values().toArray();
       responseHeaders = "";
-      for (key in Keys) {
+      for (var key in Keys) {
         if (Keys[key] && Keys[key] !== null && Values[key]) {
-          responseHeaders = responseHeaders + Keys[key] + ": " + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
+          responseHeaders +=  Keys[key] + ": " + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
         } else if (Values[key]) {
-          responseHeaders = responseHeaders + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
+          responseHeaders +=  Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
         }
       }
     }
     var InputStream = Java.use("java.io.BufferedInputStream").$new(stream);
-    if (InputStream) {
+    while(InputStream.available() > 0) {
       var sb = Java.use("java.lang.StringBuilder").$new();
       var InputStreamReader = Java.use("java.io.InputStreamReader").$new(InputStream);
-      var BufferedReader = Java.use("java.io.BufferedReader").$new(InputStreamReader, 1000);
+      var BufferedReader = Java.use("java.io.BufferedReader").$new(InputStreamReader);
+      
       if (BufferedReader) {
         for (var line = BufferedReader.readLine(); line != null; line = BufferedReader.readLine()) {
           sb.append(line);
@@ -43,7 +44,7 @@ Java.perform(function() {
       }
       responseBody = sb.toString();
     }
-    var divider = "\n==================\n";
+    //var divider = "\n==================\n";
     //console.log(methodURL + "\n" + requestHeaders + "\n" + requestBody + "\n\n" + responseHeaders + "\n" + responseBody + divider);
 
     /*   --- Payload Header --- */
@@ -71,15 +72,15 @@ Java.perform(function() {
       var Keys = Connection.getRequestProperties().keySet().toArray();
       var Values = Connection.getRequestProperties().values().toArray();
       requestHeaders = "";
-      for (key in Keys) {
+      for (var key in Keys) {
         if (Keys[key] && Keys[key] !== null && Values[key]) {
-          requestHeaders = requestHeaders + Keys[key] + ": " + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
+          requestHeaders += Keys[key] + ": " + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
         } else if (Values[key]) {
-          requestHeaders = requestHeaders + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
+          requestHeaders += Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
         }
       }
     }
-    var stream = this.getOutputStream.overloads[0].call(this);
+    var stream = this.getOutputStream.overloads[0].apply(this, arguments);
     return stream;
   }
 });

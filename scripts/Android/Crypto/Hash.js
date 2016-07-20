@@ -32,8 +32,8 @@ Java.perform(function() {
     MessageDigest.digest.overloads[0].implementation = function() {
       var digest = this.digest.overloads[0].apply(this, arguments);
       var algorithm = this.getAlgorithm().toString();
-      console.log("MessageDigest.getAlgorithm: " + algorithm);
-      console.log("MessageDigest.digest: " + byteArraytoHexString(digest));
+      //console.log("MessageDigest.getAlgorithm: " + algorithm);
+      //console.log("MessageDigest.digest: " + byteArraytoHexString(digest));
       /*   --- Payload Header --- */
       var send_data = {};
       send_data.time = new Date();
@@ -63,8 +63,8 @@ Java.perform(function() {
     MessageDigest.digest.overloads[1].implementation = function(input) {
       var digest = this.digest.overloads[1].apply(this, arguments);
       var algorithm = this.getAlgorithm().toString();
-      console.log("MessageDigest.getAlgorithm: " + algorithm);
-      console.log("MessageDigest.digest: " + byteArraytoHexString(digest));
+      //console.log("MessageDigest.getAlgorithm: " + algorithm);
+      //console.log("MessageDigest.digest: " + byteArraytoHexString(digest));
       /*   --- Payload Header --- */
       var send_data = {};
       send_data.time = new Date();
@@ -94,7 +94,7 @@ Java.perform(function() {
 
   if (MessageDigest.update) {
     MessageDigest.update.overloads[0].implementation = function(input) {
-      console.log("MessageDigest.update input: " + updateInput(input));
+      //console.log("MessageDigest.update input: " + updateInput(input));
       /*   --- Payload Header --- */
       var send_data = {};
       send_data.time = new Date();
@@ -116,7 +116,7 @@ Java.perform(function() {
     }
 
     MessageDigest.update.overloads[1].implementation = function(input, offset, len) {
-      console.log("MessageDigest.update input: " + updateInput(input));
+      //console.log("MessageDigest.update input: " + updateInput(input));
       /*   --- Payload Header --- */
       var send_data = {};
       send_data.time = new Date();
@@ -137,7 +137,7 @@ Java.perform(function() {
     }
 
     MessageDigest.update.overloads[2].implementation = function(input) {
-      console.log("MessageDigest.update input: " + updateInput(input));
+      //console.log("MessageDigest.update input: " + updateInput(input));
       /*   --- Payload Header --- */
       var send_data = {};
       send_data.time = new Date();
@@ -158,7 +158,7 @@ Java.perform(function() {
     }
 
     MessageDigest.update.overloads[3].implementation = function(input) {
-      console.log("MessageDigest.update input: " + updateInput(input));
+      //console.log("MessageDigest.update input: " + updateInput(input));
       /*   --- Payload Header --- */
       var send_data = {};
       send_data.time = new Date();

@@ -1,12 +1,12 @@
 #!/usr/bin/python
 
-import os, sys, argparse, time, codecs, binascii, frida, json, traceback
+import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess
 from flask import Flask, request, render_template
 from termcolor import colored
 import database as db
 
 app = Flask(__name__)
-app.debug = True
+#app.debug = True
 
 device = ''
 session = ''
@@ -144,7 +144,13 @@ def init_session():
 	try:
 		session = None
 		if platform == 'ios' or platform == 'android':
-			device = frida.get_usb_device()
+			try:
+				device = frida.get_usb_device()
+			except Exception as e:
+				print colored(str(e), "red")
+				if platform == 'android':
+					print colored("Is USB Debugging enabled?", "blue")
+					print colored("Is adb daemon running?", "blue")
 		elif platform == 'mac':
 			device = frida.get_local_device()
 		else:

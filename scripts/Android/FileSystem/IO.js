@@ -1,3 +1,5 @@
+'use strict';
+
 Java.perform(function() {
       var ContextWrapper = Java.use("android.content.ContextWrapper");
       if (ContextWrapper.openFileInput) {
@@ -84,7 +86,7 @@ Java.perform(function() {
           return this.deleteFile.overload("java.lang.String").call(this, fileName);
         };
       }
-    }
+    });
 
     /*
      To-do: Hook constructors for File class

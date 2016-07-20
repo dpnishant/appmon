@@ -6,7 +6,7 @@ Java.perform(function() {
   
   SharedPreferencesImpl.contains.implementation = function(key) {
     //console.log('contains KEY: ' + key);
-    var value = this.contains.call(this, key);
+    var value = this.contains.apply(this, arguments);
     //console.log('contains VALUE: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -36,7 +36,7 @@ Java.perform(function() {
 
   SharedPreferencesImpl.getInt.implementation = function(key, defValue) {
     //console.log('getInt KEY: ' + key);
-    var value = this.getInt.call(this, key, defValue);
+    var value = this.getInt.apply(this, arguments);
     //console.log('getInt VALUE: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -66,7 +66,7 @@ Java.perform(function() {
 
   SharedPreferencesImpl.getFloat.implementation = function(key, defValue) {
     //console.log('getFloat KEY: ' + key);
-    var value = this.getFloat.call(this, key, defValue);
+    var value = this.getFloat.apply(this, arguments);
     //console.log('getFloat VALUE: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -96,7 +96,7 @@ Java.perform(function() {
 
   SharedPreferencesImpl.getLong.implementation = function(key, defValue) {
     //console.log('getLong KEY: ' + key);
-    var value = this.getLong.call(this, key, defValue);
+    var value = this.getLong.apply(this, arguments);
     //console.log('getLong VALUE: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -126,7 +126,7 @@ Java.perform(function() {
 
   SharedPreferencesImpl.getBoolean.implementation = function(key, defValue) {
     //console.log('getBoolean KEY: ' + key);
-    var value = this.getBoolean.call(this, key, defValue);
+    var value = this.getBoolean.apply(this, arguments);
     //console.log('getBoolean VALUE: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -156,7 +156,7 @@ Java.perform(function() {
 
   SharedPreferencesImpl.getString.implementation = function(key, defValue) {
     //console.log('getString Key: ' + key);
-    var value = this.getString.call(this, key, defValue);
+    var value = this.getString.apply(this, arguments);
     //console.log('getString Value: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -186,7 +186,7 @@ Java.perform(function() {
 
   SharedPreferencesImpl.getStringSet.implementation = function(key, defValue) {
     //console.log('getStringSet KEY: ' + key);
-    var value = this.getStringSet.call(this, key, defValue);
+    var value = this.getStringSet.apply(this, arguments);
     //console.log('getStringSet VALUE: ' + value);
     /*   --- Payload Header --- */
     var send_data = {};
@@ -240,7 +240,7 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.putString.call(this, key, value);
+    return this.putString.apply(this, arguments);
   };
 
   SharedPreferencesImpl_EditorImpl.putStringSet.implementation = function(key, values) {
@@ -269,7 +269,7 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.putStringSet.call(this, key, values);
+    return this.putStringSet.apply(this, arguments);
   };
 
   SharedPreferencesImpl_EditorImpl.putInt.implementation = function(key, value) {
@@ -298,7 +298,7 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.putInt.call(this, key, value);
+    return this.putInt.apply(this, arguments);
   };
 
   SharedPreferencesImpl_EditorImpl.putFloat.implementation = function(key, value) {
@@ -327,7 +327,7 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.putFloat.call(this, key, value);
+    return this.putFloat.apply(this, arguments);
   };
 
   SharedPreferencesImpl_EditorImpl.putBoolean.implementation = function(key, value) {
@@ -356,7 +356,7 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.putBoolean.call(this, key, value);
+    return this.putBoolean.apply(this, arguments);
   };
 
   SharedPreferencesImpl_EditorImpl.putLong.implementation = function(key, value) {
@@ -385,7 +385,7 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.putLong.call(this, key, value);
+    return this.putLong.apply(this, arguments);
   };
 
   SharedPreferencesImpl_EditorImpl.remove.implementation = function(key) {
@@ -406,6 +406,6 @@ Java.perform(function() {
     send_data.artifact.push(data);
 
     send(JSON.stringify(send_data));
-    return this.remove.call(this, key);
+    return this.remove.apply(this, arguments);
   };
 });
