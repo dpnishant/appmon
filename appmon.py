@@ -47,6 +47,8 @@ def init_opts():
                     help='''Process Name;
                     Accepts "Twitter" for iOS; 
                     "com.twitter.android" for Android; "Twitter" for MacOS X''')
+	parser.add_argument('--spawn', action='store', dest='spawn', default=1,
+                    help='''Optional; Accepts 1=Spawn, 0=Attach; Needs "-p PLATFORM"''')
 	parser.add_argument('-p', action='store', dest='platform',
                     help='Platform Type; Accepts "ios", "android" or "mac"')
 	parser.add_argument('-s', action='store', dest='script_path', default='',
@@ -70,6 +72,8 @@ def init_opts():
 	platform = results.platform
 	script_path = results.script_path
 	list_apps = results.list_apps
+	spawn = results.spawn
+
 	output_dir = results.output_dir if results.output_dir else './app_dumps'
 
 	if script_path != None and app_name == '' and list_apps == 0:
@@ -140,6 +144,19 @@ def generate_injection():
 	print colored('[INFO] Building injection...', 'yellow')
 	return injection_source
 
+def getBundleID(app_name):
+	try:
+		device = frida.get_usb_device()
+		session = device.attach(app_name)
+		session.on('detached', on_detached)
+		script = session.create_script("""'use strict';
+
+			""")
+		script.on('message', on_message)
+		script.load()
+	except Exception as e:
+		print colored("[ERROR] " + str(e), "red")
+
 def init_session():
 	try:
 		session = None
@@ -158,7 +175,12 @@ def init_session():
 			sys.exit()
 		if app_name:
 			try:
-				session = device.attach(app_name)
+				if spawn == 1 and platform == 'android':
+					session = device.spawn(app_name)
+				elif spawn == 1 and platform == 'ios':
+					session = device.spawn(app_name)
+				else:
+					session = device.attach(app_name)
 			except Exception as e:
 				print colored('[ERROR] ' + str(e), 'red')
 				traceback.print_exc()

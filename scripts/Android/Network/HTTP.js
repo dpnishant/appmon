@@ -8,8 +8,14 @@ var responseBody = "";
 
 Java.perform(function() {
   var HttpURLConnection = Java.use("com.android.okhttp.internal.http.HttpURLConnectionImpl");
+  //var BufferedInputStream = Java.use("java.io.BufferedInputStream");
+  //var StringBuilder = Java.use("java.lang.StringBuilder");
+  var InputStreamReader =  Java.use("java.io.InputStreamReader");
+  var BufferedReader = Java.use("java.io.BufferedReader");
+  
   HttpURLConnection.getInputStream.overloads[0].implementation = function() {
-    methodURL = "";
+    try {
+      methodURL = "";
     responseHeaders = "";
     responseBody = "";
     var Connection = this;
@@ -25,28 +31,24 @@ Java.perform(function() {
       responseHeaders = "";
       for (var key in Keys) {
         if (Keys[key] && Keys[key] !== null && Values[key]) {
-          responseHeaders +=  Keys[key] + ": " + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
+          responseHeaders += Keys[key] + ": " + Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
         } else if (Values[key]) {
-          responseHeaders +=  Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
+          responseHeaders += Values[key].toString().replace(/\[/gi, "").replace(/\]/gi, "") + "\n";
         }
       }
     }
-    var InputStream = Java.use("java.io.BufferedInputStream").$new(stream);
-    while(InputStream.available() > 0) {
-      var sb = Java.use("java.lang.StringBuilder").$new();
-      var InputStreamReader = Java.use("java.io.InputStreamReader").$new(InputStream);
-      var BufferedReader = Java.use("java.io.BufferedReader").$new(InputStreamReader);
-      
-      if (BufferedReader) {
-        for (var line = BufferedReader.readLine(); line != null; line = BufferedReader.readLine()) {
-          sb.append(line);
-        }
-      }
-      responseBody = sb.toString();
+    if (stream) {
+      var BufferedReaderStream = BufferedReader.$new(InputStreamReader.$new(stream));
+      var inputLine = "";
+    while ((inputLine = BufferedReaderStream.readLine()) != null){
+      responseBody += inputLine + "\n";
     }
+    BufferedReaderStream.close();
+
     //var divider = "\n==================\n";
     //console.log(methodURL + "\n" + requestHeaders + "\n" + requestBody + "\n\n" + responseHeaders + "\n" + responseBody + divider);
 
+    }
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -62,6 +64,9 @@ Java.perform(function() {
     send_data.artifact.push(data);
     send(JSON.stringify(send_data));
     return stream;
+    } catch (e) {
+      this.getInputStream.overloads[0].apply(this, arguments);
+    }
   }
 
   HttpURLConnection.getOutputStream.overloads[0].implementation = function() {

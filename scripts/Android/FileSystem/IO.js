@@ -2,6 +2,7 @@
 
 Java.perform(function() {
       var ContextWrapper = Java.use("android.content.ContextWrapper");
+      var FileNotFoundException = Java.use("java.io.FileNotFoundException");
       if (ContextWrapper.openFileInput) {
         // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#openFileInput(java.lang.String)
         ContextWrapper.openFileInput.overload("java.lang.String").implementation = function(fileName) {
@@ -25,7 +26,7 @@ Java.perform(function() {
           try {
             return this.openFileInput.overload("java.lang.String").call(this, fileName);
           } catch (e) {
-            return Java.use("java.io.FileNotFoundException").$new(fileName);
+            return FileNotFoundException.$new(fileName);
           }
         };
       }
