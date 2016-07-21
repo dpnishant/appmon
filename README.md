@@ -7,13 +7,13 @@ This project was only possible because of **Ole André Vadla Ravnås** and I ded
 Follow him on [**GitHub**](https://github.com/oleavr), [**Twitter**](https://twitter.com/oleavr)
 
 _TL;DR_
-AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps (upcoming). It is based on [**Frida**](http://www.frida.re). You may call it the [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey) for native mobile apps. ;-)
+AppMon is an automated framework for monitoring and tampering system API calls of native apps on macOS, iOS and android. It is based on [**Frida**](http://www.frida.re).
 
 ----------
 
 Introduction
 -------------
-AppMon is an automated framework for monitoring and tampering system API calls of native apps on  iOS, Mac OS X and Android apps (upcoming). You may call it the GreaseMonkey for native mobile apps. ;-)
+AppMon is a framework for monitoring and tampering system API calls of native apps on macOS, iOS, and android. You may also use it for security profiling of executable binaries on the above mentioned platforms. 
 
 AppMon is my vision is to make become the Mac OS X/iOS/Android equivalent of the this project [**apimonitor**](http://www.rohitab.com/apimonitor) and [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey). This should become a useful tool for the mobile penetration testers to validate the security issues report by a source code scanner and by inspecting the APIs in runtime and monitoring the app’s overall activity and focus on things that seem suspicious. You can also use pre-defined user-scripts to modify the app’s functionality/logic in the runtime e.g. spoofing the DeviceID, spoofing the GPS co-ordinates, faking In-App purchases, bypassing TouchID etc.
 
