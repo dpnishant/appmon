@@ -199,14 +199,17 @@ def init_session():
 		if app_name:
 			try:
 				if platform == 'android' and spawn == 1:
-					session = frida.attach(device.spawn(app_name))
+					pid = device.spawn(app_name)
+					session = frida.attach(pid)
 				elif (platform == 'ios' or platform == 'macos') and spawn == 1:
 					bundleID = getBundleID(device, app_name, platform)
 					if bundleID:
 						print colored("Now Spawning %s" % bundleID, "green")
-						session = frida.attach(device.spawn([bundleID]))
+						pid = device.spawn([bundleID])
+						session = frida.attach(pid)
 					else:
 						print colored("[ERROR] Can't spawn %s" % app_name, "red")
+						traceback.print_exc()
 						sys.exit(1)
 				else:
 					session = device.attach(app_name)
@@ -220,11 +223,11 @@ def init_session():
 		print colored('[ERROR] ' + str(e), 'red')
 		traceback.print_exc()
 		sys.exit(1)
-	return device, session
+	return device, session, pid
 
 try:
 	app_name, platform, script_path, list_apps, output_dir, spawn = init_opts()
-	device, session = init_session()
+	device, session, pid = init_session()
 
 	if int(list_apps) == 1:
 		list_processes(device)
@@ -236,6 +239,8 @@ try:
 			print colored('[INFO] Instrumentation started...', 'yellow')
 			script.on('message', on_message)
 			script.load()
+			if spawn == 1 and pid:
+				device.resume(pid)
 			app.run() #Start WebServer
 except Exception as e:
 	print colored('[ERROR] ' + str(e), 'red')
