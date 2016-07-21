@@ -46,11 +46,11 @@ def init_opts():
 	parser.add_argument('-a', action='store', dest='app_name', default='',
                     help='''Process Name;
                     Accepts "Twitter" for iOS; 
-                    "com.twitter.android" for Android; "Twitter" for MacOS X''')
+                    "com.twitter.android" for Android; "Twitter" for macOS''')
 	parser.add_argument('--spawn', action='store', dest='spawn', default=1,
                     help='''Optional; Accepts 1=Spawn, 0=Attach; Needs "-p PLATFORM"''')
 	parser.add_argument('-p', action='store', dest='platform',
-                    help='Platform Type; Accepts "ios", "android" or "mac"')
+                    help='Platform Type; Accepts "ios", "android" or "macos"')
 	parser.add_argument('-s', action='store', dest='script_path', default='',
                     help='''Path to agent script file;
                     Can be relative/absolute path for a file or directory;
@@ -73,6 +73,7 @@ def init_opts():
 	script_path = results.script_path
 	list_apps = results.list_apps
 	spawn = results.spawn
+	
 
 	output_dir = results.output_dir if results.output_dir else './app_dumps'
 
@@ -80,7 +81,7 @@ def init_opts():
 		parser.print_help()
 		sys.exit(1)
 
-	return app_name, platform, script_path, list_apps, output_dir
+	return app_name, platform, script_path, list_apps, output_dir, int(spawn)
 
 def merge_scripts(path):
 	global merged_script_path
@@ -104,7 +105,7 @@ def _exit_():
 		os.remove(merged_script_path)
 	except Exception as e:
 		pass
-	sys.exit(1)
+	sys.exit(0)
 
 def writeBinFile(fname, data):
 	with codecs.open(fname, "a", "utf-8") as f:
@@ -144,18 +145,31 @@ def generate_injection():
 	print colored('[INFO] Building injection...', 'yellow')
 	return injection_source
 
-def getBundleID(app_name):
+def getBundleID(device, app_name, platform):
 	try:
-		device = frida.get_usb_device()
 		session = device.attach(app_name)
 		session.on('detached', on_detached)
 		script = session.create_script("""'use strict';
-
-			""")
-		script.on('message', on_message)
+rpc.exports = {
+  iosbundleid: function () {
+    return ObjC.classes.NSBundle.mainBundle().bundleIdentifier().toString();
+  },
+  macosbundleid: function () {
+    return ObjC.classes.NSBundle.mainBundle().executablePath().toString();
+  }
+};
+""")
 		script.load()
+		if platform == 'ios':
+			bundleID = script.exports.iosbundleid()
+		elif platform == 'macos':
+			bundleID = script.exports.macosbundleid()
+		script.unload()
+		session.detach()
+		return bundleID
 	except Exception as e:
 		print colored("[ERROR] " + str(e), "red")
+		traceback.print_exc()
 
 def init_session():
 	try:
@@ -165,20 +179,35 @@ def init_session():
 				device = frida.get_usb_device()
 			except Exception as e:
 				print colored(str(e), "red")
+				traceback.print_exc()
 				if platform == 'android':
-					print colored("Is USB Debugging enabled?", "blue")
-					print colored("Is adb daemon running?", "blue")
-		elif platform == 'mac':
+					print colored("Troubleshooting Help", "blue")
+					print colored("HINT: Is USB Debugging enabled?", "blue")
+					print colored("HINT: Is `frida-server` running on mobile device (with +x permissions)?", "blue")
+					print colored("HINT: Is `adb` daemon running?", "blue")
+					sys.exit(1)
+				elif platform == "ios":
+					print colored("Troubleshooting Help", "blue")
+					print colored("HINT: Have you installed `frida` module from Cydia?", "blue")
+					print colored("HINT: Have used `ipa_installer` to inject the `FridaGadget` shared lbrary?", "blue")
+					sys.exit(1)
+		elif platform == 'macos':
 			device = frida.get_local_device()
 		else:
-			print colored('[ERROR] Unsupported platform', 'red')
-			sys.exit()
+			print colored('[ERROR] Unsupported Platform', 'red')
+			sys.exit(1)
 		if app_name:
 			try:
-				if spawn == 1 and platform == 'android':
-					session = device.spawn(app_name)
-				elif spawn == 1 and platform == 'ios':
-					session = device.spawn(app_name)
+				if platform == 'android' and spawn == 1:
+					session = frida.attach(device.spawn(app_name))
+				elif (platform == 'ios' or platform == 'macos') and spawn == 1:
+					bundleID = getBundleID(device, app_name, platform)
+					if bundleID:
+						print colored("Now Spawning %s" % bundleID, "green")
+						session = frida.attach(device.spawn([bundleID]))
+					else:
+						print colored("[ERROR] Can't spawn %s" % app_name, "red")
+						sys.exit(1)
 				else:
 					session = device.attach(app_name)
 			except Exception as e:
@@ -194,12 +223,12 @@ def init_session():
 	return device, session
 
 try:
-	app_name, platform, script_path, list_apps, output_dir = init_opts()
+	app_name, platform, script_path, list_apps, output_dir, spawn = init_opts()
 	device, session = init_session()
 
 	if int(list_apps) == 1:
 		list_processes(device)
-		sys.exit(1)
+		sys.exit(0)
 
 	if session:
 		script = session.create_script(generate_injection())
@@ -217,4 +246,6 @@ try:
     while True:
     	pass
 except KeyboardInterrupt:
-    _exit_()
+	script.unload()
+	session.detach()
+	_exit_()
