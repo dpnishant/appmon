@@ -199,8 +199,8 @@ def init_session():
 		if app_name:
 			try:
 				if platform == 'android' and spawn == 1:
-					pid = device.spawn(app_name)
-					session = frida.attach(pid)
+					pid = device.spawn([app_name])
+					session = device.attach(pid)
 				elif (platform == 'ios' or platform == 'macos') and spawn == 1:
 					bundleID = getBundleID(device, app_name, platform)
 					if bundleID:
@@ -213,6 +213,8 @@ def init_session():
 						sys.exit(1)
 				else:
 					session = device.attach(app_name)
+					pid = ''
+					print colored("this is the %s" % pid, "blue")
 			except Exception as e:
 				print colored('[ERROR] ' + str(e), 'red')
 				traceback.print_exc()
