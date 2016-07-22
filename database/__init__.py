@@ -17,7 +17,11 @@ def stringify(data):
   if type(data) == dict or type(data) == list:
     return json.dumps(data)
   else:
-    return data
+    try:
+      str_data = str(data)
+      return str_data
+    except Exception as e:
+      return data
 
 def read_from_database(db_path, index=0):
   result_set = {}

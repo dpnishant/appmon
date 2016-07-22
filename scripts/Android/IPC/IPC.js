@@ -217,8 +217,8 @@ Java.perform(function() {
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
-      data.name = "Service";
-      data.value = service;
+      data.name = "Service Intent URL";
+      data.value = service.toUri();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
