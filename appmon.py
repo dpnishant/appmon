@@ -214,6 +214,8 @@ def init_session():
 						sys.exit(1)
 				else:
 					session = device.attach(app_name)
+					pid = ''
+					print colored("this is the %s" % pid, "blue")
 			except Exception as e:
 				print colored('[ERROR] ' + str(e), 'red')
 				traceback.print_exc()
