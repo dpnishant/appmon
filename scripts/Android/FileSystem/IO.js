@@ -55,7 +55,7 @@ Java.perform(function() {
           /*   --- Payload Body --- */
           var data = {};
           data.name = "Output Mode";
-          data.value = mode;
+          data.value = mode.toString();
           data.argSeq = 0;
           send_data.artifact.push(data);
 
@@ -79,7 +79,7 @@ Java.perform(function() {
           /*   --- Payload Body --- */
           var data = {};
           data.name = "File";
-          data.value = fileName;
+          data.value = fileName.toString();
           data.argSeq = 0;
           send_data.artifact.push(data);
 

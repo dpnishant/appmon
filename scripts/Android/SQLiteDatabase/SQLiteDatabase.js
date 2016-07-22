@@ -109,7 +109,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = dbPath;
+      data.value = dbPath.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -134,14 +134,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table Name";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "NullColumnHack";
-      data.value = nullColumnHack;
+      data.value = nullColumnHack.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -150,7 +150,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values;
+        data.value = values.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -176,14 +176,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table Name";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "NullColumnHack";
-      data.value = nullColumnHack;
+      data.value = nullColumnHack.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -191,7 +191,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values;
+        data.value = values.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -217,14 +217,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table Name";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "NullColumnHack";
-      data.value = nullColumnHack;
+      data.value = nullColumnHack.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -240,7 +240,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "conflictAlgorithm";
-      data.value = conflictAlgorithm;
+      data.value = conflictAlgorithm.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -273,7 +273,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = path;
+      data.value = path.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -317,7 +317,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = path;
+      data.value = path.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -400,7 +400,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = path;
+      data.value = path.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -427,14 +427,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DISTINCT";
-      data.value = distinct;
+      data.value = distinct.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -451,7 +451,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection;
+      data.value = selection.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -471,28 +471,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy;
+      data.value = groupBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having;
+      data.value = having.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy;
+      data.value = orderBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit;
+      data.value = limit.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -548,7 +548,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -565,7 +565,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection;
+      data.value = selection.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -585,28 +585,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy;
+      data.value = groupBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having;
+      data.value = having.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy;
+      data.value = orderBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit;
+      data.value = limit.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -664,14 +664,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DISTINCT";
-      data.value = distinct;
+      data.value = distinct.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -690,7 +690,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection;
+      data.value = selection.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -711,28 +711,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy;
+      data.value = groupBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having;
+      data.value = having.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy;
+      data.value = orderBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit;
+      data.value = limit.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -789,7 +789,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -806,7 +806,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection;
+      data.value = selection.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -814,7 +814,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
 
@@ -826,21 +826,21 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy;
+      data.value = groupBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having;
+      data.value = having.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy;
+      data.value = orderBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -897,7 +897,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -914,7 +914,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection;
+      data.value = selection.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -922,7 +922,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -934,28 +934,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy;
+      data.value = groupBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having;
+      data.value = having.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy;
+      data.value = orderBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit;
+      data.value = limit.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1013,7 +1013,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1031,7 +1031,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection;
+      data.value = selection.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -1039,7 +1039,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1051,28 +1051,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy;
+      data.value = groupBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having;
+      data.value = having.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy;
+      data.value = orderBy.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit;
+      data.value = limit.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1132,7 +1132,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql;
+      data.value = sql.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1141,7 +1141,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1200,7 +1200,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql;
+      data.value = sql.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1209,7 +1209,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1266,7 +1266,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql;
+      data.value = sql.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1275,7 +1275,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1283,7 +1283,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Edit Table";
-      data.value = editTable;
+      data.value = editTable.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       var Cursor = this.rawQueryWithFactory.overloads[0].apply(this, arguments);
@@ -1339,7 +1339,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql;
+      data.value = sql.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1348,7 +1348,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs;
+        data.value = selectionArgs.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1356,7 +1356,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Edit Table";
-      data.value = editTable;
+      data.value = editTable.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1413,7 +1413,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -1432,7 +1432,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "WHERE Clause";
-      data.value = whereClause;
+      data.value = whereClause.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1465,7 +1465,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table;
+      data.value = table.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -1484,7 +1484,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "WHERE Clause";
-      data.value = whereClause;
+      data.value = whereClause.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1504,7 +1504,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Conflict Algorithm";
-      data.value = conflictAlgorithm;
+      data.value = conflictAlgorithm.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1528,7 +1528,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql;
+      data.value = sql.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1554,7 +1554,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql;
+      data.value = sql.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1580,7 +1580,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = db.getPath();
+      data.value = db.getPath().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 

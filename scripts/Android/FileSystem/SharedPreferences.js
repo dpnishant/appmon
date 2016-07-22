@@ -19,14 +19,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -49,14 +49,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -79,14 +79,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -109,14 +109,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -139,14 +139,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -169,14 +169,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -199,14 +199,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -228,14 +228,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -257,14 +257,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -286,14 +286,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -315,14 +315,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -344,14 +344,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -373,14 +373,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key;
+    data.value = key.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value;
+    data.value = value.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 

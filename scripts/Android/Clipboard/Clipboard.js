@@ -17,7 +17,7 @@ Java.perform(function(argument) {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Intent";
-        data.value = clip.getItemAt(i).getIntent();
+        data.value = clip.getItemAt(i).getIntent().toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));
@@ -33,7 +33,7 @@ Java.perform(function(argument) {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "HTML Text";
-        data.value = clip.getItemAt(i).getHtmlText();
+        data.value = clip.getItemAt(i).getHtmlText().toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));
@@ -49,7 +49,7 @@ Java.perform(function(argument) {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "URI";
-        data.value = clip.getItemAt(i).getUri();
+        data.value = clip.getItemAt(i).getUri().toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));
@@ -65,7 +65,7 @@ Java.perform(function(argument) {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Text";
-        data.value = clip.getItemAt(i).getText();
+        data.value = clip.getItemAt(i).getText().toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));

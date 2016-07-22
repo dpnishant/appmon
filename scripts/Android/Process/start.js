@@ -33,91 +33,91 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Process Class";
-      data.value = processClass;
+      data.value = processClass.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Nice Name";
-      data.value = niceName;
+      data.value = niceName.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "uid";
-      data.value = uid;
+      data.value = uid.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "gid";
-      data.value = gid;
+      data.value = gid.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "gids";
-      data.value = gids;
+      data.value = gids.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Debug Flags";
-      data.value = debugFlags;
+      data.value = debugFlags.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Mount External";
-      data.value = mountExternal;
+      data.value = mountExternal.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Target Sdk Version";
-      data.value = targetSdkVersion;
+      data.value = targetSdkVersion.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SElinux Info";
-      data.value = seInfo;
+      data.value = seInfo.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "abi";
-      data.value = abi;
+      data.value = abi.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Instruction Set";
-      data.value = instructionSet;
+      data.value = instructionSet.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Application Data Directory";
-      data.value = appDataDir;
+      data.value = appDataDir.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Zygote Args";
-      data.value = zygoteArgs;
+      data.value = zygoteArgs.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 

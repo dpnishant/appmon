@@ -76,7 +76,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "isSecure";
-      data.value = isSecure;
+      data.value = isSecure.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 

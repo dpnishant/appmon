@@ -25,14 +25,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Extras";
-      data.value = intent.getExtras();
+      data.value = intent.getExtras().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Flags";
-      data.value = intent.getFlags();
+      data.value = intent.getFlags().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -64,21 +64,21 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Extras";
-      data.value = intent.getExtras();
+      data.value = intent.getExtras().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Flags";
-      data.value = intent.getFlags();
+      data.value = intent.getFlags().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Receiver Permission";
-      data.value = receiverPermission;
+      data.value = receiverPermission.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -111,14 +111,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Extras";
-      data.value = intent.getExtras();
+      data.value = intent.getExtras().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Flags";
-      data.value = intent.getFlags();
+      data.value = intent.getFlags().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -171,7 +171,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Bundle";
-      data.value = bundle;
+      data.value = bundle.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -195,7 +195,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Service";
-      data.value = service;
+      data.value = service.toUri().toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 

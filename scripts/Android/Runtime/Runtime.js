@@ -34,21 +34,21 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Command";
-        data.value = args.command;
+        data.value = args.command.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
 
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Environment";
-        data.value = args.envp;
+        data.value = args.envp.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
 
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Working Directory";
-        data.value = args.dir;
+        data.value = args.dir.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
 
@@ -69,21 +69,21 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Command";
-        data.value = args.command;
+        data.value = args.command.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
 
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Environment";
-        data.value = args.envp;
+        data.value = args.envp.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
 
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Working Directory";
-        data.value = args.dir;
+        data.value = args.dir.toString();
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));
@@ -104,21 +104,21 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Command";
-      data.value = args.command;
+      data.value = args.command.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Environment";
-      data.value = args.envp;
+      data.value = args.envp.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Working Directory";
-      data.value = args.dir;
+      data.value = args.dir.toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -139,21 +139,21 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Command";
-    data.value = args.command;
+    data.value = args.command.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Environment";
-    data.value = args.envp;
+    data.value = args.envp.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Working Directory";
-    data.value = args.dir;
+    data.value = args.dir.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -166,16 +166,34 @@ Java.perform(function() {
     //console.log(processArgs(command, envp, dir));
     var args = processArgs(command, envp, dir);
   /*   --- Payload Header --- */
-  var send_data = {}; send_data.time = new Date(); send_data.txnType = 'Runtime Command Execution'; send_data.lib = 'java.lang.Runtime'; send_data.method = 'exec'; send_data.artifact = [];
+  var send_data = {};
+  send_data.time = new Date();
+  send_data.txnType = 'Runtime Command Execution';
+  send_data.lib = 'java.lang.Runtime';
+  send_data.method = 'exec';
+  send_data.artifact = [];
 
   /*   --- Payload Body --- */
-  var data = {}; data.name = "Command"; data.value = args.command; data.argSeq = 0; send_data.artifact.push(data);
+  var data = {};
+  data.name = "Command";
+  data.value = args.command.toString();
+  data.argSeq = 0;
+  send_data.artifact.push(data);
 
   /*   --- Payload Body --- */
-  var data = {}; data.name = "Environment"; data.value = args.envp; data.argSeq = 0; send_data.artifact.push(data);
+  var data = {};
+  data.name = "Environment";
+  data.value = args.envp.toString();
+  data.argSeq = 0;
+  send_data.artifact.push(data);
 
   /*   --- Payload Body --- */
-  var data = {}; data.name = "Working Directory"; data.value = args.dir; data.argSeq = 0; send_data.artifact.push(data); send(JSON.stringify(send_data));
+  var data = {};
+  data.name = "Working Directory";
+  data.value = args.dir.toString();
+  data.argSeq = 0;
+  send_data.artifact.push(data);
+  send(JSON.stringify(send_data));
   return this.exec.overloads[4].apply(this, arguments);
 }
 
@@ -193,21 +211,21 @@ send_data.artifact = [];
 /*   --- Payload Body --- */
 var data = {};
 data.name = "Command";
-data.value = args.command;
+data.value = args.command.toString();
 data.argSeq = 0;
 send_data.artifact.push(data);
 
 /*   --- Payload Body --- */
 var data = {};
 data.name = "Environment";
-data.value = args.envp;
+data.value = args.envp.toString();
 data.argSeq = 0;
 send_data.artifact.push(data);
 
 /*   --- Payload Body --- */
 var data = {};
 data.name = "Working Directory";
-data.value = args.dir;
+data.value = args.dir.toString();
 data.argSeq = 0;
 send_data.artifact.push(data);
 send(JSON.stringify(send_data));
@@ -229,7 +247,7 @@ if (Runtime.loadLibrary) {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Library Path";
-    data.value = args.command;
+    data.value = args.command.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -250,7 +268,7 @@ if (Runtime.loadLibrary) {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Library Path";
-    data.value = args.command;
+    data.value = args.command.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -274,7 +292,7 @@ if (Runtime.load) {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Library Path";
-    data.value = args.command;
+    data.value = args.command.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -296,7 +314,7 @@ if (Runtime.load) {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Library Path";
-    data.value = args.command;
+    data.value = args.command.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
 
