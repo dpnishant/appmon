@@ -47,7 +47,7 @@ def init_opts():
                     help='''Process Name;
                     Accepts "Twitter" for iOS; 
                     "com.twitter.android" for Android; "Twitter" for macOS''')
-	parser.add_argument('--spawn', action='store', dest='spawn', default=1,
+	parser.add_argument('--spawn', action='store', dest='spawn', default=0,
                     help='''Optional; Accepts 1=Spawn, 0=Attach; Needs "-p PLATFORM"''')
 	parser.add_argument('-p', action='store', dest='platform',
                     help='Platform Type; Accepts "ios", "android" or "macos"')
@@ -61,7 +61,7 @@ def init_opts():
                     Accepts relative/absolute paths''')
 	parser.add_argument('-ls', action='store', dest='list_apps', default=0,
                     help='''Optional; Accepts 1 or 0; Lists running Apps on target device; Needs "-p PLATFORM"''')
-	parser.add_argument('-v', action='version', version='AppMon v0.1, Nishant Das Patnaik, 2016')
+	parser.add_argument('-v', action='version', version='AppMon Sniffer v0.1, Nishant Das Patnaik, 2016')
 
 	if len(sys.argv) == 1:
 		parser.print_help()
@@ -71,8 +71,8 @@ def init_opts():
 	app_name = results.app_name
 	platform = results.platform
 	script_path = results.script_path
-	list_apps = results.list_apps
-	spawn = results.spawn
+	list_apps = int(results.list_apps)
+	spawn = int(results.spawn)
 	
 
 	output_dir = results.output_dir if results.output_dir else './app_dumps'
@@ -81,7 +81,7 @@ def init_opts():
 		parser.print_help()
 		sys.exit(1)
 
-	return app_name, platform, script_path, list_apps, output_dir, int(spawn)
+	return app_name, platform, script_path, list_apps, output_dir, spawn
 
 def merge_scripts(path):
 	global merged_script_path
@@ -197,16 +197,17 @@ def init_session():
 			print colored('[ERROR] Unsupported Platform', 'red')
 			sys.exit(1)
 		if app_name:
+			pid = None
 			try:
 				if platform == 'android' and spawn == 1:
-					pid = device.spawn(app_name)
-					session = frida.attach(pid)
+					pid = device.spawn([app_name])
+					session = device.attach(pid)
 				elif (platform == 'ios' or platform == 'macos') and spawn == 1:
 					bundleID = getBundleID(device, app_name, platform)
 					if bundleID:
 						print colored("Now Spawning %s" % bundleID, "green")
 						pid = device.spawn([bundleID])
-						session = frida.attach(pid)
+						session = device.attach(pid)
 					else:
 						print colored("[ERROR] Can't spawn %s" % app_name, "red")
 						traceback.print_exc()

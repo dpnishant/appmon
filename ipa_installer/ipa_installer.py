@@ -12,7 +12,7 @@ parser.add_argument('-identity', action='store', dest='dev_identity', default=''
                                         help='''Developer Identity Hash (OPTIONAL)''')
 parser.add_argument('-uuid', action='store', dest='uuid', default='',
                                         help='''Device UUID (OPTIONAL)''')
-parser.add_argument('-v', action='version', version='AppMon IPA Installer, Copyright 2016 Nishant Das Patnaik')
+parser.add_argument('-v', action='version', version='AppMon IPA Installer v0.1, Copyright 2016 Nishant Das Patnaik')
 if len(sys.argv) < 2:
     parser.print_help()
     sys.exit(1)
