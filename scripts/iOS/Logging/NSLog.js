@@ -12,7 +12,7 @@ Interceptor.attach(NSLog, {
     send_data.artifact = [];
     var data = {};
     data.name = "Log Message";
-    data.value = logMessage;
+    data.value = logMessage.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
     send(JSON.stringify(send_data));
@@ -36,7 +36,7 @@ Interceptor.attach(NSLogv, {
     send_data.artifact = [];
     var data = {};
     data.name = "Log Message";
-    data.value = logMessage;
+    data.value = logMessage.toString();
     data.argSeq = 0;
     send_data.artifact.push(data);
     send(JSON.stringify(send_data));
