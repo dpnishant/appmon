@@ -29,141 +29,14 @@
 <p>Follow him on <a href="https://github.com/oleavr"><strong>GitHub</strong></a>, <a href="https://twitter.com/oleavr"><strong>Twitter</strong></a></p>
 
 <p><em>TL;DR</em>
-AppMon is an automated framework for monitoring and tampering system API calls of native apps on macOS, iOS and android. It is based on <a href="http://www.frida.re"><strong>Frida</strong></a>.</p>
+AppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps (upcoming). It is based on <a href="http://www.frida.re"><strong>Frida</strong></a>. You may call it the <a href="https://en.wikipedia.org/wiki/Greasemonkey"><strong>GreaseMonkey</strong></a> for native mobile apps. ;-)</p>
 
 <hr>
 
-<h2>
-<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+<h1>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Documentation</h1>
 
-<p>AppMon is a framework for monitoring and tampering system API calls of native apps on macOS, iOS, and android. You may also use it for security profiling of executable binaries on the above mentioned platforms. </p>
-
-<p>AppMon is my vision is to make become the Mac OS X/iOS/Android equivalent of the this project <a href="http://www.rohitab.com/apimonitor"><strong>apimonitor</strong></a> and <a href="https://en.wikipedia.org/wiki/Greasemonkey"><strong>GreaseMonkey</strong></a>. This should become a useful tool for the mobile penetration testers to validate the security issues report by a source code scanner and by inspecting the APIs in runtime and monitoring the app’s overall activity and focus on things that seem suspicious. You can also use pre-defined user-scripts to modify the app’s functionality/logic in the runtime e.g. spoofing the DeviceID, spoofing the GPS co-ordinates, faking In-App purchases, bypassing TouchID etc.</p>
-
-<p>In the current release, we have the ability to hook both the Apple’s CoreFoundation API’s as well as the Objective-C methods (even if its done in a Swift app via the bridging header).</p>
-
-<h2>
-<a id="motivation" class="anchor" href="#motivation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Motivation</h2>
-
-<p>Being a big fan of the Sysinternals Suite (acquired by Microsoft) and the recent spike in the number of mobile app releases we see an increase in Mobile app security assessments and the lack of toolset for doing it easily and thoroughly, easily, became the motivation for this idea. </p>
-
-<p>And as the tool matures, with time (i.e. as I get more spare time) we can have even more refinement as to add pattern detection into this monitoring where we can tag/classify the data (e.g. PII etc.) </p>
-
-<h2>
-<a id="apis" class="anchor" href="#apis" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>APIs</h2>
-
-<blockquote>
-<p><strong>Categories:</strong></p>
-
-<ul>
-<li>Disk I/O (R/W)</li>
-<li>Network (HTTP GET, POST etc.)</li>
-<li>Crypto (HMAC, Hash function, block ciphers, X.509 certs etc.)</li>
-<li>XML/JSON</li>
-<li>KeyChain</li>
-<li>Database (e.g. SQLite)</li>
-<li>WebView</li>
-<li>UserDefaults (SharedPreferences equiv.) &amp; more.</li>
-</ul>
-</blockquote>
-
-<p>In the current release, we have the ability to hook both the Apple’s CoreFoundation API’s as well as the Objective-C methods (even if its done in a Swift app via the bridging header). Swift support is not yet available in frida-gum and hence we'll have to wait until then. All I want to from you all is to watch the Video Demo (link above), take a look at the source-code and then provide your feedbacks/comments/suggestions/rants. And also it would be really helpful if you can provide me and missing feature you would like to see in the tool.</p>
-
-<h2>
-<a id="setup--install" class="anchor" href="#setup--install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup &amp; Install</h2>
-
-<blockquote>
-<p>Tested on:</p>
-
-<ul>
-<li>
-<strong>Host</strong>: MacOS X 10.11</li>
-<li>
-<strong>Target Device</strong>: iPhone 5S (iOS 8.1) <em>(other devices, OS is supported as long as Frida supports it)</em>
-</li>
-</ul>
-</blockquote>
-
-<p>Setup Host Environment</p>
-
-<pre><code>$ sudo -H pip install argparse frida flask termcolor dataset
-</code></pre>
-
-<p>Setup Target Device</p>
-
-<blockquote>
-<ul>
-<li>Follow the instructions to install Frida on the target device i.e. the iOS device, as mentioned in the <a href="http://www.frida.re/docs/ios/#with-jailbreak"><strong>Official Frida Docs</strong></a>
-</li>
-<li>Do the smoke-test as mentioned in the <a href="http://www.frida.re/docs/ios/#with-jailbreak"><strong>Official Frida Docs</strong></a> and make sure everything is working as expected.</li>
-</ul>
-</blockquote>
-
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
-
-<h4>
-<a id="appmon-sniffer" class="anchor" href="#appmon-sniffer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AppMon Sniffer</h4>
-
-<pre><code>usage: appmon.py [-h] [-a APP_NAME] [-p PLATFORM] [-s SCRIPT_PATH]
-                 [-o OUTPUT_DIR] [-ls LIST_APPS] [-v]
-
-optional arguments:
-  -h, --help      show this help message and exit
-  -a APP_NAME     Process Name; Accepts "Twitter" for iOS;
-                  "com.twitter.android" for Android; "Twitter" for MacOS X
-  -p PLATFORM     Platform Type; Accepts "ios", "android" or "mac"
-  -s SCRIPT_PATH  Path to agent script file; Can be relative/absolute path for
-                  a file or directory; Multiple scripts in a directory shall
-                  be merged; Needs "-a APP_NAME"
-  -o OUTPUT_DIR   (Optional) Path to store any dumps/logs; Accepts
-                  relative/absolute paths
-  -ls LIST_APPS   Optional; Accepts 1 or 0; Lists running Apps on target
-                  device; Needs "-p PLATFORM"
-  -v              show program's version number and exit
-</code></pre>
-
-<hr>
-
-<h4>
-<a id="appmon-intruder" class="anchor" href="#appmon-intruder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>AppMon Intruder</h4>
-
-<pre><code>usage: appintruder.py [-h] [-a APP_NAME] [-p PLATFORM] [-ls LIST_APPS]
-                      [-s SCRIPT_PATH] [-v]
-
-optional arguments:
-  -h, --help      show this help message and exit
-  -a APP_NAME     Process Identifier; Accepts "Twitter" for iOS;
-                  "com.twitter.android" for Android; "Twitter" for MacOS X
-  -p PLATFORM     Platform Type; Accepts "ios", "android" or "mac"
-  -ls LIST_APPS   Optional; Accepts 1 or 0; Lists running Apps on target
-                  device; Needs "-p PLATFORM"
-  -s SCRIPT_PATH  Path to agent script file; Can be relative/absolute path for
-                  a file or directory; Multiple scripts in a directory shall
-                  be merged; Needs "-a APP_NAME"
-  -v              show program's version number and exit
-</code></pre>
-
-<hr>
-
-<h2>
-<a id="screenshots" class="anchor" href="#screenshots" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Screenshots</h2>
-
-<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/1.png?raw=true" alt="Screenshot#1" title="Screenshot#1"></p>
-
-<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/2.png?raw=true" alt="Screenshot#2" title="Screenshot#2"></p>
-
-<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/3.png?raw=true" alt="Screenshot#3" title="Screenshot#3"></p>
-
-<p><img src="https://raw.githubusercontent.com/dpnishant/appmon/master/screenshots/4.png?raw=true" alt="Screenshot#4" title="Screenshot#4"></p>
-
-<h2>
-<a id="videos" class="anchor" href="#videos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Video(s)</h2>
-
-<h3>
-<a id="touchid-bypass-using-appmon-intruder" class="anchor" href="#touchid-bypass-using-appmon-intruder" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TouchID Bypass using AppMon Intruder</h3>
-
-<p><a href="https://youtu.be/ECnkgz3jnPM"><img src="https://img.youtube.com/vi/ECnkgz3jnPM/0.jpg" alt="TouchID Bypass using AppMon Intruder"></a></p>
+<p>Read the <a href="https://github.com/dpnishant/appmon/wiki">Wiki</a>.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/dpnishant/appmon">AppMon</a> is maintained by <a href="https://github.com/dpnishant">dpnishant</a>.</span>
