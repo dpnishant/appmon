@@ -11,4 +11,4 @@ This project was only possible because of **Ole André Vadla Ravnås** and I ded
 Documentation
 =============
 
-Read the [Wiki](https://github.com/dpnishant/appmon/wiki).
+[Click Here](https://github.com/dpnishant/appmon/wiki).
