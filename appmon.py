@@ -143,6 +143,24 @@ def generate_injection():
         with codecs.open(merge_scripts(script_path), 'r', 'utf-8') as f:
             injection_source = f.read()
     print colored('[INFO] Building injection...', 'yellow')
+    if app_name == "Gadget":
+        injection_source += """
+/* ____CFBundleDisplayName Getter for Gadget____ */
+'use strict';
+rpc.exports = {
+  gadgetdisplayname: function () {
+    var dict = ObjC.classes.NSBundle.mainBundle().infoDictionary();
+    var iter = dict.keyEnumerator();
+    var key = "";
+    while ((key = iter.nextObject()) !== null) {
+      if(key.toString() === "CFBundleDisplayName") {
+        return dict.objectForKey_(key).toString();
+      }
+    }
+  }
+};
+"""
+    print injection_source
     return injection_source
 
 def getBundleID(device, app_name, platform):
@@ -240,6 +258,8 @@ try:
             print colored('[INFO] Instrumentation started...', 'yellow')
             script.on('message', on_message)
             script.load()
+            app_name = script.exports.gadgetdisplayname()
+            print "GadgetName: " + app_name
             if spawn == 1 and pid:
                 device.resume(pid)
             app.run() #Start WebServer
