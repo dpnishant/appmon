@@ -160,7 +160,6 @@ rpc.exports = {
   }
 };
 """
-    print injection_source
     return injection_source
 
 def getBundleID(device, app_name, platform):
@@ -259,7 +258,6 @@ try:
             script.on('message', on_message)
             script.load()
             app_name = script.exports.gadgetdisplayname()
-            print "GadgetName: " + app_name
             if spawn == 1 and pid:
                 device.resume(pid)
             app.run() #Start WebServer
