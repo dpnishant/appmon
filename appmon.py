@@ -218,8 +218,8 @@ def init_session():
         else:
             print colored('[ERROR] Unsupported Platform', 'red')
             sys.exit(1)
+        pid = None
         if app_name:
-            pid = None
             try:
                 if platform == 'android' and spawn == 1:
                     pid = device.spawn([app_name])
