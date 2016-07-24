@@ -74,7 +74,6 @@ def init_opts():
     list_apps = int(results.list_apps)
     spawn = int(results.spawn)
     
-
     output_dir = results.output_dir if results.output_dir else './app_dumps'
 
     if script_path != None and app_name == '' and list_apps == 0:
@@ -143,9 +142,11 @@ def generate_injection():
         with codecs.open(merge_scripts(script_path), 'r', 'utf-8') as f:
             injection_source = f.read()
     print colored('[INFO] Building injection...', 'yellow')
-    if app_name == "Gadget":
-        injection_source += """
-/* ____CFBundleDisplayName Getter for Gadget____ */
+    return injection_source
+
+def getDisplayName(session):
+    try:
+        script = session.create_script("""/* ____CFBundleDisplayName Getter for Gadget____ */
 'use strict';
 rpc.exports = {
   gadgetdisplayname: function () {
@@ -155,12 +156,16 @@ rpc.exports = {
     while ((key = iter.nextObject()) !== null) {
       if(key.toString() === "CFBundleDisplayName") {
         return dict.objectForKey_(key).toString();
-      }
-    }
-  }
-};
-"""
-    return injection_source
+      }}}};
+""")
+        script.load()
+        app_name = script.exports.gadgetdisplayname()
+        script.unload()
+        return app_name
+    except Exception as e:
+        print colored("[ERROR] " + str(e), "red")
+        traceback.print_exc()
+
 
 def getBundleID(device, app_name, platform):
     try:
@@ -252,12 +257,12 @@ try:
         sys.exit(0)
 
     if session:
+        app_name = getDisplayName(session)
         script = session.create_script(generate_injection())
         if script:
             print colored('[INFO] Instrumentation started...', 'yellow')
             script.on('message', on_message)
             script.load()
-            app_name = script.exports.gadgetdisplayname()
             if spawn == 1 and pid:
                 device.resume(pid)
             app.run() #Start WebServer
