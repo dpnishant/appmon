@@ -228,13 +228,16 @@ def init_session():
         if app_name:
             try:
                 if platform == 'android' and spawn == 1:
+                    print colored("Now Spawning %s" % app_name, "green")
                     pid = device.spawn([app_name])
+                    time.sleep(5)
                     session = device.attach(pid)
                 elif (platform == 'ios' or platform == 'macos') and spawn == 1:
                     bundleID = getBundleID(device, app_name, platform)
                     if bundleID:
                         print colored("Now Spawning %s" % bundleID, "green")
                         pid = device.spawn([bundleID])
+                        time.sleep(5)
                         session = device.attach(pid)
                     else:
                         print colored("[ERROR] Can't spawn %s" % app_name, "red")
@@ -263,7 +266,8 @@ try:
         sys.exit(0)
 
     if session:
-        app_name = getDisplayName(session, app_name)
+        if app_name == "Gadget":
+            app_name = getDisplayName(session, app_name)
         script = session.create_script(generate_injection())
         if script:
             print colored('[INFO] Instrumentation started...', 'yellow')
