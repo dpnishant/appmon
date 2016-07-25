@@ -232,6 +232,7 @@ def init_session():
                     pid = device.spawn([app_name])
                     time.sleep(5)
                     session = device.attach(pid)
+                    time.sleep(5)
                 elif (platform == 'ios' or platform == 'macos') and spawn == 1:
                     bundleID = getBundleID(device, app_name, platform)
                     if bundleID:
