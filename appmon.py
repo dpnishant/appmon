@@ -144,22 +144,28 @@ def generate_injection():
     print colored('[INFO] Building injection...', 'yellow')
     return injection_source
 
-def getDisplayName(session):
+def getDisplayName(session, app_name):
     try:
         script = session.create_script("""/* ____CFBundleDisplayName Getter for Gadget____ */
 'use strict';
 rpc.exports = {
   gadgetdisplayname: function () {
-    var dict = ObjC.classes.NSBundle.mainBundle().infoDictionary();
-    var iter = dict.keyEnumerator();
-    var key = "";
-    while ((key = iter.nextObject()) !== null) {
-      if(key.toString() === "CFBundleDisplayName") {
-        return dict.objectForKey_(key).toString();
-      }}}};
+    if (ObjC.available) {
+      var dict = ObjC.classes.NSBundle.mainBundle().infoDictionary();
+      var iter = dict.keyEnumerator();
+      var key = "";
+      while ((key = iter.nextObject()) !== null) {
+        if (key.toString() === "CFBundleDisplayName") {
+          return dict.objectForKey_(key).toString();
+        }
+      }
+    } else { return null; }
+  }
+};
 """)
         script.load()
-        app_name = script.exports.gadgetdisplayname()
+        if script.exports.gadgetdisplayname():
+            app_name = script.exports.gadgetdisplayname()
         script.unload()
         return app_name
     except Exception as e:
@@ -257,7 +263,7 @@ try:
         sys.exit(0)
 
     if session:
-        app_name = getDisplayName(session)
+        app_name = getDisplayName(session, app_name)
         script = session.create_script(generate_injection())
         if script:
             print colored('[INFO] Instrumentation started...', 'yellow')
