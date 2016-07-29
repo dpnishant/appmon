@@ -56,8 +56,8 @@ def getMobileProvisionFile():
     if len(mobileprovision_path) > 1:
         for path in mobileprovision_path:
             print "%s: %s" % (str(mobileprovision_path.index(path)), path)
-            path_index = raw_input('Select MobileProvision file you would like to use for IPA re-signing? (Ex. 1, 2 ...)')
-            mobileprovision_path = mobileprovision_path[int(path_index)]
+        path_index = raw_input('Select MobileProvision file you would like to use for IPA re-signing? (Ex. 1, 2 ...)')
+        mobileprovision_path = mobileprovision_path[int(path_index)]
     else:
         mobileprovision_path = mobileprovision_path[0]
     if not os.path.isfile(mobileprovision_path):
