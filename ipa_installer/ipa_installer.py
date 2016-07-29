@@ -50,6 +50,10 @@ def getDeveloperId():
     for id in subprocess.check_output(["node-applesign/bin/ipa-resign.js", "-L"]).split("\n"):
         if "iPhone Developer:" in id:
             return id.split(" ")[0]
+        else:
+            print "No \"iPhone Developer\" identity found!"
+            devID = raw("Enter \"iPhone Developer\" Identity Hash: ")
+            return devID
 def getMobileProvisionFile():
     PATH = "/Users/%s/Library/Developer/Xcode/DerivedData" % pwd.getpwuid(os.getuid())[0]
     mobileprovision_path = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] == '.mobileprovision']
