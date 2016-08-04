@@ -180,11 +180,11 @@ def init_session():
                     session = device.attach(pid)
                 elif (platform == 'ios' or platform == 'macos') and spawn == 1:
                     bundleID = getBundleID(device, app_name, platform)
-                    print pid
+                    #print pid
                     if bundleID:
                         print colored("Now Spawning %s" % bundleID, "green")
                         pid = device.spawn([bundleID])
-                        print pid
+                        #print pid
                         session = device.attach(pid)
                     else:
                         print colored("[ERROR] Can't spawn %s" % app_name, "red")
