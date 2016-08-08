@@ -1,0 +1,9 @@
+ipa_installer/npm-debug.log
+ipa_installer/FridaGadget.dylib
+ipa_installer/embedded.mobileprovision
+app_dumps/*
+*.pyc
+*.ipa
+*.zip
+*.app
+ipa_installer/entitlements.plist
