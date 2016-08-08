@@ -1,8 +1,8 @@
 'use strict';
 Java.perform(function(argument) {
   var Context = Java.use("android.content.Context");
-  var BluetoothGatt = Dalvik.use("android.bluetooth.BluetoothGatt");
-  var BluetoothGattCharacteristic = Dalvik.use("android.bluetooth.BluetoothGattCharacteristic");
+  var BluetoothGatt = Java.use("android.bluetooth.BluetoothGatt");
+  var BluetoothGattCharacteristic = Java.use("android.bluetooth.BluetoothGattCharacteristic");
   
   BluetoothGatt.readCharacteristic.overload("android.bluetooth.BluetoothGattCharacteristic").implementation = function(characteristic) {
     //console.log("characteristic: ", characteristic.getUuid(), " readCharacteristic: ", characteristic.getValue());
