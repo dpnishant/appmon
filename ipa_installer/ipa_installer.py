@@ -62,8 +62,10 @@ def getMobileProvisionFile():
             print "%s: %s" % (str(mobileprovision_path.index(path)), path)
         path_index = raw_input('Choose Provision file for IPA re-signing? (e.g. 0, 1...): ')
         mobileprovision_path = mobileprovision_path[int(path_index)]
-    else:
+    elif len(mobileprovision_path) == 1:
         mobileprovision_path = mobileprovision_path[0]
+    else:
+        mobileprovision_path = raw_input('There is no provision file in default lacation. Please provide the path:')
     if not os.path.isfile(mobileprovision_path):
         mobileprovision_path = raw_input('Provide the path to "embedded.mobileprovision" file: ')
     return mobileprovision_path
@@ -116,6 +118,8 @@ resigned_ipa_name = "%s.ipa" % resign_name
 extracted_resigned_path = os.path.join(os.getcwd(), resign_name)
 gadget_name = "FridaGadget.dylib"
 gadget_path = str(os.path.join(os.getcwd(), gadget_name))
+# entitlements = "entitlements.plist"
+# entitlements_path = str(os.path.join(os.getcwd(), entitlements))
 if os.path.isdir(work_dir):
     shutil.rmtree(work_dir)
 os.makedirs(work_dir)
