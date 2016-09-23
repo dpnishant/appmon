@@ -57,7 +57,7 @@ def getMachOExecutable(app_path):
 
 def getDeviceUUID():
     try:
-        uuid = subprocess.check_output(["sudo", "ideviceinfo"]).split("UniqueDeviceID: ")[1].split("\n")[0]
+        uuid = subprocess.check_output(["sudo", "ideviceinfo", "-s"]).split("UniqueDeviceID: ")[1].split("\n")[0]
         device_conn = subprocess.check_output(["sudo", "ios-deploy", "-i", uuid, "--no-wifi", "-c"])
         if "(%s) connected through USB." % (uuid) in device_conn:
             print "Found %s connected through USB." % colored(device_conn.split("Found")[1].strip().split(" connected through USB.")[0], "green", attrs=["bold"])
@@ -132,7 +132,6 @@ subprocess.call(["unzip", os.path.join(os.getcwd(), resigned_ipa_name), "-d", ex
 subprocess.call(["rm", "-rf", work_dir])
 subprocess.call(["rm", "-rf", os.path.join(os.getcwd(), "%s.zip" % resign_name)])
 subprocess.call(["rm", "-rf", os.path.join(os.getcwd(), injected_ipa_filename)])
-#subprocess.call(["mv", extracted_resigned_path, "apps/"])
 subprocess.call(["mv", "./%s" % resigned_ipa_name, "apps/"])
 #subprocess.call(["sudo", "ideviceinstaller", "-u", uuid, "-i", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
 subprocess.call(["sudo", "ios-deploy", "-v", "--no-wifi", "-i", uuid, "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
