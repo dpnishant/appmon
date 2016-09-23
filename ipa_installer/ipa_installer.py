@@ -1,21 +1,5 @@
 #!/usr/bin/python
 
- ###
- # Copyright (c) 2016 Nishant Das Patnaik.
- #
- # Licensed under the Apache License, Version 2.0 (the "License");
- # you may not use this file except in compliance with the License.
- # You may obtain a copy of the License at
- #
- #  http://www.apache.org/licenses/LICENSE-2.0
- #
- # Unless required by applicable law or agreed to in writing, software
- # distributed under the License is distributed on an "AS IS" BASIS,
- # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- # See the License for the specific language governing permissions and
- # limitations under the License.
-###
-
 import os, sys, re, argparse, codecs, subprocess, pwd, glob, shutil, time, zipfile
 from termcolor import colored
 
@@ -32,36 +16,11 @@ parser.add_argument('-v', action='version', version='AppMon IPA Installer v0.1, 
 if len(sys.argv) < 2:
     parser.print_help()
     sys.exit(1)
-def ZipDir(inputDir, outputZip):
-    '''Zip up a directory and preserve symlinks and empty directories'''
-    zipOut = zipfile.ZipFile(outputZip, 'w', compression=zipfile.ZIP_DEFLATED)
-    rootLen = len(os.path.dirname(inputDir))
-    def _ArchiveDirectory(parentDirectory):
-        contents = os.listdir(parentDirectory)
-        #store empty directories
-        if not contents:
-            #http://www.velocityreviews.com/forums/t318840-add-empty-directory-using-zipfile.html
-            archiveRoot = parentDirectory[rootLen:].replace('\\', '/').lstrip('/')
-            zipInfo = zipfile.ZipInfo(archiveRoot+'/')
-            zipOut.writestr(zipInfo, '')
-        for item in contents:
-            fullPath = os.path.join(parentDirectory, item)
-            if os.path.isdir(fullPath) and not os.path.islink(fullPath):
-                _ArchiveDirectory(fullPath)
-            else:
-                archiveRoot = fullPath[rootLen:].replace('\\', '/').lstrip('/')
-                if os.path.islink(fullPath):
-                    # http://www.mail-archive.com/python-list@python.org/msg34223.html
-                    zipInfo = zipfile.ZipInfo(archiveRoot)
-                    zipInfo.create_system = 3
-                    # long type of hex val of '0xA1ED0000L',
-                    # say, symlink attr magic...
-                    zipInfo.external_attr = 2716663808L
-                    zipOut.writestr(zipInfo, os.readlink(fullPath))
-                else:
-                    zipOut.write(fullPath, archiveRoot, zipfile.ZIP_DEFLATED)
-    _ArchiveDirectory(inputDir)
-    zipOut.close()
+
+def deviceError():
+    print "%s" % colored("Error: Is the device connected over USB?", "red", attrs=["bold"])
+    sys.exit(255)
+
 def getDeveloperId():
     for id in subprocess.check_output(["node-applesign/bin/ipa-resign.js", "-L"]).split("\n"):
         if "iPhone Developer:" in id:
@@ -70,6 +29,7 @@ def getDeveloperId():
             print "No \"iPhone Developer\" identity found!"
             devID = raw("Enter \"iPhone Developer\" Identity Hash: ")
             return devID
+
 def getMobileProvisionFile():
     PATH = "/Users/%s/Library/Developer/Xcode/DerivedData" % pwd.getpwuid(os.getuid())[0]
     mobileprovision_path = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] == '.mobileprovision']
@@ -83,6 +43,7 @@ def getMobileProvisionFile():
     if not os.path.isfile(mobileprovision_path):
         mobileprovision_path = raw_input('Provide the path to "embedded.mobileprovision" file: ')
     return mobileprovision_path
+
 def getMachOExecutable(app_path):
     filenames = os.listdir(app_path)
     for filename in filenames:
@@ -93,18 +54,23 @@ def getMachOExecutable(app_path):
                 output = output.split(":")[0]
                 break
     return os.path.join(app_path, output)
+
 def getDeviceUUID():
     try:
-        uuid = subprocess.check_output(["ideviceinfo"]).split("UniqueDeviceID: ")[1].split("\n")[0]
-        if len(uuid) == 40:
-            return uuid
+        uuid = subprocess.check_output(["sudo", "ideviceinfo"]).split("UniqueDeviceID: ")[1].split("\n")[0]
+        device_conn = subprocess.check_output(["sudo", "ios-deploy", "-i", uuid, "--no-wifi", "-c"])
+        if "(%s) connected through USB." % (uuid) in device_conn:
+            print "Found %s connected through USB." % colored(device_conn.split("Found")[1].strip().split(" connected through USB.")[0], "green", attrs=["bold"])
+            time.sleep(1)
         else:
-            uuid = raw_input('Enter the device UUID: ')
-            return uuid
+            deviceError()
     except Exception as e:
-        print "Error: %s" % str(e)
+            deviceError()
+    return uuid
+
 results = parser.parse_args()
 ipa_path = results.ipa_path
+
 if not results.mobileprovision_path:
     mobileprovision_path = getMobileProvisionFile()
 
@@ -117,6 +83,7 @@ try:
     results.dev_indentity
 except AttributeError:
     dev_identity = getDeveloperId()
+
 work_dir = "/tmp/appmon_ipa/"
 unzip_filename = os.path.basename(ipa_path).split(".")[0]
 unzip_filepath = os.path.join(work_dir, unzip_filename)
@@ -129,22 +96,26 @@ injected_ipa_filepath = os.path.join(work_dir, injected_ipa_filename)
 iparesign_path = "node-applesign/bin/ipa-resign.js"
 resign_name = "%s-injected-resigned" % unzip_filename
 resigned_ipa_name = "%s.ipa" % resign_name
-extracted_resigned_path = os.path.join(os.getcwd(), resign_name)
+extracted_resigned_path = os.path.join(os.getcwd(), "apps", resign_name)
 gadget_name = "FridaGadget.dylib"
 gadget_path = str(os.path.join(os.getcwd(), gadget_name))
+
 if os.path.isdir(work_dir):
     shutil.rmtree(work_dir)
+
 os.makedirs(work_dir)
 subprocess.call(["cp", ipa_path, zip_filepath])
 subprocess.call(["unzip", zip_filepath, "-d", unzip_filepath])
 payload_path = os.path.join(os.path.abspath(unzip_filepath), "Payload/")
+
 if os.listdir(payload_path)[0].endswith(".app"):
     app_name = os.listdir(payload_path)[0]
     app_path = os.path.join(payload_path, app_name)
     _CodeSignature_path = os.path.join(app_path, "_CodeSignature/")
     executable_filepath = getMachOExecutable(app_path)
-    print executable_filepath
+    #print executable_filepath
     injected_dylib_path = os.path.join(app_path, "FridaGadget.dylib")
+
 subprocess.call(["rm", "-rf", _CodeSignature_path])
 subprocess.call(["chmod", "755", "FridaGadget.dylib"])
 subprocess.call(["cp", gadget_path, app_path])
@@ -161,29 +132,38 @@ subprocess.call(["unzip", os.path.join(os.getcwd(), resigned_ipa_name), "-d", ex
 subprocess.call(["rm", "-rf", work_dir])
 subprocess.call(["rm", "-rf", os.path.join(os.getcwd(), "%s.zip" % resign_name)])
 subprocess.call(["rm", "-rf", os.path.join(os.getcwd(), injected_ipa_filename)])
-subprocess.call(["ideviceinstaller", "-u", uuid, "-i", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
+#subprocess.call(["mv", extracted_resigned_path, "apps/"])
+subprocess.call(["mv", "./%s" % resigned_ipa_name, "apps/"])
+#subprocess.call(["sudo", "ideviceinstaller", "-u", uuid, "-i", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
+subprocess.call(["sudo", "ios-deploy", "-v", "--no-wifi", "-i", uuid, "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
+
 print(chr(27) + "[2J")
 print "Success! Installed on device... :)"
 time.sleep(2)
-print 'NOTE: Wait till you see the message "%s", on the debugger console.' % colored("Frida: Listening on TCP port 27042", "red", attrs=["bold"])
+print "%s" % colored("----------------HELP----------------", "green", attrs=["bold"])
+print '[+] Wait till you see the message "%s", on the debugger console.' % colored("Frida: Listening on TCP port 27042", "red", attrs=["bold"])
 time.sleep(1)
-print 'NOTE: Keep the debugger running to continue using the app. To quit type "%s", in the debugger console.' % colored("quit", attrs=["bold"])
+print '[+] Keep the debugger running to continue using the app. To quit type "%s", in the debugger console.' % colored("quit", attrs=["bold"])
 time.sleep(2)
-print 'NOTE: The app will remain suspended until you run, (in a different terminal window/tab), \n%s' % colored("frida -U Gadget", "red", attrs=["bold"])
+print '[+] The app will remain suspended until you run, (in a different terminal window/tab), \n%s' % colored("frida -U Gadget", "red", attrs=["bold"])
 time.sleep(2)
+
 message = """#!/bin/sh
 # %s app launcher script generated by AppMon
 # http://dpnishant.github.com/appmon
 
-ios-deploy -i %s --noinstall -b %s/Payload/%s
+sudo ios-deploy -d --no-wifi -i %s --noinstall -b %s/Payload/%s
 """ % (unzip_filename, uuid, extracted_resigned_path, app_name)
 launcher_path = 'sh ./%s/launch_%s.sh' % (resign_name, unzip_filename)
 with codecs.open('%s/launch_%s.sh' % (extracted_resigned_path, unzip_filename), 'w', 'utf-8') as f:
     f.write(message)
+
 time.sleep(2)
+
 print 'NOTE: To launch the installed app, in future, run: \n%s\n' % colored(launcher_path, "blue", attrs=["bold"])
+print "%s" % colored("------------------------------------", "green", attrs=["bold"])
 time.sleep(2)
-print colored("Launching in 10 seconds...")
-time.sleep(10)
-subprocess.call(["ios-deploy", "-i", uuid, "--noinstall", "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
+print colored("Launching in 5 seconds...")
+time.sleep(5)
+subprocess.call(["sudo", "ios-deploy", "-v", "--no-wifi", "-i", uuid, "--noinstall", "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
 sys.exit(0)
