@@ -54,7 +54,7 @@ if (NSMutableURLRequest_setHTTPBody.address) {
           'raw': ''
         };
         if (URL != null) {
-          var str_url = HTTPMethod + " " + URL + '\n';
+          var str_url = HTTPMethod.toString() + " " + URL.toString() + '\n';
           var key;
           var str_headers = '';
           var decode_type = '';
@@ -62,7 +62,7 @@ if (NSMutableURLRequest_setHTTPBody.address) {
             var enumerator = fields.keyEnumerator();
             while ((key = enumerator.nextObject()) !== null) {
               var value = fields.objectForKey_(key);
-              str_headers += key + ': ' + value + '\n';
+              str_headers += key.toString() + ': ' + value.toString() + '\n';
               if (key.toString().indexOf('Content-Type') > -1 && value.toString().indexOf('multipart/form-data;') > -1) {
                 decode_type = 'bytes';
               }

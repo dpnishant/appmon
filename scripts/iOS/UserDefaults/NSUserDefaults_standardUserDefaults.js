@@ -65,9 +65,9 @@ if (NSUserDefaults_standardUserDefaults.address) {
                 parsed_value.methods = methods;
                 parsed_value = JSON.stringify(parsed_value);
               }
-              strUserDefaultsBlob += key + ': ' + parsed_value + '\n';
+              strUserDefaultsBlob += key.toString() + ': ' + parsed_value + '\n';
             } else {
-              strUserDefaultsBlob += key + ': ' + value + '\n';
+              strUserDefaultsBlob += key.toString() + ': ' + value.toString() + '\n';
             }
           }
         }
