@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
- 
+**/
+
 'use strict';
 
 var byteArraytoHexString = function(byteArray) {
@@ -63,7 +63,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -89,7 +89,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -98,7 +98,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "SQL BindArgs";
-        data.value = bindArgs.toString();
+        data.value = bindArgs ? bindArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -125,7 +125,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = dbPath.toString();
+      data.value = dbPath ? dbPath.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -150,14 +150,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table Name";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "NullColumnHack";
-      data.value = nullColumnHack.toString();
+      data.value = nullColumnHack ? nullColumnHack.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -166,7 +166,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values.toString();
+        data.value = values ? values.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -192,14 +192,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table Name";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "NullColumnHack";
-      data.value = nullColumnHack.toString();
+      data.value = nullColumnHack ? nullColumnHack.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -207,7 +207,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values.toString();
+        data.value = values ? values.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -233,14 +233,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table Name";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "NullColumnHack";
-      data.value = nullColumnHack.toString();
+      data.value = nullColumnHack ? nullColumnHack.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -248,7 +248,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values.toString();
+        data.value = values ? values.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -256,7 +256,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "conflictAlgorithm";
-      data.value = conflictAlgorithm.toString();
+      data.value = conflictAlgorithm ? conflictAlgorithm.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -289,7 +289,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = path.toString();
+      data.value = path ? path.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -333,7 +333,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = path.toString();
+      data.value = path ? path.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -365,7 +365,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "DB Path";
-        data.value = file.toString();
+        data.value = file ? file.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));
@@ -390,7 +390,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "DB Path";
-        data.value = file.toString();
+        data.value = file ? file.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
         send(JSON.stringify(send_data));
@@ -416,7 +416,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = path.toString();
+      data.value = path ? path.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -443,14 +443,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DISTINCT";
-      data.value = distinct.toString();
+      data.value = distinct ? distinct.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -459,7 +459,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Columns";
-        data.value = columns.toString();
+        data.value = columns ? columns.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -467,7 +467,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection.toString();
+      data.value = selection ? selection.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -475,7 +475,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "selection Arguments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -487,28 +487,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy.toString();
+      data.value = groupBy ? groupBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having.toString();
+      data.value = having ? having.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy.toString();
+      data.value = orderBy ? orderBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit.toString();
+      data.value = limit ? limit.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -564,7 +564,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -573,7 +573,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Columns";
-        data.value = columns.toString();
+        data.value = columns ? columns.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -581,7 +581,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection.toString();
+      data.value = selection ? selection.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -589,7 +589,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -601,28 +601,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy.toString();
+      data.value = groupBy ? groupBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having.toString();
+      data.value = having ? having.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy.toString();
+      data.value = orderBy ? orderBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit.toString();
+      data.value = limit ? limit.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -680,14 +680,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DISTINCT";
-      data.value = distinct.toString();
+      data.value = distinct ? distinct.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -697,7 +697,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Columns";
-        data.value = columns.toString();
+        data.value = columns ? columns.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -706,7 +706,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection.toString();
+      data.value = selection ? selection.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -715,7 +715,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -727,28 +727,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy.toString();
+      data.value = groupBy ? groupBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having.toString();
+      data.value = having ? having.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy.toString();
+      data.value = orderBy ? orderBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit.toString();
+      data.value = limit ? limit.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -805,7 +805,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -814,7 +814,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Columns";
-        data.value = columns.toString();
+        data.value = columns ? columns.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -822,7 +822,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection.toString();
+      data.value = selection ? selection.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -830,7 +830,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
 
@@ -849,14 +849,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having.toString();
+      data.value = having ? having.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy.toString();
+      data.value = orderBy ? orderBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -913,7 +913,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -922,7 +922,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Columns";
-        data.value = columns.toString();
+        data.value = columns ? columns.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -930,7 +930,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection.toString();
+      data.value = selection ? selection.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -938,7 +938,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs.toString();
+        data.value = selection ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -950,28 +950,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy.toString();
+      data.value = groupBy ? groupBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having.toString();
+      data.value = having ? having.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy.toString();
+      data.value = orderBy ? orderBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit.toString();
+      data.value = limit ? limit.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1029,7 +1029,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1039,7 +1039,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Columns";
-        data.value = columns.toString();
+        data.value = columns ? columns.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1047,7 +1047,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Selection";
-      data.value = selection.toString();
+      data.value = selection ? selection.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (selectionArgs) {
@@ -1055,7 +1055,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Arguments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1067,28 +1067,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Group By";
-      data.value = groupBy.toString();
+      data.value = groupBy ? groupBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Having";
-      data.value = having.toString();
+      data.value = having ? having.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Order By";
-      data.value = orderBy.toString();
+      data.value = orderBy ? orderBy.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Limit";
-      data.value = limit.toString();
+      data.value = limit ? limit.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1148,7 +1148,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1157,7 +1157,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1216,7 +1216,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1225,7 +1225,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1282,7 +1282,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1291,7 +1291,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1299,7 +1299,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Edit Table";
-      data.value = editTable.toString();
+      data.value = editTable ? editTable.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       var Cursor = this.rawQueryWithFactory.overloads[0].apply(this, arguments);
@@ -1355,7 +1355,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1364,7 +1364,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Selection Argruments";
-        data.value = selectionArgs.toString();
+        data.value = selectionArgs ? selectionArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1372,7 +1372,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Edit Table";
-      data.value = editTable.toString();
+      data.value = editTable ? editTable.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1429,7 +1429,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -1438,7 +1438,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values.toString();
+        data.value = values ? values.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
 
@@ -1448,7 +1448,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "WHERE Clause";
-      data.value = whereClause.toString();
+      data.value = whereClause ? whereClause.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1457,7 +1457,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "WHERE Arguments";
-        data.value = whereArgs.toString();
+        data.value = whereArgs ? whereArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
       }
@@ -1481,7 +1481,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Table";
-      data.value = table.toString();
+      data.value = table ? table.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
       if (values) {
@@ -1490,7 +1490,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "Values";
-        data.value = values.toString();
+        data.value = values ? values.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
 
@@ -1500,7 +1500,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "WHERE Clause";
-      data.value = whereClause.toString();
+      data.value = whereClause ? whereClause.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1510,7 +1510,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "WHERE Arguments";
-        data.value = whereArgs.toString();
+        data.value = whereArgs ? whereArgs.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
 
@@ -1520,7 +1520,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Conflict Algorithm";
-      data.value = conflictAlgorithm.toString();
+      data.value = conflictAlgorithm ? conflictAlgorithm.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1544,7 +1544,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1570,20 +1570,20 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "SQL Statement";
-      data.value = sql.toString();
+      data.value = sql ? sql.toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       send(JSON.stringify(send_data));
 
-      return this.compileStatement.call(this, sql);
+      return this.compileStatement.apply(this, arguments);
     }
   }
 
   //Ref: https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#create(android.database.sqlite.SQLiteDatabase.CursorFactory)
   if (SQLiteDatabase.create) {
     SQLiteDatabase.create.implementation = function(factory) {
-      var db = this.create.call(this, factory);
+      var db = this.create.apply(this, arguments);
       //console.log("SQLiteDatabase.create DB: " + db.getPath());
       /*   --- Payload Header --- */
       var send_data = {};
@@ -1596,7 +1596,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "DB Path";
-      data.value = db.getPath().toString();
+      data.value = db.getPath() ? db.getPath().toString() : 'null';
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -1635,7 +1635,7 @@ Java.perform(function() {
         /*   --- Payload Body --- */
         var data = {};
         data.name = "DB Path";
-        data.value = file.toString();
+        data.value = file ? file.toString() : 'null';
         data.argSeq = 0;
         send_data.artifact.push(data);
 

@@ -12,9 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
+**/
 
- 'use strict';
 Java.perform(function() {
   var ContextWrapper = Java.use("android.content.ContextWrapper");
 
@@ -54,7 +53,7 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       send(JSON.stringify(send_data));
-      return this.sendBroadcast.overload("android.content.Intent").call(this, intent);
+      return this.sendBroadcast.overload("android.content.Intent").apply(this, arguments);
     };
 
     // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#sendBroadcast(android.content.Intent, java.lang.String)
@@ -100,7 +99,7 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       send(JSON.stringify(send_data));
-      return this.sendBroadcast.overload("android.content.Intent", "java.lang.String").call(this, intent, receiverPermission);
+      return this.sendBroadcast.overload("android.content.Intent", "java.lang.String").apply(this, arguments);
     };
   }
 
@@ -140,7 +139,7 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       send(JSON.stringify(send_data));
-      return this.sendStickyBroadcast.overload("android.content.Intent").call(this, intent);
+      return this.sendStickyBroadcast.overload("android.content.Intent").apply(this, arguments);
     };
   }
 
@@ -212,12 +211,12 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Service";
-      data.value = service.toUri().toString();
+      data.value = service.toUri(0).toString();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       send(JSON.stringify(send_data));
-      return this.startService.call(this, service);
+      return this.startService.apply(this, arguments);
     };
   }
 
@@ -235,12 +234,12 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Service Intent URL";
-      data.value = service.toUri();
+      data.value = service.toUri(0);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       send(JSON.stringify(send_data));
-      return this.stopService.call(this, name);
+      return this.stopService.apply(this, arguments);
     };
   }
 

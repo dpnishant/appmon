@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
- 
+**/
+
 'use strict';
 
 Java.perform(function() {
@@ -22,7 +22,7 @@ Java.perform(function() {
       if (ContextWrapper.openFileInput) {
         // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#openFileInput(java.lang.String)
         ContextWrapper.openFileInput.overload("java.lang.String").implementation = function(fileName) {
-          console.log('openFileInput Name: ' + fileName.toString());
+          
           /*   --- Payload Header --- */
           var send_data = {};
           send_data.time = new Date();
@@ -40,7 +40,7 @@ Java.perform(function() {
 
           send(JSON.stringify(send_data));
           try {
-            return this.openFileInput.overload("java.lang.String").call(this, fileName);
+            return this.openFileInput.overload("java.lang.String").apply(this, arguments);
           } catch (e) {
             return FileNotFoundException.$new(fileName);
           }
@@ -50,8 +50,8 @@ Java.perform(function() {
       if (ContextWrapper.openFileOutput) {
         // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#openFileOutput(java.lang.String, int)
         ContextWrapper.openFileOutput.overload("java.lang.String", "int").implementation = function(fileName, mode) {
-          console.log('openFileOutput Name: ' + fileName.toString());
-          console.log('openFileOutput Mode: ' + mode);
+          
+          
 
           /*   --- Payload Header --- */
           var send_data = {};
@@ -76,14 +76,14 @@ Java.perform(function() {
           send_data.artifact.push(data);
 
           send(JSON.stringify(send_data));
-          return this.openFileOutput.overload("java.lang.String", "int").call(this, fileName, mode);
+          return this.openFileOutput.overload("java.lang.String", "int").apply(this, arguments);
         };
       }
 
       if (ContextWrapper.deleteFile) {
         // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#deleteFile(java.lang.String)
         ContextWrapper.deleteFile.overload("java.lang.String").implementation = function(fileName) {
-          console.log('Delete File: ' + fileName);
+          
           /*   --- Payload Header --- */
           var send_data = {};
           send_data.time = new Date();
@@ -100,7 +100,7 @@ Java.perform(function() {
           send_data.artifact.push(data);
 
           send(JSON.stringify(send_data));
-          return this.deleteFile.overload("java.lang.String").call(this, fileName);
+          return this.deleteFile.overload("java.lang.String").apply(this, arguments);
         };
       }
     });

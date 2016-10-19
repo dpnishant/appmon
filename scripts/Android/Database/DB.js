@@ -1,4 +1,3 @@
-
 /**
  * Copyright (c) 2016 Nishant Das Patnaik.
  *
@@ -13,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
- 
+**/
+
 'use strict';
 
 Java.perform(function () {
@@ -51,7 +50,7 @@ Java.perform(function () {
 		// Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#deleteDatabase(java.lang.String)
 		ContextWrapper.deleteDatabase.overload("java.lang.String").implementation =  function (dbName) {
 			//console.log('Delete Database: ' + dbName);
-			return this.deleteDatabase.overload("java.lang.String").call(this, dbName);
+			return this.deleteDatabase.overload("java.lang.String").apply(this, arguments);
 		};
 	}
 });

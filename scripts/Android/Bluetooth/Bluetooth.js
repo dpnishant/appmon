@@ -12,9 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
- 
+**/
+
 'use strict';
+
 Java.perform(function(argument) {
   var Context = Java.use("android.content.Context");
   var BluetoothGatt = Java.use("android.bluetooth.BluetoothGatt");

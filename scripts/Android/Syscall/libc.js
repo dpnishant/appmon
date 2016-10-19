@@ -1,5 +1,22 @@
+/**
+ * Copyright (c) 2016 Nishant Das Patnaik.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+**/
+
 'use strict';
 
+var fd = '';
 var fchmod_fd = '';
 var fchmod_mode = '';
 var chmod_pathname = '';
@@ -95,7 +112,7 @@ Interceptor.attach(Module.findExportByName('libc.so', 'fchmod'), {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Mode";
-    data.value = fchmode_mode;
+    data.value = fchmod_mode;
     data.argSeq = 2;
     send_data.artifact.push(data);
 

@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <!--
-Copyright (c) 2016 Nishant Das Patnaik.
+ Copyright (c) 2016 Nishant Das Patnaik.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
- http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
 -->
+
 <head>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
     
@@ -57,7 +62,7 @@ limitations under the License.
     height: 1.75rem;
 }
 
-div.dataTables_wrapper div.dataTables_filter input{
+div.dataTables_wrapper div.dataTables_filter input {
     margin-left: 0.9rem;
 }
 
@@ -127,13 +132,13 @@ table {
     <table id="tblResultView" class="display" cellspacing="0">
         <thead>
             <tr>
-                <th>Sequence</th>
-                <th>Time</th>
                 <th>Operation</th>
-                <th>Method</th>
                 <th>Module</th>
-                <th>Remark</th>
+                <th>Method</th>
                 <th>Artifact</th>
+                <th>Time</th>
+                <th>Sequence</th>
+                <th>Remark</th>
             </tr>
         </thead>
         </tbody>
@@ -141,6 +146,51 @@ table {
     <div id="colSearchContainer" ></div>
     {% endautoescape %}
     <script>
+
+    jQuery.fn.dataTableExt.oApi.fnTruncateCells = function (oSettings, aiColumnMaxChars) {
+    /*
+    * Type:        Plugin for DataTables (www.datatables.net) JQuery plugin.
+    * Name:        dataTableExt.oApi.fnTruncateCells
+    * Version:     1.0.0
+    * Description: Truncates table cells to length specified in <th data-maxChars> attribute. 
+    *              Puts ellipses in place of last 3 characters, and pre-truncated
+    *              cell data in cell's title attribute.
+    * Inputs:      object:oSettings - dataTables settings object
+    *              array: aoColumnMaxChars - an array, element 0 being left most, containing a positive integer or null for each column.
+    *              Null means do not truncate column, positive integer means to only allow that many characters to display in the column text. 
+    *
+    * Returns:     JQuery
+    * Usage:       $('#example').dataTable().fnTruncateCells();
+    * Requires:   DataTables 1.7.0+
+    *
+    * Author:      Justin Pate
+    * Created:     26/7/2012
+    * Language:    Javascript
+    * License:     GPL v2 or BSD 3 point style
+    * Contact:     justin.pate /AT\ gmail.com
+    * Documentation: https://bitbucket.org/JustinP8/datatables.truncatecells/src
+    */
+    this.each(function (i) {
+        $.fn.dataTableExt.iApiIndex = i;
+        var baseFunction = (oSettings.fnRowCallback) ? oSettings.fnRowCallback : function () { };
+        oSettings.fnRowCallback = function (nRow) {
+            baseFunction(nRow);
+            $('td', nRow).each(function (index) {
+                var maxChars = (typeof aiColumnMaxChars !== 'undefined') ? aiColumnMaxChars[index] : oSettings.aoColumns[index].nTh.getAttribute("data-maxChars");
+                if (maxChars) {
+                    var unfilteredText = $(this).text();
+                    if (unfilteredText.length > maxChars && maxChars > 3) {
+                        $(this).attr("title", unfilteredText);
+                        $(this).html(unfilteredText.substring(0, maxChars) + "...");
+                    }
+                }
+            });
+            return nRow;
+        };
+        return this;
+    });
+    return this;
+};
 
     function get_LastRowId() {
         var max = 0;
@@ -239,10 +289,12 @@ table {
                 }
             }
             ],
-        });
-        
+        });        
 
         ui_rearrange();
+
+        $('#tblResultView').dataTable().fnTruncateCells([30, 30, 30, 30, 30, 30, 30]);
+
 
         //var refresh = window.setInterval($('#tblResultView').DataTable().ajax.reload, 2000);
         

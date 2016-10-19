@@ -1,3 +1,4 @@
+
 ###
  # Copyright (c) 2016 Nishant Das Patnaik.
  #
@@ -14,14 +15,14 @@
  # limitations under the License.
 ###
 
-import dataset, json
+import dataset, json, time
 from xml.sax.saxutils import escape
 
 def save_to_database(db_path, str_json):
   str_json = json.loads(str_json)
   db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_")))
   table = db['api_captures']
-  table.insert(dict(time=str_json['time'],
+  table.insert(dict(time=time.strftime('%b %d %Y %l:%M %p', time.localtime()),
     operation=str_json['txnType'],
     artifact=json.dumps(str_json['artifact']),
     method=str_json['method'],
@@ -46,12 +47,9 @@ def read_from_database(db_path, index=0):
   api_captures = db.query('SELECT * FROM api_captures GROUP BY artifact')
   for capture in api_captures:
     child_holder = []
-    child_holder.append(capture['id'])
-    child_holder.append(capture['time'])
     child_holder.append(capture['operation'])
-    child_holder.append(capture['method'])
     child_holder.append(capture['module'])
-    child_holder.append(capture['remark'])
+    child_holder.append(capture['method'])
     str_artifact = ''
     artifacts = json.loads(capture['artifact'])
     
@@ -63,6 +61,9 @@ def read_from_database(db_path, index=0):
     #print str_artifact
 
     child_holder.append(str_artifact)
+    child_holder.append(capture['time'])
+    child_holder.append(capture['id'])
+    child_holder.append(capture['remark'])
     parent_holder.append(child_holder)
   result_set['data'] = parent_holder
   return json.dumps(result_set)

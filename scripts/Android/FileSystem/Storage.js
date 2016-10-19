@@ -12,9 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
+**/
 
- 
 'use strict';
 
 Java.perform(function() {
@@ -24,7 +23,7 @@ Java.perform(function() {
         // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#getCacheDir()
         ContextWrapper.getCacheDir.implementation = function() {
           var cache_dir = this.getCacheDir.call(this);
-          console.log('Cache Dir: ' + cache_dir.toString());
+          
           /*   --- Payload Header --- */
           var send_data = {};
           send_data.time = new Date();
@@ -49,7 +48,7 @@ Java.perform(function() {
         // Ref: https://developer.android.com/reference/android/content/ContextWrapper.html#getDataDir()
         ContextWrapper.getDataDir.implementation = function() {
           var data_dir = this.getDataDir.call(this);
-          console.log('Cache Dir: ' + data_dir.toString());
+
           /*   --- Payload Header --- */
           var send_data = {};
           send_data.time = new Date();

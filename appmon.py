@@ -135,7 +135,7 @@ def on_detached():
     print colored('[WARNING] "%s" has terminated!' % (app_name), 'red')
 
 def on_message(message, data):
-    current_time = time.strftime("%H:%M:%S", time.localtime())
+    current_time = time.strftime('%b %d %Y %l:%M %p', time.localtime())
     global output_dir
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)

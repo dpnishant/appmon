@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
- 
+**/
+
 'use strict';
 
 Java.perform(function() {
@@ -63,7 +63,7 @@ Java.perform(function() {
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
 
-      return this.loadUrl.overloads[0].call(this, url);
+      return this.loadUrl.overloads[0].apply(this, arguments);
     };
 
     //Ref: https://developer.android.com/reference/android/webkit/WebView.html#loadUrl(java.lang.String, java.util.Map<java.lang.String, java.lang.String>)

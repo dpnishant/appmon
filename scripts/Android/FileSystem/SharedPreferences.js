@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
- 
+**/
+
 'use strict';
 
 Java.perform(function() {
@@ -21,9 +21,8 @@ Java.perform(function() {
   var SharedPreferencesImpl_EditorImpl = Java.use("android.app.SharedPreferencesImpl$EditorImpl");
   
   SharedPreferencesImpl.contains.implementation = function(key) {
-    //console.log('contains KEY: ' + key);
     var value = this.contains.apply(this, arguments);
-    //console.log('contains VALUE: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -35,14 +34,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -51,9 +50,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl.getInt.implementation = function(key, defValue) {
-    //console.log('getInt KEY: ' + key);
     var value = this.getInt.apply(this, arguments);
-    //console.log('getInt VALUE: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -65,14 +63,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -81,9 +79,9 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl.getFloat.implementation = function(key, defValue) {
-    //console.log('getFloat KEY: ' + key);
+
     var value = this.getFloat.apply(this, arguments);
-    //console.log('getFloat VALUE: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -95,14 +93,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -111,9 +109,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl.getLong.implementation = function(key, defValue) {
-    //console.log('getLong KEY: ' + key);
     var value = this.getLong.apply(this, arguments);
-    //console.log('getLong VALUE: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -125,14 +122,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -141,9 +138,9 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl.getBoolean.implementation = function(key, defValue) {
-    //console.log('getBoolean KEY: ' + key);
+
     var value = this.getBoolean.apply(this, arguments);
-    //console.log('getBoolean VALUE: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -155,14 +152,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -171,9 +168,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl.getString.implementation = function(key, defValue) {
-    //console.log('getString Key: ' + key);
     var value = this.getString.apply(this, arguments);
-    //console.log('getString Value: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -185,14 +181,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -201,9 +197,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl.getStringSet.implementation = function(key, defValue) {
-    //console.log('getStringSet KEY: ' + key);
     var value = this.getStringSet.apply(this, arguments);
-    //console.log('getStringSet VALUE: ' + value);
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -215,14 +210,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -231,8 +226,7 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.putString.implementation = function(key, value) {
-    //console.log('putString Key: ' + key.toString());
-    //console.log('putString Value: ' + value.toString());
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -244,14 +238,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -260,8 +254,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.putStringSet.implementation = function(key, values) {
-    //console.log('putStringSet Key: ' + key.toString());
-    //console.log('putStringSet Values: ' + values.toString());
+    
+    
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -273,14 +267,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -289,8 +283,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.putInt.implementation = function(key, value) {
-    //console.log('putInt Key: ' + key.toString());
-    //console.log('putInt Value: ' + value);
+    
+    
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -302,14 +296,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -318,8 +312,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.putFloat.implementation = function(key, value) {
-    //console.log('putFloat Key: ' + key.toString());
-    //console.log('putFloat Value: ' + value);
+    
+    
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -331,14 +325,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -347,8 +341,7 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.putBoolean.implementation = function(key, value) {
-    //console.log('putBoolean Key: ' + key.toString());
-    //console.log('putBoolean Value: ' + value);
+    
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -360,14 +353,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -376,8 +369,8 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.putLong.implementation = function(key, value) {
-    //console.log('putLong Key: ' + key.toString());
-    //console.log('putLong Value: ' + value);
+    
+    
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -389,14 +382,14 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Value";
-    data.value = value.toString();
+    data.value = value ? value.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
@@ -405,7 +398,7 @@ Java.perform(function() {
   };
 
   SharedPreferencesImpl_EditorImpl.remove.implementation = function(key) {
-    //console.log('remove Key: ' + key.toString());
+    
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
@@ -417,7 +410,7 @@ Java.perform(function() {
     /*   --- Payload Body --- */
     var data = {};
     data.name = "Key";
-    data.value = key.toString();
+    data.value = key ? key.toString() : 'null';
     data.argSeq = 0;
     send_data.artifact.push(data);
 
