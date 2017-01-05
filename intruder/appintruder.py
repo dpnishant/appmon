@@ -16,7 +16,7 @@
  # limitations under the License.
 ###
 
-import os, sys, argparse, time, codecs, binascii, frida, json, traceback
+import os, sys, argparse, time, codecs, binascii, frida, json, traceback, signal
 from termcolor import colored
 
 device = ''
@@ -29,6 +29,8 @@ def on_detached():
 def _exit_():
     print colored('[INFO] Exiting...', 'green')
     try:
+        script.unload()
+        session.detach()
         os.remove(merged_script_path)
     except Exception as e:
         pass
@@ -37,7 +39,11 @@ def _exit_():
 def on_message(message, data):
     current_time = time.strftime("%H:%M:%S", time.localtime())
     if message['type'] == 'send':
-        print current_time, message['payload']
+        if json.loads(message['payload'])['status']:
+            if json.loads(message['payload'])['status'] == 'end':
+                print colored("[+] Done! Press Ctrl+C to continue...", "green")
+        else:
+            print current_time, message['payload']
     elif message['type'] == 'error':
         print current_time, message['stack']
 
@@ -245,10 +251,8 @@ except Exception as e:
     traceback.print_exc()
     sys.exit(1)
 
-try:
-    while True:
-        pass
-except KeyboardInterrupt:
-    script.unload()
-    session.detach()
+def signal_handler(signal, frame):
     _exit_()
+
+signal.signal(signal.SIGINT, signal_handler)
+signal.pause()
