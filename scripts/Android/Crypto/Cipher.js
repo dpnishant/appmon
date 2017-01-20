@@ -57,6 +57,7 @@ var getMode = function(Cipher, mode) {
 }
 
 var getRandomValue = function(arg) {
+  if (!arg) { return 'null'; }
   var type = arg.toString().split('@')[0].split('.');
   type = type[type.length - 1];
   if (type === "SecureRandom") {
@@ -169,12 +170,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -203,6 +206,7 @@ Java.perform(function() {
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
+      data = {};
       var data = {};
       data.name = "Operation Mode";
       data.value = getMode(this, opmode);
@@ -210,12 +214,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -251,12 +257,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -292,12 +300,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -333,12 +343,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -374,12 +386,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -415,12 +429,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -456,12 +472,14 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Key";
       data.value = normalizeKey(cert_or_key);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Random Value";
       data.value = getRandomValue(params_or_random);
       data.argSeq = 0;
@@ -500,18 +518,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;
@@ -546,18 +567,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;
@@ -593,18 +617,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;
@@ -640,18 +667,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;
@@ -687,18 +717,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;
@@ -734,18 +767,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;
@@ -781,18 +817,21 @@ Java.perform(function() {
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Initialization Vector";
       data.value = byteArraytoHexString(this.getIV());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Block Size";
       data.value = this.getBlockSize();
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
+      data = {};
       data.name = "Output";
       data.value = byteArraytoHexString(retVal);
       data.argSeq = 0;

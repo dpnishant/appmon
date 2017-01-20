@@ -41,7 +41,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Intent Extras";
-      data.value = intent.getExtras().toString();
+      data.value = intent ? intent.getExtras() ? intent.getExtras().toString() : "null" : "null";
       data.argSeq = 0;
       send_data.artifact.push(data);
 
