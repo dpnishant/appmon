@@ -16,7 +16,7 @@
  # limitations under the License.
 ###
 
-import os, sys, re, argparse, codecs, subprocess, pwd, glob, shutil, time, zipfile
+import os, sys, re, argparse, codecs, subprocess, pwd, glob, shutil, time, zipfile, traceback
 from termcolor import colored
 
 parser = argparse.ArgumentParser()
@@ -29,9 +29,13 @@ parser.add_argument('-identity', action='store', dest='dev_identity', default=''
 parser.add_argument('-uuid', action='store', dest='uuid', default='',
                                         help='''Device UUID (OPTIONAL)''')
 parser.add_argument('-v', action='version', version='AppMon IPA Installer v0.1, Copyright 2016 Nishant Das Patnaik')
+
 if len(sys.argv) < 2:
     parser.print_help()
     sys.exit(1)
+
+if not os.path.isdir(os.path.join(os.getcwd(), "apps")):
+    os.makedirs(os.path.join(os.getcwd(), "apps"))
 
 def deviceError():
     print "%s" % colored("Error: Is the device connected over USB?", "red", attrs=["bold"])
@@ -73,15 +77,19 @@ def getMachOExecutable(app_path):
 
 def getDeviceUUID():
     try:
+        print "[+] Trying to detect device..."
         uuid = subprocess.check_output(["sudo", "ideviceinfo", "-s"]).split("UniqueDeviceID: ")[1].split("\n")[0]
         device_conn = subprocess.check_output(["sudo", "ios-deploy", "-i", uuid, "--no-wifi", "-c"])
-        if "(%s) connected through USB." % (uuid) in device_conn:
-            print "Found %s connected through USB." % colored(device_conn.split("Found")[1].strip().split(" connected through USB.")[0], "green", attrs=["bold"])
+        if "Found %s (" % (uuid) in device_conn:
+            print "[+] Found %s connected through USB." % colored(device_conn.split("Found")[1].strip().split(" connected through USB.")[0], "green", attrs=["bold"])
             time.sleep(1)
         else:
+            print uuid, device_conn
             deviceError()
     except Exception as e:
+            print str(e)
             deviceError()
+
     return uuid
 
 results = parser.parse_args()
@@ -121,7 +129,8 @@ if os.path.isdir(work_dir):
 
 os.makedirs(work_dir)
 subprocess.call(["cp", ipa_path, zip_filepath])
-subprocess.call(["unzip", zip_filepath, "-d", unzip_filepath])
+print "[+] Unpacking IPA..."
+subprocess.check_output(["unzip", zip_filepath, "-d", unzip_filepath])
 payload_path = os.path.join(os.path.abspath(unzip_filepath), "Payload/")
 
 if os.listdir(payload_path)[0].endswith(".app"):
@@ -132,37 +141,38 @@ if os.listdir(payload_path)[0].endswith(".app"):
     #print executable_filepath
     injected_dylib_path = os.path.join(app_path, "FridaGadget.dylib")
 
-subprocess.call(["rm", "-rf", _CodeSignature_path])
-subprocess.call(["chmod", "755", "FridaGadget.dylib"])
-subprocess.call(["cp", gadget_path, app_path])
-subprocess.call([optool_path, "install", "-c", "load", "-p", "@executable_path/FridaGadget.dylib", "-t", executable_filepath])
-subprocess.call(["codesign", "-fs", 'iPhone Developer', injected_dylib_path])
-subprocess.call(["codesign", "-fs", 'iPhone Developer', app_path])
-subprocess.call(["find", unzip_filepath, "-name", '".DS_Store"', "-type", "f", "-delete"])
+subprocess.check_output(["rm", "-rf", _CodeSignature_path])
+subprocess.check_output(["chmod", "755", "FridaGadget.dylib"])
+subprocess.check_output(["cp", gadget_path, app_path])
+print "[+] Injecting DYLIB..."
+subprocess.check_output([optool_path, "install", "-c", "load", "-p", "@executable_path/FridaGadget.dylib", "-t", executable_filepath])
+print "[+] Code-signing..."
+subprocess.check_output(["codesign", "-fs", 'iPhone Developer', injected_dylib_path])
+subprocess.check_output(["codesign", "-fs", 'iPhone Developer', app_path])
+subprocess.check_output(["find", unzip_filepath, "-name", '".DS_Store"', "-type", "f", "-delete"])
 shutil.make_archive(injected_zip_filepath.strip(".zip"), 'zip', unzip_filepath)
 os.rename(injected_zip_filepath, injected_ipa_filepath)
 shutil.copy(injected_ipa_filepath, os.getcwd())
-subprocess.call(["node", iparesign_path, "--without-watchapp", "--identity", dev_identity, "--mobileprovision", mobileprovision_path, injected_ipa_filename])
+subprocess.check_output(["node", iparesign_path, "--without-watchapp", "--identity", dev_identity, "--mobileprovision", mobileprovision_path, injected_ipa_filename])
 shutil.copy(os.path.join(os.getcwd(), resigned_ipa_name), os.path.join(os.getcwd(), "%s.zip" % resign_name))
-subprocess.call(["unzip", os.path.join(os.getcwd(), resigned_ipa_name), "-d", extracted_resigned_path])
-subprocess.call(["rm", "-rf", work_dir])
-subprocess.call(["rm", "-rf", os.path.join(os.getcwd(), "%s.zip" % resign_name)])
-subprocess.call(["rm", "-rf", os.path.join(os.getcwd(), injected_ipa_filename)])
-subprocess.call(["mv", "./%s" % resigned_ipa_name, "apps/"])
+subprocess.check_output(["unzip", os.path.join(os.getcwd(), resigned_ipa_name), "-d", extracted_resigned_path])
+subprocess.check_output(["rm", "-rf", work_dir])
+subprocess.check_output(["rm", "-rf", os.path.join(os.getcwd(), "%s.zip" % resign_name)])
+subprocess.check_output(["rm", "-rf", os.path.join(os.getcwd(), injected_ipa_filename)])
+subprocess.check_output(["mv", "./%s" % resigned_ipa_name, "apps/"])
 #subprocess.call(["sudo", "ideviceinstaller", "-u", uuid, "-i", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
-subprocess.call(["sudo", "ios-deploy", "-v", "--no-wifi", "-i", uuid, "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
-
-print(chr(27) + "[2J")
-print "Success! Installed on device... :)"
+print "[+] Installing IPA..."
+subprocess.check_output(["sudo", "ios-deploy", "-v", "--no-wifi", "-i", uuid, "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
+#print(chr(27) + "[2J")
 time.sleep(2)
 print "%s" % colored("----------------HELP----------------", "green", attrs=["bold"])
-print '[+] Wait till you see the message "%s", on the debugger console.' % colored("Frida: Listening on TCP port 27042", "red", attrs=["bold"])
+print '[+] Wait for "%s", on the debugger console to initialize' % colored("60 seconds", "red", attrs=["bold"])
 time.sleep(1)
 print '[+] Keep the debugger running to continue using the app. To quit type "%s", in the debugger console.' % colored("quit", attrs=["bold"])
 time.sleep(2)
 print '[+] The app will remain suspended until you run, (in a different terminal window/tab), \n%s' % colored("frida -U Gadget", "red", attrs=["bold"])
 time.sleep(2)
-
+print "[+] Generating launch script..."
 message = """#!/bin/sh
 # %s app launcher script generated by AppMon
 # http://dpnishant.github.com/appmon
@@ -178,7 +188,7 @@ time.sleep(2)
 print 'NOTE: To launch the installed app, in future, run: \n%s\n' % colored(launcher_path, "blue", attrs=["bold"])
 print "%s" % colored("------------------------------------", "green", attrs=["bold"])
 time.sleep(2)
-print colored("Launching in 5 seconds...")
-time.sleep(5)
+print colored("[+] Starting app...")
+time.sleep(2)
 subprocess.call(["sudo", "ios-deploy", "-v", "--no-wifi", "-i", uuid, "--noinstall", "-b", "%s/Payload/%s" % (extracted_resigned_path, app_name)])
 sys.exit(0)
