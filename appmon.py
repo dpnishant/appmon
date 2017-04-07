@@ -27,7 +27,6 @@ app = Flask(__name__)
 device = ''
 session = ''
 merged_script_path = '/tmp/merged.js'
-
 APP_LIST = []
 
 @app.route('/api/fetch', methods=['GET'])
@@ -141,7 +140,7 @@ def on_message(message, data):
         os.makedirs(output_dir)
 
     if message['type'] == 'send':
-        writePath = os.path.join(output_dir, app_name + '.db')
+        writePath = os.path.join(output_dir, str(app_name) + '.db')
         db.save_to_database(writePath, message['payload'])
         #writePath = os.path.join(output_dir, app_name + '.json')
         #writeBinFile(writePath, message['payload']) #writeBinFile(writePath, binascii.unhexlify(message['payload']))
@@ -160,9 +159,11 @@ def generate_injection():
     print colored('[INFO] Building injection...', 'yellow')
     return injection_source
 
-def getDisplayName(session, app_name):
+def getDisplayName(session, app_name, platform):
     try:
-        script = session.create_script("""/* ____CFBundleDisplayName Getter for Gadget____ */
+        str_script = ""
+        if platform == "ios":
+            str_script = """/* ____CFBundleDisplayName Getter for iOS Gadget____ */
 'use strict';
 rpc.exports = {
   gadgetdisplayname: function () {
@@ -178,16 +179,37 @@ rpc.exports = {
     } else { return null; }
   }
 };
-""")
-        script.load()
-        if script.exports.gadgetdisplayname():
-            app_name = script.exports.gadgetdisplayname()
-        script.unload()
-        return app_name
+"""
+            script = session.create_script(str_script)
+            script.load()
+            if script.exports.gadgetdisplayname:
+                app_name = script.exports.gadgetdisplayname()
+            script.unload()
+            return app_name
+        elif platform == "android":
+            str_script = """/* ____ getPackageName Getter for Android Gadget____ */
+'use strict';
+rpc.exports = {
+  gadgetdisplayname: function () {
+    var appName = "";
+    Java.perform(function(argument) {
+        const ActivityThread = Java.use('android.app.ActivityThread');
+        const app = ActivityThread.currentApplication();
+        appName = app.toString().split("@")[0];
+    });
+    return appName;
+}};
+"""
+            script = session.create_script(str_script)
+            script.load()
+            if script.exports.gadgetdisplayname:
+                app_name = script.exports.gadgetdisplayname()
+            script.unload()
+            print "in python: " + app_name
+            return app_name
     except Exception as e:
         print colored("[ERROR] " + str(e), "red")
         traceback.print_exc()
-
 
 def getBundleID(device, app_name, platform):
     try:
@@ -284,7 +306,7 @@ try:
 
     if session:
         if app_name == "Gadget":
-            app_name = getDisplayName(session, app_name)
+            app_name = getDisplayName(session, app_name, platform)
         script = session.create_script(generate_injection())
         if script:
             print colored('[INFO] Instrumentation started...', 'yellow')
