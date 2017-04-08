@@ -205,7 +205,6 @@ rpc.exports = {
             if script.exports.gadgetdisplayname:
                 app_name = script.exports.gadgetdisplayname()
             script.unload()
-            print "in python: " + app_name
             return app_name
     except Exception as e:
         print colored("[ERROR] " + str(e), "red")
