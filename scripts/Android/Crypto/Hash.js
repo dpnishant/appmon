@@ -17,10 +17,11 @@
 'use strict';
 
 var byteArraytoHexString = function(byteArray) {
-  if (!byteArray) { return 'null'; }
-  return byteArray.map(function(byte) {
-    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
-  }).join('')
+  if (byteArray && byteArray.map) {
+    return byteArray.map(function(byte) {
+      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('');
+  else { return byteArray + ""; }
 }
 
 var hexToAscii = function(input) {
