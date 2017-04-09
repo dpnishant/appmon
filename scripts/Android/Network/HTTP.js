@@ -23,7 +23,13 @@ var responseHeaders = "";
 var responseBody = "";
 
 Java.perform(function() {
-  var HttpURLConnection = Java.use("com.android.okhttp.internal.http.HttpURLConnectionImpl");
+  try {
+    var HttpURLConnection = Java.use("com.android.okhttp.internal.http.HttpURLConnectionImpl");
+  } catch (e) {
+    var HttpURLConnection = Java.use("com.android.okhttp.internal.huc.HttpURLConnectionImpl");
+  } finally {
+    return
+  }
   //var BufferedInputStream = Java.use("java.io.BufferedInputStream");
   //var StringBuilder = Java.use("java.lang.StringBuilder");
   var InputStreamReader =  Java.use("java.io.InputStreamReader");

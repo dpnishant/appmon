@@ -54,7 +54,15 @@ def read_from_database(db_path, index=0):
     artifacts = json.loads(capture['artifact'])
     
     for artifact in artifacts:
-      str_artifact += 'Name: ' + stringify(artifact['name']) + '\n' + stringify(artifact['value']) + '\n\n' # artifact['value'], str(artifact['argSeq'])
+      if "name" in artifact:
+        artifact_name = artifact['name']
+      else:
+        artifact_name = ""
+      if "value" in artifact:
+        artifact_value = artifact['value']
+      else:
+        artifact_value = ""
+      str_artifact += 'Name: ' + stringify(artifact_name) + '\n' + stringify(artifact_value) + '\n\n' # artifact['value'], str(artifact['argSeq'])
       #str_artifact = str_artifact.replace("<", "&lt;").replace(">", "&gt;")
       str_artifact = str_artifact.replace('\n', '<br/>').replace('Name: ', '<b>Name: </b>')
 
