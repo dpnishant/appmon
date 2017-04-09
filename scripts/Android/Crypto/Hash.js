@@ -17,6 +17,7 @@
 'use strict';
 
 var byteArraytoHexString = function(byteArray) {
+<<<<<<< HEAD
   if (!byteArray) { return 'null'; }
   if (byteArray.map) {
     return byteArray.map(function(byte) {
@@ -25,6 +26,13 @@ var byteArraytoHexString = function(byteArray) {
   } else {
     return byteArray + "";
   }
+=======
+  if (byteArray && byteArray.map) {
+    return byteArray.map(function(byte) {
+      return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+    }).join('');
+  else { return byteArray + ""; }
+>>>>>>> dc8bba4ec9ce0cfc741d21446a1d5d346fe2d88e
 }
 
 var hexToAscii = function(input) {
