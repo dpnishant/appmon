@@ -19,6 +19,17 @@
 import os, sys, re, argparse, codecs, subprocess, pwd, glob, shutil, time, zipfile, traceback
 from termcolor import colored
 
+print """
+     ___      .______   .______   .___  ___.   ______   .__   __. 
+    /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
+   /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
+  /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  | 
+ /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   | 
+/__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
+                        github.com/dpnishant
+                                                                  
+"""
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-ipa', action='store', dest='ipa_path', default='',
                                         help='''(Absolute) Path to IPA''')

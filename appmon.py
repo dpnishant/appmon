@@ -21,6 +21,17 @@ from flask import Flask, request, render_template
 from termcolor import colored
 import database as db
 
+print """
+     ___      .______   .______   .___  ___.   ______   .__   __. 
+    /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
+   /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
+  /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  | 
+ /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   | 
+/__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
+                        github.com/dpnishant
+                                                                  
+"""
+
 app = Flask(__name__)
 #app.debug = True
 

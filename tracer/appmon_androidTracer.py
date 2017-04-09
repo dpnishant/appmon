@@ -19,6 +19,17 @@
 import os, sys, frida, re, argparse, codecs, json
 from termcolor import colored
 
+print """
+     ___      .______   .______   .___  ___.   ______   .__   __. 
+    /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
+   /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
+  /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  | 
+ /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   | 
+/__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
+                        github.com/dpnishant
+                                                                  
+"""
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-a', action='store', dest='app_name', default='',
                                         help='''Process Name;

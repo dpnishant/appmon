@@ -23,6 +23,17 @@ device = ''
 session = ''
 merged_script_path = '/tmp/merged.js'
 
+print """
+     ___      .______   .______   .___  ___.   ______   .__   __. 
+    /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
+   /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
+  /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  | 
+ /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   | 
+/__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
+                        github.com/dpnishant
+                                                                  
+"""
+
 def on_detached():
     print colored('[WARNING] "%s" has terminated!' % (app_name), 'red')
 
