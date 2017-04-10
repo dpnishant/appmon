@@ -11,7 +11,7 @@ It consists of the following components:
 
 * AppMon Sniffer - Intercept API calls to figure out interesting operations performed by an App
 * Appmon Intruder - Manipulate API calls data to create change app's original behavior
-* AppMon Android Tracer - Traces Java classes & methods within Android APKs
+* AppMon Android Tracer - Automcatically traces Java classes, methods, its arguments and their data-types in Android APKs
 * AppMon IPA Installer - Creates and installs "inspectable" IPAs on non-jailbroken iOS devices
 * AppMon APK Builder - Creates APKs "inspectable" on non-rooted Android devices
 
