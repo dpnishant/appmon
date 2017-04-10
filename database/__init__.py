@@ -19,15 +19,19 @@ import dataset, json, time
 from xml.sax.saxutils import escape
 
 def save_to_database(db_path, str_json):
-  str_json = json.loads(str_json)
-  db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_")))
-  table = db['api_captures']
-  table.insert(dict(time=time.strftime('%b %d %Y %l:%M %p', time.localtime()),
-    operation=str_json['txnType'],
-    artifact=json.dumps(str_json['artifact']),
-    method=str_json['method'],
-    module=str_json['lib'],
-    remark=''))
+  try:
+    str_json = json.loads(str_json.replace("\n", "<br />").replace("\r", "<br />"), strict=False)
+    db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_")))
+    table = db['api_captures']
+    table.insert(dict(time=time.strftime('%b %d %Y %l:%M %p', time.localtime()),
+      operation=str_json['txnType'],
+      artifact=json.dumps(str_json['artifact']),
+      method=str_json['method'],
+      module=str_json['lib'],
+      remark=''))
+  except Exception as e:
+    print str(e)
+    print str_json
 
 def stringify(data):
   str_data = ""
