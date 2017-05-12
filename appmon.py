@@ -252,7 +252,7 @@ def init_session():
         session = None
         if platform == 'ios' or platform == 'android':
             try:
-                device = frida.get_usb_device()
+                device = frida.get_usb_device(3) # added timeout to wait for 3 seconds
             except Exception as e:
                 print colored(str(e), "red")
                 traceback.print_exc()
