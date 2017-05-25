@@ -1,6 +1,11 @@
 #!/bin/sh
 mkdir apps
-wget https://build.frida.re/frida/ios/lib/FridaGadget.dylib -O FridaGadget.dylib
+rm *.dylib
+wget -qO - https://github.com/frida/frida/releases/latest | grep -o "\/frida\/frida\/releases\/download\/.*\/frida-gadget-.*-ios-universal\.dylib\.xz" | sed 's/\/frida\/frida/https:\/\/github\.com\/frida\/frida/g' | sed 's/%0A/\n/g' > list.txt
+wget -i list.txt
+unxz *.xz
+rm list.txt
+mv *.dylib FridaGadget.dylib
 git clone https://github.com/nowsecure/node-applesign && cd node-applesign && git checkout 095a38c7ab629b9103f68872b79ef53d68cb6291 && npm install
 cd ..
 npm install -g ios-deploy
