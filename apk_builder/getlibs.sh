@@ -13,7 +13,7 @@ cp *-arm.so armeabi
 mv armeabi/*.so armeabi/libfrida-gadget.so
 cp *-arm.so armeabi-v7a
 mv armeabi-v7a/*.so armeabi-v7a/libfrida-gadget.so
-cp *-i386.so x86
+cp *-x86.so x86
 mv x86/*.so x86/libfrida-gadget.so
 cp *-x86_64.so x86_64
 mv x86_64/*.so x86_64/libfrida-gadget.so
