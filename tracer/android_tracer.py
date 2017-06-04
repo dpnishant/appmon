@@ -24,24 +24,24 @@ print """
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
    /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
   /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  | 
- /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   | 
+ /  _____  \  |  |      |  |      |  |  |  | |  `--"  | |  |\   | 
 /__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
                         github.com/dpnishant
                                                                   
 """
 
 parser = argparse.ArgumentParser()
-parser.add_argument('-a', action='store', dest='app_name', default='',
+parser.add_argument("-a", action="store", dest="app_name", default="",
                                         help='''Process Name;
                                         Accepts "com.twitter.android"''')
-parser.add_argument('-c', action='store', dest='class_name', default='',
+parser.add_argument("-c", action="store", dest="class_name", default="",
                                         help='''Class Name;
                                         Example: "OpenSSL*SHA*"''')
-parser.add_argument('-m', action='store', dest='method_name', default='',
+parser.add_argument("-m", action="store", dest="method_name", default="",
                                         help='''Method Name;
                                         Example: "digest"; NOTE: Wildcard pattern is *NOT* supported''')
 
-parser.add_argument('-v', action='version', version='AppMon Android Method Tracer v0.1, Copyright 2016 Nishant Das Patnaik')
+parser.add_argument("-v", action="version", version="AppMon Android Method Tracer v0.1, Copyright 2016 Nishant Das Patnaik")
 
 if len(sys.argv) < 2:
     parser.print_help()
@@ -58,34 +58,22 @@ if len(className) >= 1 and len(className) < 3:
     sys.exit(1)
 
 def on_message(message, data):
-    if message['type'] == 'send':
-        payload = json.loads(message['payload'])
-        if payload['type'] == "classEnum":
-            classCandidates.append([ payload['className'], payload['overloads'] ])
-            print '[FOUND] in "%s"' % colored(payload['className'], "magenta", attrs=["bold"])
+    if message["type"] == "send":
+        payload = json.loads(message["payload"])
+        if payload["type"] == "classEnum":
+            if "overloads" in payload and "className" in payload and "methodName" in payload and "argCount" in payload:
+              classCandidates.append([ payload["className"], payload["overloads"], payload["methodName"], payload["argCount"] ])
+              print '[FOUND] "%s" in "%s"' % (colored(payload['methodName'], "yellow", attrs=["bold"]), colored(payload['className'], "magenta", attrs=["bold"]))
+            elif "className" in payload and not "overloads" in payload and not "methodName" in payload:
+              print '[FOUND] "%s"' % colored(payload['className'], "magenta", attrs=["bold"])
         elif payload['type'] == "methodTrace":
             payload['overloadIndex']
             print "%(methodName)s \n\tCalled by: %(caller)s \n\tDefined at: %(className)s [%(overloadIndex)s]\n" % { "methodName": colored(payload['methodName'], "green", attrs=["bold"]), "caller": colored(payload['caller'].split("class ")[1], "blue", attrs=["bold"]), "className": colored(payload['className'], "magenta", attrs=["bold"]), "overloadIndex": colored(payload['overloadIndex'], "red", attrs=["bold"]) }
 
 def build_search_script(className, method):
-    if not method or method == "" and not className or className == "":
-        script = """
-        Java.perform(function (){
-            var classes = Java.enumerateLoadedClassesSync();
-            classes = classes.sort();
-            for(var i=0; i < classes.length; i++ ) {
-                var payload = {
-                    "type": "classEnum",
-                    "className": classes[i].replace(/\//gi, '.').replace(/\[/gi, '').replace(/^L/, '').replace(/;$/, '')
-                };
-                send(JSON.stringify(payload));
-            }
-        });
-        """
-    else:
-        script = """
-        Java.perform(function() {
-            function wildcard_search(string, search) {
+    if className and className != "" and not method or method == "":
+        script = """Java.perform(function (){
+          function wildcard_search(string, search) {
                 var prevIndex = -1,
                 array = search.split('*'),
                 result = true;
@@ -97,27 +85,73 @@ def build_search_script(className, method):
                 }
                 return result;
             }
-            Java.enumerateLoadedClasses({
-                onMatch: function(name) {
-                    name = name.replace(/\//gi, '.').replace(/\[/gi, '').replace(/^L/, '').replace(/;$/, '');
-                    if (wildcard_search(name, "%(className)s")) {
-                        try {
-                            var handle = Java.use(name);
-                            if (handle.%(methodName)s) {
-                                var overload_count = handle.%(methodName)s.overloads.length;
-                                var payload = {
-                                    "type": "classEnum",
-                                    "className": name,
-                                    "overloads": overload_count
-                                };
-                                send(JSON.stringify(payload));
-                            }
-                        } catch (e) {}
-                    }
-                },
-                onComplete: function() {}
-            });
+            var classes = Java.enumerateLoadedClassesSync();
+            classes = classes.sort();
+            for(var i=0; i < classes.length; i++ ) {
+              if(wildcard_search(classes[i], '%(className)s')) {
+                var payload = {
+                    "type": "classEnum",
+                    "className": classes[i].replace(/\//gi, '.').replace(/\[/gi, '').replace(/^L/, '').replace(/;$/, '')
+                };
+                send(JSON.stringify(payload));
+              }
+            }
         });
+        """ % { "className": className }
+    else:
+        script = """Java.perform(function() {
+  function wildcard_search(string, search) {
+    var prevIndex = -1,
+      array = search.split('*'),
+      result = true;
+    for (var i = 0; i < array.length && result; i++) {
+      var index = string.indexOf(array[i]);
+      if (index == -1 || index < prevIndex) {
+        return false;
+      }
+    }
+    return result;
+  }
+  Java.enumerateLoadedClasses({
+    onMatch: function(name) {
+      name = name.replace(/\//gi, '.').replace(/\[/gi, '').replace(/^L/, '').replace(/;$/, '');
+      if (wildcard_search(name, '%(className)s')) {
+        try {
+          var handle = Java.use(name);
+          var currentMethods = handle.class.getMethods();
+          for (var i = 0; i < currentMethods.length; i++) {
+            var argsCount = currentMethods[i].toString().split('(')[1].split(')')[0].split(',').length;
+            var items = currentMethods[i].toString().split('(')[0].split(' ');
+            var currentMethodName = items[items.length - 1];
+            currentMethodName = currentMethodName.replace(name.toString(), '');
+            if (currentMethodName.split('.').length-1 > 1) {
+              continue
+            } else {
+              currentMethodName = currentMethodName.replace('.', '');
+            }
+            
+            if (wildcard_search(currentMethodName, '%(methodName)s')) {
+              if (currentMethodName in handle) {
+                var overload_count = handle[currentMethodName].overloads.length;
+                var payload = {
+                  "type": "classEnum",
+                  "className": name,
+                  "overloads": overload_count,
+                  "methodName": currentMethodName,
+                  "argCount": argsCount
+                };
+                send(JSON.stringify(payload));
+              } else {
+                console.log(currentMethodName + ' not found in ' + name);
+              }
+            }
+          }
+        } catch (e) { console.log(e.stack); }
+      }
+    },
+    onComplete: function() {}
+  });
+});
         """ % { "className": className, "methodName": method }
     return script
 
@@ -136,10 +170,13 @@ def begin_instrumentation(appName, script_source):
         print colored('[ERROR]: ' + str(e), "red")
         sys.exit()
 
-def enumerate_overloads(overload_count, methodName):
+def enumerate_overloads(overloadIndx, currentClassName, overload_count, methodName):
     generated_overloads = []
-    template ="""c.%(methodName)s.overloads[i].implementation = function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15) {
-    var methodName = c.%(methodName)s.overloads[i].toString().split("function")[1].split("{")[0].trim().split("(")[0];
+    template ="""
+    var class_%(overloadIndx)s = "%(currentClassName)s";
+    var c_%(overloadIndx)s = Java.use(class_%(overloadIndx)s);
+    c_%(overloadIndx)s.%(methodName)s.overloads[i].implementation = function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15) {
+    var methodName = c_%(overloadIndx)s.%(methodName)s.overloads[i].toString().split("function")[1].split("{")[0].trim().split("(")[0];
     var argTypes = getType(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15);
     var args = "";
     for (var i = 0; i < argTypes.length; i++) {
@@ -153,13 +190,13 @@ def enumerate_overloads(overload_count, methodName):
     var payload = {
         "type": "methodTrace",
         "methodName": methodName,
-        "className": className,
+        "className": class_%(overloadIndx)s,
         "overloadIndex": ovrldindexplaceholder,
         "caller": this.getClass().toString()
     };
     send(JSON.stringify(payload));
     return this.%(methodName)s.overloads[i].apply(this, arguments);
-  };""" % { "methodName": methodName }
+  };""" % { "overloadIndx": overloadIndx, "currentClassName": currentClassName, "methodName": methodName }
     for index in range(0, overload_count):
         argString = ""
         current_template = ""
@@ -171,12 +208,16 @@ def enumerate_overloads(overload_count, methodName):
     return generated_overloads
 
 def build_trace_script(candidates, methodName):
+    all_overloads = ""
     generated_trace_scripts = []
     for candidate in candidates:
-        for overload_variant in enumerate_overloads(candidate[1], methodName):
-            if overload_variant == "":
-                continue
-            tracer_template = """'use strict';
+      overloadIndx = str(candidates.index(candidate))
+      for overload_variant in enumerate_overloads(overloadIndx, candidate[0], candidate[1], candidate[2]):
+        if overload_variant == "":
+          continue
+        all_overloads += overload_variant
+
+    tracer_template = """'use strict';
             var checkType = function(arg) {
   var type = "";
   if (arg.getClass) {
@@ -247,12 +288,10 @@ if (a15) {
 }
 
 Java.perform(function () {
-  var className = "%s";
-  var c = Java.use(className);
   %s
 });
-""" % (candidate[0], overload_variant)
-            generated_trace_scripts.append(tracer_template)
+""" % (all_overloads)
+    generated_trace_scripts.append(tracer_template)
     return generated_trace_scripts
 
 def generate_tracer_js(scriptName, txtScript):
