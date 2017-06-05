@@ -16,12 +16,42 @@
  limitations under the License.
 -->
 <head>
+<link href="https://fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
 <style>
+
+#logo {
+	margin-top: -4%;
+	margin-left: -4%;
+    display: block;
+}
+
+.footer {
+	font-family: 'Cabin', sans-serif;
+	font-size: 170%;
+	color: #D1D1D1;
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    font-size: 18px;
+}
+
+.logotable {
+	table-layout: fixed;
+	width: 100%;
+}
+
+.logotable td {
+	font-family: 'Cabin', sans-serif;
+	font-size: 170%;
+	color: #ffffff;
+	text-align: right;
+	width: 50%;
+}
 
 .menu_container {
   position: absolute;
@@ -36,15 +66,19 @@
 }
 
 .navbar-default {
-  background-color: #0cbee5;
-  border-color: #0cbee5;
+  background-color: #337ab7;
+  border-color: #2e6da4;
 }
 .navbar-default .navbar-brand {
-  color: #ecf0f1;
+  color: #337ab7;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
   color: #ffffff;
+}
+
+.navbar {
+    border-radius: 0px;
 }
 
 p .btn_container {
@@ -58,9 +92,17 @@ p .btn_container {
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand">
-					AppMon
+				<table class="logotable">
+					<tbody>
+						<tr>
+				<td>
+					<a class="navbar-brand" href="http://dpnishant.github.com/appmon" target="_blank">
+					<img id="logo" src="/static/img/logo.png" alt="AppMon"/>
 				</a>
+			</td>
+				<td class="intro"> Runtime security profiling framework </td>
+			</tr>
+		</tbody></table>
 			</div>
 		</div>
 	</nav>
@@ -81,5 +123,6 @@ p .btn_container {
         window.location= '/monitor?app=' + $('#selectMenu').val();
     });
 	</script>
+<span class="footer"> Nishant Das Patnaik </span>
 </body>
 </html>
