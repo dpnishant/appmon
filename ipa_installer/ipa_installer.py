@@ -81,7 +81,7 @@ def getMachOExecutable(app_path):
         path = os.path.join(app_path, filename)
         if not os.path.isdir(path):
             output = subprocess.check_output(['file', path])
-            if "Mach-O universal binary" in output:
+            if "Mach-O" in output:
                 output = output.split(":")[0]
                 break
     return os.path.join(app_path, output)
