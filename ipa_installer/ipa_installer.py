@@ -115,7 +115,7 @@ else:
     uuid = results.uuid
 
 try:
-    results.dev_indentity
+    results.dev_identity
 except AttributeError:
     dev_identity = getDeveloperId()
 
