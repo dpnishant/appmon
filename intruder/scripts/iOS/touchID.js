@@ -26,28 +26,28 @@ resolver.enumerateMatches('-[LAContext evaluatePolicy:localizedReason:reply:]', 
   onMatch: function(match) {
     module.name = match.name;
     module.address = match.address;
+    Interceptor.attach(module.address, {
+      onEnter: function(args) {
+        var reason = new ObjC.Object(args[3]);
+        console.log(reason);
+
+        var block = new ObjC.Block(args[4]);
+
+        //pendingBlocks.add(block); // keep it alive
+        pendingBlocks.push(block); // keep it alive
+
+        var appCallback = block.implementation;
+
+        block.implementation = function (success, error) {
+          console.log('Fingerprint Matched: ' + success);
+          success = true;
+          appCallback(success, error);
+          //pendingBlocks.delete(block);
+          pendingBlocks.splice(pendingBlocks.indexOf(block), 1);
+        };
+      }    
+    });
   },
   onComplete: function() {}
 });
 
-Interceptor.attach(module.address, {
-  onEnter: function(args) {
-    
-    var reason = new ObjC.Object(args[3]);
-    console.log(reason);
-    
-    var block = new ObjC.Block(args[4]);
-    //pendingBlocks.add(block); // keep it alive
-    pendingBlocks.push(block); // keep it alive
-    
-    var appCallback = block.implementation;
-    
-    block.implementation = function (success, error) {
-      console.log('Fingerprint Matched: ' + success);
-      success = true;
-      appCallback(success, error);
-      //pendingBlocks.delete(block);
-      pendingBlocks.splice(pendingBlocks.indexOf(block), 1);
-    };
-  }
-});
