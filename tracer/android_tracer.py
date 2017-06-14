@@ -39,9 +39,9 @@ parser.add_argument("-c", action="store", dest="class_name", default="",
                                         Example: "OpenSSL*SHA*"''')
 parser.add_argument("-m", action="store", dest="method_name", default="",
                                         help='''Method Name;
-                                        Example: "digest"; NOTE: Wildcard pattern is *NOT* supported''')
+                                        Example: "*digest*";''')
 
-parser.add_argument("-v", action="version", version="AppMon Android Method Tracer v0.1, Copyright 2016 Nishant Das Patnaik")
+parser.add_argument("-v", action="version", version="AppMon Android Method Tracer v0.2, Copyright 2016 Nishant Das Patnaik")
 
 if len(sys.argv) < 2:
     parser.print_help()

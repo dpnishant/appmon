@@ -18,7 +18,9 @@
 
 var resolver = new ApiResolver('objc');
 var module = {};
-const pendingBlocks = new Set();
+//const pendingBlocks = new Set();
+var pendingBlocks = [];
+
 
 resolver.enumerateMatches('-[LAContext evaluatePolicy:localizedReason:reply:]', {
   onMatch: function(match) {
@@ -35,15 +37,17 @@ Interceptor.attach(module.address, {
     console.log(reason);
     
     var block = new ObjC.Block(args[4]);
-    pendingBlocks.add(block); // keep it alive
+    //pendingBlocks.add(block); // keep it alive
+    pendingBlocks.push(block); // keep it alive
     
     var appCallback = block.implementation;
     
     block.implementation = function (success, error) {
       console.log('Fingerprint Matched: ' + success);
-      var success = true;
+      success = true;
       appCallback(success, error);
-      pendingBlocks.delete(block);
+      //pendingBlocks.delete(block);
+      pendingBlocks.splice(pendingBlocks.indexOf(block), 1);
     };
   }
 });
