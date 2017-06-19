@@ -21,3 +21,11 @@ Documentation
 =============
 
 [Click Here](https://dpnishant.github.com/appmon/)
+
+
+## Credits
+
+|JetBrains|
+|:-:|
+|![JetBrains](https://raw.githubusercontent.com/dpnishant/appmon/master/resources/external/jetbrains.png)|
+|Many thanks to [JetBrains s.r.o.](https://www.jetbrains.com) for providing a free license of [All Products Pack](https://www.jetbrains.com/store/?fromMenu#edition=personal) to kindly support the development of appmon.|
