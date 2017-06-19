@@ -23,7 +23,8 @@ Documentation
 [Click Here](https://dpnishant.github.com/appmon/)
 
 
-## Credits
+Credits
+=============
 
 |JetBrains|
 |:-:|
