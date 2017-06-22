@@ -15,21 +15,7 @@
 **/
 
 'use strict';
-
-var hexify = function (hexdump_output) {
-  var hexified = " ";
-  var raw_array = hexdump_output.split("\n");
-  for (var a = 0; a < raw_array.length; a++) {
-    var line_array = raw_array[a].split(" ");
-    for (var b = 1; b < line_array.length - 1; b++) {
-      if(line_array[b].length === 2){
-        hexified += line_array[b];
-        hexified = hexified.trim()
-      }
-    }
-  };
-  return hexified;
-};
+'import utilities';
 
 Interceptor.attach(Module.findExportByName('libcommonCrypto.dylib', 'CCHmac'), {
   onEnter: function(args) {
@@ -40,7 +26,7 @@ Interceptor.attach(Module.findExportByName('libcommonCrypto.dylib', 'CCHmac'), {
       send_data.lib = 'libcommonCrypto.dylib';
       send_data.method = 'CCHmac';
       send_data.artifact = [];
-      
+
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Key";
@@ -51,7 +37,7 @@ Interceptor.attach(Module.findExportByName('libcommonCrypto.dylib', 'CCHmac'), {
       data.value = raw_key;
       data.argSeq = 2;
       send_data.artifact.push(data);
-      
+
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Data";

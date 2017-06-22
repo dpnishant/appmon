@@ -16,20 +16,20 @@
  # limitations under the License.
 ###
 
-import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess
+import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess, re
 from flask import Flask, request, render_template
 from termcolor import colored
 import database as db
 
 print """
-     ___      .______   .______   .___  ___.   ______   .__   __. 
-    /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
-   /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
-  /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  | 
- /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   | 
-/__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
+     ___      .______   .______   .___  ___.   ______   .__   __.
+    /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  |
+   /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  |
+  /  /_\  \   |   ___/  |   ___/  |  |\/|  | |  |  |  | |  . `  |
+ /  _____  \  |  |      |  |      |  |  |  | |  `--'  | |  |\   |
+/__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__|
                         github.com/dpnishant
-                                                                  
+
 """
 
 app = Flask(__name__, static_url_path='/static')
@@ -83,7 +83,7 @@ def init_opts():
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', action='store', dest='app_name', default='',
                     help='''Process Name;
-                    Accepts "Twitter" for iOS; 
+                    Accepts "Twitter" for iOS;
                     "com.twitter.android" for Android; "Twitter" for macOS''')
     parser.add_argument('--spawn', action='store', dest='spawn', default=0,
                     help='''Optional; Accepts 1=Spawn, 0=Attach; Needs "-p PLATFORM"''')
@@ -111,7 +111,7 @@ def init_opts():
     script_path = results.script_path
     list_apps = int(results.list_apps)
     spawn = int(results.spawn)
-    
+
     output_dir = results.output_dir if results.output_dir else './app_dumps'
 
     if script_path != None and app_name == '' and list_apps == 0:
@@ -135,6 +135,23 @@ def merge_scripts(path):
     with codecs.open(merged_script_path, "w", "utf-8") as f:
         f.write(script_source)
     return merged_script_path
+
+def include_imports(path, script_source):
+    imported = []
+    imported.append(path)
+    to_be_imported = []
+    to_be_imported = re.findall('^\'import ([^\']*)\';$', script_source, re.MULTILINE)
+    root = os.path.dirname(os.path.realpath(path))
+    for file in to_be_imported:
+        if not file.endswith('.js'):
+            file += '.js'
+        script_path = os.path.join(root, file)
+        if (os.path.basename(root) + "/" + file) not in imported:
+            with codecs.open(script_path, 'r', 'utf-8') as f:
+                source = f.read()
+            script_source += '/* ____%s/%s____ */\n\n' % (os.path.basename(root), file) + source + '\n\n'
+            imported.append(os.path.basename(root) + "/" + file)
+    return script_source
 
 def _exit_():
     print colored('[INFO] Exiting...', 'green')
@@ -176,6 +193,7 @@ def generate_injection():
     if os.path.isfile(script_path):
         with codecs.open(script_path, 'r', 'utf-8') as f:
             injection_source = f.read()
+        injection_source = include_imports(script_path, injection_source)
     elif os.path.isdir(script_path):
         with codecs.open(merge_scripts(script_path), 'r', 'utf-8') as f:
             injection_source = f.read()
