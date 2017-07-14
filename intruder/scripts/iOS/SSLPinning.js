@@ -56,14 +56,14 @@ try {
         onEnter: function(args) {
             var int_0 = new NativePointer('0x0');
             if (args[2] != int_0) {
-                console.log('Executing SSL Pinning Bypass Technique #1');
+                console.log('[+] Executing SSL Pinning Bypass Technique #1');
                 args[2] = int_0;
             }
         }
     });
 
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
@@ -73,13 +73,13 @@ try {
         onEnter: function(args) {
             var int_0 = new NativePointer('0x0');
             if (args[2] != int_0) {
-                console.log('Executing SSL Pinning Bypass Technique #2');
+                console.log('[+] Executing SSL Pinning Bypass Technique #2');
                 args[2] = int_0;
             }
         }
     });
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
@@ -87,7 +87,7 @@ try {
 try {
     resolver.enumerateMatches('-[* URLSession:didReceiveChallenge:completionHandler:]', {
         onMatch: function(match) {
-            console.log('[NSURLSession] Found URLSession:didReceiveChallenge:completionHandler:');
+            console.log('[+] [NSURLSession] Found URLSession:didReceiveChallenge:completionHandler:');
             Interceptor.attach(match.address, {
                 onEnter: function(args) {
 
@@ -96,7 +96,7 @@ try {
                     var session = new ObjC.Object(args[2]);
                     var challenge = new ObjC.Object(args[3]);
 
-                    console.log('Executing SSL Pinning Bypass Technique #3');
+                    console.log('[+] Executing SSL Pinning Bypass Technique #3');
 
                     var completion_handler = new ObjC.Block(args[4]);
                     var saved_completion_handler = completion_handler.implementation;
@@ -116,7 +116,7 @@ try {
         onComplete: function() {}
     });
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
@@ -124,15 +124,15 @@ try {
 try {
     resolver.enumerateMatches('-[* connection:willSendRequestForAuthenticationChallenge:]', {
         onMatch: function(match) {
-            console.log('Executing SSL Pinning Bypass Technique #4');
+            console.log('[+] Executing SSL Pinning Bypass Technique #4');
             Interceptor.replace(match.address, new NativeCallback(function(a, b, connection, challenge) {
-                // console.log('swizzled');
+                // console.log('[+] swizzled');
             }, 'void', ['pointer', 'pointer', 'pointer', 'pointer']));
         },
         onComplete: function() {}
     });
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
@@ -140,45 +140,45 @@ try {
 // Ref: https://github.com/nabla-c0d3/ssl-kill-switch2/blob/master/SSLKillSwitch/SSLKillSwitch.m
 try {
     Interceptor.replace(SecTrustEvaluate, new NativeCallback(function(trust, result) {
-        console.log('Executing SSL Pinning Bypass Technique #5');
+        console.log('[+] Executing SSL Pinning Bypass Technique #5');
         var ret = SecTrustEvaluate(trust, result);
         result = kSecTrustResultProceed;
         return ret;
     }, 'int', ['pointer', 'pointer']));
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
 try {
     Interceptor.replace(SSLSetSessionOption, new NativeCallback(function(context, option, value) {
-        console.log('Executing SSL Pinning Bypass Technique #6');
+        console.log('[+] Executing SSL Pinning Bypass Technique #6');
         if (option === kSSLSessionOptionBreakOnServerAuth) {
             return noErr;
         }
         return SSLSetSessionOption(context, option, value);
     }, 'int', ['pointer', 'int', 'bool']));
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
 
 try {
     Interceptor.replace(SSLCreateContext, new NativeCallback(function(alloc, protocolSide, connectionType) {
-        console.log('Executing SSL Pinning Bypass Technique #7');
+        console.log('[+] Executing SSL Pinning Bypass Technique #7');
         var sslContext = SSLCreateContext(alloc, protocolSide, connectionType);
         SSLSetSessionOption(sslContext, kSSLSessionOptionBreakOnServerAuth, 1);
         return sslContext;
     }, 'pointer', ['pointer', 'int', 'int']));
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
 try {
     Interceptor.replace(SSLHandshake, new NativeCallback(function(context) {
-        console.log('Executing SSL Pinning Bypass Technique #8');
+        console.log('[+] Executing SSL Pinning Bypass Technique #8');
         var result = SSLHandshake(context);
         if (result === errSSLServerAuthCompleted) {
             return SSLHandshake(context);
@@ -187,15 +187,15 @@ try {
         }
     }, 'int', ['pointer']));
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
 
 
 try {
     Interceptor.replace(tls_helper_create_peer_trust, new NativeCallback(function(hdsk, server, SecTrustRef) {
-        console.log('Executing SSL Pinning Bypass Technique #9');
+        console.log('[+] Executing SSL Pinning Bypass Technique #9');
         return errSecSuccess;
     }, 'int', ['void', 'bool', 'pointer']));
 } catch (e) {
-    console.log(e.stack);
+    console.log('[-] ', e.stack);
 }
