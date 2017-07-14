@@ -16,7 +16,7 @@
  # limitations under the License.
 ###
 
-import os, sys, re, argparse, codecs, subprocess, pwd, glob, shutil, time, zipfile, traceback
+import os, sys, re, argparse, codecs, subprocess, pwd, glob, shutil, time, zipfile, traceback, plistlib
 from termcolor import colored
 
 print """
@@ -53,7 +53,7 @@ def deviceError():
     sys.exit(255)
 
 def getDeveloperId():
-    for id in subprocess.check_output(["node-applesign/bin/ipa-resign.js", "-L"]).split("\n"):
+    for id in subprocess.check_output(["node", "node-applesign/bin/ipa-resign.js", "-L"]).split("\n"):
         if "iPhone Developer:" in id:
             return id.split(" ")[0]
         else:
@@ -76,15 +76,22 @@ def getMobileProvisionFile():
     return mobileprovision_path
 
 def getMachOExecutable(app_path):
-    filenames = os.listdir(app_path)
-    for filename in filenames:
-        path = os.path.join(app_path, filename)
-        if not os.path.isdir(path):
-            output = subprocess.check_output(['file', path])
-            if "Mach-O" in output:
-                output = output.split(":")[0]
-                break
-    return os.path.join(app_path, output)
+    # old_technique #
+    # filenames = os.listdir(app_path)
+    # for filename in filenames:
+    #     path = os.path.join(app_path, filename)
+    #     if not os.path.isdir(path):
+    #         output = subprocess.check_output(['file', path])
+    #         if "Mach-O" in output:
+    #             output = output.split(":")[0]
+    #             break
+    # print os.path.join(app_path, output)
+    # return os.path.join(app_path, output)
+    plist_path = os.path.join(app_path, "Info.plist")
+    plist = plistlib.readPlist(plist_path)
+    executable = plist["CFBundleExecutable"]
+    return os.path.join(app_path, executable)
+
 
 def getDeviceUUID():
     try:
@@ -115,7 +122,10 @@ else:
     uuid = results.uuid
 
 try:
-    results.dev_identity
+    if len(results.dev_identity) == 40:
+        dev_identity = results.dev_identity
+    else:
+        dev_identity = getDeveloperId()
 except AttributeError:
     dev_identity = getDeveloperId()
 
