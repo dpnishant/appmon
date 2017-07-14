@@ -308,17 +308,6 @@ a.back-to-bottom {
         });
         */
         $('#tblResultView').DataTable({
-            "columns": [
-            null,
-            null,
-            null,
-            { 
-                "width": "50%"
-            },
-            null,
-            null,
-            null
-            ],
             ajax: {
                 "url": "/api/fetch",
                 "data": function (d) {
@@ -331,10 +320,10 @@ a.back-to-bottom {
                 "smart": true
             },
             bAutoWidth: false,
+            autoWidth: false,
             colReorder: true,
-            keys: true,
-            "scrollY": true,
-            "scrollX": true,
+            scrollY: true,
+            scrollX: true,
             dom: 'Bfrtip',
             lengthMenu: [
                 [ 15, 30, 50, 100, -1 ],

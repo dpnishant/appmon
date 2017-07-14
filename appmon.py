@@ -88,7 +88,7 @@ def init_opts():
     parser.add_argument('--spawn', action='store', dest='spawn', default=0,
                     help='''Optional; Accepts 1=Spawn, 0=Attach; Needs "-p PLATFORM"''')
     parser.add_argument('-p', action='store', dest='platform',
-                    help='Platform Type; Accepts "ios", "android" or "macos"')
+                    help='Platform Type; Accepts "ios", "iossim", "android" or "macos"')
     parser.add_argument('-s', action='store', dest='script_path', default='',
                     help='''Path to agent script file;
                     Can be relative/absolute path for a file or directory;
@@ -279,6 +279,15 @@ def init_session():
                     print colored("HINT: Have you installed `frida` module from Cydia?", "blue")
                     print colored("HINT: Have used `ipa_installer` to inject the `FridaGadget` shared lbrary?", "blue")
                     sys.exit(1)
+        elif platform == 'iossim':
+            try:
+                device = frida.get_remote_device()
+            except Exception as e:
+                # print traceback.print_exc()
+                print colored("Troubleshooting Help", "blue")
+                print colored("HINT: Have you successfully integrated the FridaGadget dylib with the XCode Project?", "blue")
+                print colored("HINT: Do you see a message similar to \"[Frida INFO] Listening on 127.0.0.1 TCP port 27042\" on XCode console logs?", "blue")
+                sys.exit(1)
         elif platform == 'macos':
             device = frida.get_local_device()
         else:
