@@ -76,22 +76,24 @@ def getMobileProvisionFile():
     return mobileprovision_path
 
 def getMachOExecutable(app_path):
-    # old_technique #
-    # filenames = os.listdir(app_path)
-    # for filename in filenames:
-    #     path = os.path.join(app_path, filename)
-    #     if not os.path.isdir(path):
-    #         output = subprocess.check_output(['file', path])
-    #         if "Mach-O" in output:
-    #             output = output.split(":")[0]
-    #             break
-    # print os.path.join(app_path, output)
-    # return os.path.join(app_path, output)
-    plist_path = os.path.join(app_path, "Info.plist")
-    plist = plistlib.readPlist(plist_path)
-    executable = plist["CFBundleExecutable"]
-    return os.path.join(app_path, executable)
-
+    try:
+        plist_path = os.path.join(app_path, "Info.plist")
+        plist = plistlib.readPlist(plist_path)
+        executable = plist["CFBundleExecutable"]
+        return os.path.join(app_path, executable)
+    except Exception as _error:
+        try:
+            filenames = os.listdir(app_path)
+            for filename in filenames:
+                path = os.path.join(app_path, filename)
+                if not os.path.isdir(path):
+                    output = subprocess.check_output(['file', path])
+                    if "Mach-O" in output:
+                        output = output.split(":")[0]
+                        break
+            return os.path.join(app_path, output)
+        except Exception as __error:
+            print traceback.print_exc() 
 
 def getDeviceUUID():
     try:
