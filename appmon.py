@@ -314,7 +314,15 @@ def init_session():
                         traceback.print_exc()
                         sys.exit(1)
                 else:
-                    session = device.attach(app_name)
+                    def isInteger(v):
+                        v = str(v).strip()
+                        return v=='0' or (v if v.find('..') > -1 else v.lstrip('-+').rstrip('0').rstrip('.')).isdigit()
+
+                    arg_to_attach = app_name
+                    if isInteger(app_name):
+                        arg_to_attach = int(app_name)
+
+                    session = device.attach(arg_to_attach)
             except Exception as e:
                 print colored('[ERROR] ' + str(e), 'red')
                 traceback.print_exc()
