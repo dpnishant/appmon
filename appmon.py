@@ -299,15 +299,15 @@ def init_session():
                 if platform == 'android' and spawn == 1:
                     print colored("Now Spawning %s" % app_name, "green")
                     pid = device.spawn([app_name])
-                    time.sleep(5)
+                    #time.sleep(5)
                     session = device.attach(pid)
-                    time.sleep(5)
+                    #time.sleep(5)
                 elif (platform == 'ios' or platform == 'macos') and spawn == 1:
                     bundleID = getBundleID(device, app_name, platform)
                     if bundleID:
                         print colored("Now Spawning %s" % bundleID, "green")
                         pid = device.spawn([bundleID])
-                        time.sleep(5)
+                        #time.sleep(5)
                         session = device.attach(pid)
                     else:
                         print colored("[ERROR] Can't spawn %s" % app_name, "red")
