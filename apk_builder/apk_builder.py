@@ -176,6 +176,17 @@ try:
 	renamed_apk_path = "%s/%s.apk" % (os.path.join(WORK_DIR, package_name, "dist"), os.path.basename(apk_path).split(".apk")[0] + "-appmon")
 	appmon_apk_path = os.path.join(os.getcwd(), os.path.basename(apk_path).split(".apk")[0] + "-appmon.apk")
 
+	print "[I] Aligning APK"
+	subprocess.check_output(["zipalign", "-v", "-p", "4", new_apk_path, aligned_apk_path])
+
+	align_verify = subprocess.check_output(["zipalign", "-v", "-c", "4", aligned_apk_path])
+	align_verify.strip(" \r\n\t")
+	if not "Verification succesful" in align_verify:
+		print "[E] alignment verification failed"
+	else:
+		print "[I] APK alignment verified"
+
+
 	# 
 	print "[I] Signing APK"
 	subprocess.check_output(["jarsigner", "-tsa", "http://timestamp.digicert.com", 
@@ -188,16 +199,6 @@ try:
 		print sign_verify
 	else:
 		print "[I] APK signature verified"
-
-	print "[I] Aligning APK"
-	subprocess.check_output(["zipalign", "-v", "-p", "4", new_apk_path, aligned_apk_path])
-
-	align_verify = subprocess.check_output(["zipalign", "-v", "-c", "4", aligned_apk_path])
-	align_verify.strip(" \r\n\t")
-	if not "Verification succesful" in align_verify:
-		print "[E] alignment verification failed"
-	else:
-		print "[I] APK alignment verified"
 
 	print "[I] Housekeeping"
 	subprocess.call(["mv", new_apk_path, renamed_apk_path])
