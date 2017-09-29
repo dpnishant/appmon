@@ -266,4 +266,9 @@ def signal_handler(signal, frame):
     _exit_()
 
 signal.signal(signal.SIGINT, signal_handler)
-signal.pause()
+try:
+    signal.pause()
+except AttributeError:
+    # signal.pause() is missing for Windows; wait 1ms and loop instead
+    while True:
+        time.sleep(0.001)
