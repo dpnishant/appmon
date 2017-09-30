@@ -16,11 +16,12 @@
  # limitations under the License.
 ###
 
-import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess
+import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess, colorama
 from flask import Flask, request, render_template
 from termcolor import colored
 import database as db
 
+colorama.init()
 print """
      ___      .______   .______   .___  ___.   ______   .__   __. 
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
