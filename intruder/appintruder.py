@@ -16,13 +16,14 @@
  # limitations under the License.
 ###
 
-import os, sys, argparse, time, codecs, binascii, frida, json, traceback, signal
+import os, sys, argparse, time, codecs, binascii, frida, json, traceback, signal, colorama
 from termcolor import colored
 
 device = ''
 session = ''
 merged_script_path = '/tmp/merged.js'
 
+colorama.init()
 print """
      ___      .______   .______   .___  ___.   ______   .__   __. 
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
