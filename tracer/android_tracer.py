@@ -16,9 +16,10 @@
  # limitations under the License.
 ###
 
-import os, sys, frida, re, argparse, codecs, json
+import os, sys, frida, re, argparse, codecs, json, colorama
 from termcolor import colored
 
+colorama.init()
 print """
      ___      .______   .______   .___  ___.   ______   .__   __. 
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
