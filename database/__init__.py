@@ -23,7 +23,7 @@ def save_to_database(db_path, str_json):
     str_json = json.loads(str_json.replace("\n", "<br />").replace("\r", "<br />"), strict=False)
     db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_")))
     table = db['api_captures']
-    table.insert(dict(time=time.strftime('%b %d %Y %l:%M %p', time.localtime()),
+    table.insert(dict(time=time.strftime('%b %d %Y %I:%M %p', time.localtime()),
       operation=str_json['txnType'],
       artifact=json.dumps(str_json['artifact']),
       method=str_json['method'],
