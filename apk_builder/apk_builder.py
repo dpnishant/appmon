@@ -95,8 +95,12 @@ try:
 	apk_permissions = subprocess.check_output(["aapt", "dump", "permissions", apk_path])
 	package_name = apk_dump.split("package: name=")[1].split(" ")[0].strip("'\"\n\t ")
 	manifest_file_path = os.path.join(WORK_DIR, package_name, "AndroidManifest.xml")
-	launchable_activity = apk_dump.split("launchable-activity: name=")[1].split(" ")[0].strip("'\"\n\t ")
-	launchable_activity_path = os.path.join(WORK_DIR, package_name, "smali", launchable_activity.replace(".", "/") + ".smali")
+        try:
+            launchable_activity = apk_dump.split("launchable-activity: name=")[1].split(" ")[0].strip("'\"\n\t ")
+        except IndexError:
+            print "No launchable activity found"
+            sys.exit(1)
+        launchable_activity_path = os.path.join(WORK_DIR, package_name, "smali", launchable_activity.replace(".", "/") + ".smali")
 
 	new_apk_path = WORK_DIR + "/" + package_name + ".apk"
 	subprocess.call(["cp", apk_path, new_apk_path])
