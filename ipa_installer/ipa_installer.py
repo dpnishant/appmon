@@ -117,6 +117,8 @@ ipa_path = results.ipa_path
 
 if not results.mobileprovision_path:
     mobileprovision_path = getMobileProvisionFile()
+else:
+    mobileprovision_path = results.mobileprovision_path
 
 if not results.uuid:
     uuid = getDeviceUUID()
