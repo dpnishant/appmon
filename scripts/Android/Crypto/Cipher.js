@@ -73,7 +73,7 @@ var normalizeKey = function(cert_or_key) {
   if (type === "SecretKeySpec") {
     return byteArraytoHexString(cert_or_key.getEncoded());
   } else {
-    return cert_or_key;
+    return "non-SecretKeySpec: " + cert_or_key.toString() + ", encoded: " + byteArraytoHexString(cert_or_key.getEncoded()) + ", object: " + JSON.stringify(cert_or_key);
   }
 
 }
