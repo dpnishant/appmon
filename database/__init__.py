@@ -64,6 +64,7 @@ def read_from_database(db_path, index=0):
         artifact_name = ""
       if "value" in artifact:
         artifact_value = artifact['value']
+        artifact_value = artifact_value.replace("<", "&lt;").replace(">", "&gt;")
       else:
         artifact_value = ""
       str_artifact += 'Name: ' + stringify(artifact_name) + '\n' + stringify(artifact_value) + '\n\n' # artifact['value'], str(artifact['argSeq'])
