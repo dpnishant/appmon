@@ -64,10 +64,14 @@ def read_from_database(db_path, index=0):
         artifact_name = ""
       if "value" in artifact:
         artifact_value = artifact['value']
+<<<<<<< HEAD
         try:
             artifact_value = artifact_value.replace("<", "&lt;").replace(">", "&gt;")
         except AttributeError as e:
             pass
+=======
+        artifact_value = artifact_value.replace("<", "&lt;").replace(">", "&gt;")
+>>>>>>> 2eb209ce1d4b4d34b0c9dab94ca63c44079fbdae
       else:
         artifact_value = ""
       str_artifact += 'Name: ' + stringify(artifact_name) + '\n' + stringify(artifact_value) + '\n\n' # artifact['value'], str(artifact['argSeq'])
