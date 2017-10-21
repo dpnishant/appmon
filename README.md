@@ -19,11 +19,10 @@ New/Experimental Features
 =====================
 [Details](https://github.com/dpnishant/appmon/wiki/Experimental-Features)
 
-Follow the documentation below to learn more.
 
 Documentation
 =============
-
+Follow the documentation below to learn more.
 [Click Here](https://dpnishant.github.com/appmon/)
 
 
