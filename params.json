@@ -1,0 +1,6 @@
+{
+  "name": "AppMon",
+  "tagline": "",
+  "body": "![](https://raw.githubusercontent.com/dpnishant/appmon/master/resources/logo.png)\r\nWelcome to AppMon!\r\n==================\r\n\r\nThis project was only possible because of **Ole André Vadla Ravnås** and I dedicate it to him.\r\n\r\nFollow him on [**GitHub**](https://github.com/oleavr), [**Twitter**](https://twitter.com/oleavr)\r\n\r\n_TL;DR_\r\nAppMon is an automated framework for monitoring and tampering system API calls of native iOS and Android apps (upcoming). It is based on [**Frida**](http://www.frida.re). You may call it the [**GreaseMonkey**](https://en.wikipedia.org/wiki/Greasemonkey) for native mobile apps. ;-)\r\n\r\n----------\r\n\r\nDocumentation\r\n=============\r\n\r\nRead the [Wiki](https://github.com/dpnishant/appmon/wiki).\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
