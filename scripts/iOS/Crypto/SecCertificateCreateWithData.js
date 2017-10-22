@@ -15,23 +15,9 @@
 **/
 
 'use strict';
+'import utilities';
 
 var x509_der_cert;
-
-var hexify = function (hexdump_output) {
-  var hexified = " ";
-  var raw_array = hexdump_output.split("\n");
-  for (var a = 0; a < raw_array.length; a++) {
-    var line_array = raw_array[a].split(" ");
-    for (var b = 1; b < line_array.length - 1; b++) {
-      if(line_array[b].length === 2){
-        hexified += line_array[b];
-        hexified = hexified.trim()
-      }
-    }
-  };
-  return hexified;
-};
 
 Interceptor.attach(Module.findExportByName('Security', 'SecCertificateCreateWithData'), {
   onEnter: function(args) {
@@ -39,7 +25,7 @@ Interceptor.attach(Module.findExportByName('Security', 'SecCertificateCreateWith
     x509_der_cert = hexify(hexdump(data.bytes(), {
       length: data.length()
     }));
-    
+
     /*   --- Payload Header --- */
     var send_data = {};
     send_data.time = new Date();
