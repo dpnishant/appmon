@@ -40,6 +40,7 @@ session = ''
 merged_script_path = '/tmp/merged.js'
 APP_LIST = []
 
+
 @app.after_request
 def add_header(r):
     """
@@ -52,23 +53,28 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
+
 @app.route('/api/fetch', methods=['GET'])
 def serve_json():
     index = request.args.get('id')
-    db_name = request.args.get('app')
+    if request.args.get('reportdb'):
+        db_name = request.args.get('reportdb')
+    else:
+        db_name = request.args.get('app')
     response = db.read_from_database(db_name, index)
     #response = open('static/data.json').read()
     return response
+
 
 @app.route('/monitor/', methods=['GET'])
 def monitor_page():
     app_name = request.args.get('app')
     return render_template('monitor.html', app_name=app_name)
 
+
 @app.route('/', methods=['GET'])
 def landing_page():
-    global APP_LIST
-    global DB_MAP
+    global APP_LIST, DB_MAP
 
     for root, dirs, files in os.walk('./app_dumps'):
         path = root.split('/')
@@ -78,6 +84,7 @@ def landing_page():
                 APP_LIST.append(file.replace('.db', ''))
 
     return render_template('index.html', apps=APP_LIST)
+
 
 def init_opts():
     parser = argparse.ArgumentParser()
@@ -97,6 +104,8 @@ def init_opts():
     parser.add_argument('-o', action='store', dest='output_dir',
                     help='''(Optional) Path to store any dumps/logs;
                     Accepts relative/absolute paths''')
+    parser.add_argument('-r', action='store', dest='report',
+                        help='Report database name (Default is <appname>.db')
     parser.add_argument('-ls', action='store', dest='list_apps', default=0,
                     help='''Optional; Accepts 1 or 0; Lists running Apps on target device; Needs "-p PLATFORM"''')
     parser.add_argument('-v', action='version', version='AppMon Sniffer v0.1, Nishant Das Patnaik, 2016')
@@ -104,6 +113,9 @@ def init_opts():
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
+
+    global output_dir, report_name
+
 
     results = parser.parse_args()
     app_name = results.app_name
@@ -114,11 +126,16 @@ def init_opts():
     
     output_dir = results.output_dir if results.output_dir else './app_dumps'
 
-    if script_path != None and app_name == '' and list_apps == 0:
+    report_name = results.report if results.report else app_name
+
+
+
+    if script_path is not None and app_name == '' and list_apps == 0:
         parser.print_help()
         sys.exit(1)
 
     return app_name, platform, script_path, list_apps, output_dir, spawn
+
 
 def merge_scripts(path):
     global merged_script_path
@@ -136,6 +153,7 @@ def merge_scripts(path):
         f.write(script_source)
     return merged_script_path
 
+
 def _exit_():
     print colored('[INFO] Exiting...', 'green')
     try:
@@ -144,32 +162,37 @@ def _exit_():
         pass
     sys.exit(0)
 
+
 def writeBinFile(fname, data):
     with codecs.open(fname, "a", "utf-8") as f:
         f.write(data + '\r\n\r\n')
+
 
 def list_processes(session):
     print 'PID\tProcesses\n', '===\t========='
     for app in session.enumerate_processes():
         print "%s\t%s" % (app.pid, app.name)
 
+
 def on_detached():
     print colored('[WARNING] "%s" has terminated!' % (app_name), 'red')
 
+
 def on_message(message, data):
     current_time = time.strftime('%b %d %Y %l:%M %p', time.localtime())
-    global output_dir
+
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
     if message['type'] == 'send':
-        writePath = os.path.join(output_dir, str(app_name) + '.db')
+        writePath = os.path.join(output_dir, str(report_name) + '.db')
         db.save_to_database(writePath, message['payload'])
         #writePath = os.path.join(output_dir, app_name + '.json')
         #writeBinFile(writePath, message['payload']) #writeBinFile(writePath, binascii.unhexlify(message['payload']))
         print colored('[%s] Dumped to %s' % (current_time, writePath), 'green')
     elif message['type'] == 'error':
         print(message['stack'])
+
 
 def generate_injection():
     injection_source = ''
@@ -181,6 +204,7 @@ def generate_injection():
             injection_source = f.read()
     print colored('[INFO] Building injection...', 'yellow')
     return injection_source
+
 
 def getDisplayName(session, app_name, platform):
     try:
@@ -233,6 +257,7 @@ rpc.exports = {
         print colored("[ERROR] " + str(e), "red")
         traceback.print_exc()
 
+
 def getBundleID(device, app_name, platform):
     try:
         session = device.attach(app_name)
@@ -258,6 +283,7 @@ rpc.exports = {
     except Exception as e:
         print colored("[ERROR] " + str(e), "red")
         traceback.print_exc()
+
 
 def init_session():
     try:
