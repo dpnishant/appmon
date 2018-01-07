@@ -176,7 +176,8 @@ try:
 	build_apk_output = subprocess.check_output(["apktool", "build", os.path.join(WORK_DIR, package_name)])
 
 	new_apk_path = "%s/%s.apk" % (os.path.join(WORK_DIR, package_name, "dist"), package_name)
-	aligned_apk_path = "%s/%s-signed-zipaligned.apk" % (os.path.join(WORK_DIR, package_name, "dist"), package_name)
+	aligned_apk_path = "%s/%s-zipaligned.apk" % (os.path.join(WORK_DIR, package_name, "dist"), package_name)
+	signed_apk_path = "%s/%s-zipaligned-signed.apk" % (os.path.join(WORK_DIR, package_name, "dist"), package_name)
 	renamed_apk_path = "%s/%s.apk" % (os.path.join(WORK_DIR, package_name, "dist"), os.path.basename(apk_path).split(".apk")[0] + "-appmon")
 	appmon_apk_path = os.path.join(os.getcwd(), os.path.basename(apk_path).split(".apk")[0] + "-appmon.apk")
 
@@ -193,20 +194,24 @@ try:
 
 	# 
 	print "[I] Signing APK"
-	subprocess.check_output(["jarsigner", "-tsa", "http://timestamp.digicert.com", 
-		"-sigalg", "SHA1withRSA", "-digestalg", "SHA1", "-keystore", "appmon.keystore", "-storepass", "appmon", new_apk_path, "alias_name"])
+	sign_status = subprocess.check_output(["apksigner", "sign", "--verbose", "--ks", "appmon.keystore", "--ks-pass", "pass:appmon", "--out", signed_apk_path, aligned_apk_path])
+	
+	if not "Signed" in sign_status:
+		print "[E] APK signing error %s" % (sign_status)
 
 	
-	sign_verify = subprocess.check_output(["jarsigner", "-verify", "-tsa", "http://timestamp.digicert.com", 
-		"-keystore", "appmon.keystore", "-verbose", "-certs", "-storepass", "appmon", new_apk_path, "alias_name"])
-	if not "jar verified." in sign_verify:
+	sign_verify = subprocess.check_output(["apksigner", "verify", "--verbose", signed_apk_path])
+
+	if not "Verified using v1 scheme (JAR signing): true" in sign_verify and not "Verified using v2 scheme (APK Signature Scheme v2): true" in sign_verify:
 		print sign_verify
 	else:
 		print "[I] APK signature verified"
 
 	print "[I] Housekeeping"
-	subprocess.call(["mv", new_apk_path, renamed_apk_path])
+	subprocess.call(["mv", signed_apk_path, renamed_apk_path])
 	subprocess.call(["mv", renamed_apk_path, os.getcwd()])
+	subprocess.call(["rm", new_apk_path, aligned_apk_path])
+
 
 	if os.path.isfile(appmon_apk_path):
 		print "[I] Ready: %s" % (appmon_apk_path)
