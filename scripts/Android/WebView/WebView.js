@@ -58,7 +58,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "URL";
-      data.value = url.toString();
+      data.value = url;
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -81,14 +81,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "URL";
-      data.value = url.toString();
+      data.value = url;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Additional Headers";
-      data.value = additionalHttpHeaders.toString();
+      data.value = additionalHttpHeaders;
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -115,21 +115,21 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Data";
-      data.value = data.toString();
+      data.value = data;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "MIME Type";
-      data.value = mimeType.toString();
+      data.value = mimeType;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Encoding";
-      data.value = encoding.toString();
+      data.value = encoding;
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -159,35 +159,35 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Base URL";
-      data.value = data.toString();
+      data.value = data;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Data";
-      data.value = data.toString();
+      data.value = data;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "MIME Type";
-      data.value = mimeType.toString();
+      data.value = mimeType;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Encoding";
-      data.value = encoding.toString();
+      data.value = encoding;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "History URL";
-      data.value = historyUrl.toString();
+      data.value = historyUrl;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -213,14 +213,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Object";
-      data.value = object.toString();
+      data.value = object;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Name";
-      data.value = name.toString();
+      data.value = name;
       data.argSeq = 0;
       send_data.artifact.push(data);
       send(JSON.stringify(send_data));
@@ -245,7 +245,7 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Script";
-      data.value = script.toString();
+      data.value = script;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -272,14 +272,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "URL";
-      data.value = url.toString();
+      data.value = url;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "POST Data";
-      data.value = postData.toString();
+      data.value = JSON.stringify(postData);
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -305,14 +305,14 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Message";
-      data.value = message.getData().toString();
+      data.value = JSON.stringify(message.getData());
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Target Origin";
-      data.value = targetOrigin.toString();
+      data.value = targetOrigin;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -339,21 +339,21 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Host";
-      data.value = host.toString();
+      data.value = host;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Username";
-      data.value = username.toString();
+      data.value = username;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Password";
-      data.value = password.toString();
+      data.value = password;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -381,28 +381,28 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Host";
-      data.value = host.toString();
+      data.value = host;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Realm";
-      data.value = realm.toString();
+      data.value = realm;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Username";
-      data.value = username.toString();
+      data.value = username;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Password";
-      data.value = password.toString();
+      data.value = password;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
@@ -430,21 +430,21 @@ Java.perform(function() {
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Host";
-      data.value = host.toString();
+      data.value = host;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Realm";
-      data.value = realm.toString();
+      data.value = realm;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
       /*   --- Payload Body --- */
       var data = {};
       data.name = "Credentials";
-      data.value = credentials.toString();
+      data.value = credentials;
       data.argSeq = 0;
       send_data.artifact.push(data);
 
