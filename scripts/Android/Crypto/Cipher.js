@@ -24,7 +24,7 @@ var byteArraytoHexString = function(byteArray) {
       return ('0' + (byte & 0xFF).toString(16)).slice(-2);
     }).join('')
   } else {
-    return byteArray + "";
+    return JSON.stringify(byteArray);
   }
 }
 
@@ -42,7 +42,7 @@ var normalizeInput = function(input) {
   } else if (input.length && input.length > 0) {
     var normalized = byteArraytoHexString(input);
   } else {
-    var normalized = input.toString();
+    var normalized = JSON.stringify(input);
   }
   return normalized;
 }
