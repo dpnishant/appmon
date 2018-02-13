@@ -65,8 +65,10 @@ def landing_page():
     global APP_LIST
     global DB_MAP
     APP_LIST = []
-    for root, dirs, files in os.walk('./app_dumps'):
-        path = root.split('/')
+    
+    app_dumps_dir = os.path.join('.','app_dumps')
+    for root, dirs, files in os.walk(app_dumps_dir):
+        path = root.split(os.sep)
         for file in files:
             file_path = os.path.join(root, file)
             if file_path.endswith('.db'):
