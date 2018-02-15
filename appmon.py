@@ -16,10 +16,11 @@
  # limitations under the License.
 ###
 
-import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess
+import os, sys, argparse, time, codecs, binascii, frida, json, traceback, subprocess, tempfile
 from flask import Flask, request, render_template
 from termcolor import colored
 import database as db
+import platform as platform_module
 
 print """
      ___      .______   .______   .___  ___.   ______   .__   __. 
@@ -37,7 +38,8 @@ app = Flask(__name__, static_url_path='/static')
 
 device = ''
 session = ''
-merged_script_path = '/tmp/merged.js'
+temp_dir = tempfile.mkdtemp()
+merged_script_path = os.path.join(temp_dir,'merged.js')
 APP_LIST = []
 
 
@@ -76,8 +78,9 @@ def monitor_page():
 def landing_page():
     global APP_LIST, DB_MAP
 
-    for root, dirs, files in os.walk('./app_dumps'):
-        path = root.split('/')
+    app_dumps_dir = os.path.join('.','app_dumps')
+    for root, dirs, files in os.walk(app_dumps_dir):
+        path = root.split(os.sep)
         for file in files:
             file_path = os.path.join(root, file)
             if file_path.endswith('.db'):
@@ -124,7 +127,7 @@ def init_opts():
     list_apps = int(results.list_apps)
     spawn = int(results.spawn)
     
-    output_dir = results.output_dir if results.output_dir else './app_dumps'
+    output_dir = results.output_dir if results.output_dir else os.path.join('.','app_dumps')
 
     report_name = results.report if results.report else app_name
 
@@ -179,7 +182,11 @@ def on_detached():
 
 
 def on_message(message, data):
-    current_time = time.strftime('%b %d %Y %l:%M %p', time.localtime())
+    os_string = platform_module.system()
+    if os_string == "Windows":
+        current_time = time.strftime('%b %d %Y %I:%M %p', time.localtime())
+    else:
+        current_time = time.strftime('%b %d %Y %l:%M %p', time.localtime())
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
