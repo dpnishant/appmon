@@ -83,8 +83,8 @@ if (NSURLConnection_start.address) {
           data.value = data_raw;
           data.argSeq = 1;
           send_data.artifact.push(data);
-          // send(JSON.stringify(send_data));
-          console.log(JSON.stringify(send_data));
+          send(JSON.stringify(send_data));
+          // console.log(JSON.stringify(send_data));
         }
       }
       /** Omitting onLeave due to performance overhead **/
