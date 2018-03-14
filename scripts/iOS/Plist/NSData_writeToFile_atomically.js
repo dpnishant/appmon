@@ -50,8 +50,8 @@ if (NSDataWriteToFile.address) {
         data.value = log;
         data.argSeq = 0;
         send_data.artifact.push(data);
-        // send(JSON.stringify(send_data));
-        console.log(JSON.stringify(send_data));
+        send(JSON.stringify(send_data));
+        // console.log(JSON.stringify(send_data));
       }
     }
   });
