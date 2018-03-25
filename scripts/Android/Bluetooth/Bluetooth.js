@@ -29,6 +29,7 @@ Java.perform(function(argument) {
     send_data.txnType = 'Bluetooth';
     send_data.lib = 'android.bluetooth.BluetoothGatt';
     send_data.method = 'readCharacteristic';
+    send_data.trace = trace();
     send_data.artifact = [];
     /*   --- Payload Body --- */
     var data = {};
@@ -48,6 +49,7 @@ Java.perform(function(argument) {
     send_data.txnType = 'Bluetooth';
     send_data.lib = 'android.bluetooth.BluetoothGattCharacteristic';
     send_data.method = 'setValue';
+    send_data.trace = trace();
     send_data.artifact = [];
     /*   --- Payload Body --- */
     var data = {};

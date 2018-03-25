@@ -20,6 +20,7 @@ Interceptor.attach(Module.findExportByName('Security', 'SecItemAdd'), {
       send_data.txnType = 'KeyChain';
       send_data.lib = 'Security';
       send_data.method = 'SecItemAdd';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */

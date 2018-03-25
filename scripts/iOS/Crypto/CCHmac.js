@@ -39,6 +39,7 @@ Interceptor.attach(Module.findExportByName('libcommonCrypto.dylib', 'CCHmac'), {
       send_data.txnType = 'HMAC';
       send_data.lib = 'libcommonCrypto.dylib';
       send_data.method = 'CCHmac';
+      send_data.trace = trace();
       send_data.artifact = [];
       
       /*   --- Payload Body --- */

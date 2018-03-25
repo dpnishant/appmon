@@ -54,6 +54,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'loadUrl';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -77,6 +78,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'loadUrl';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -110,6 +112,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'loadData';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -154,6 +157,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'loadDataWithBaseURL';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -208,6 +212,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'addJavascriptInterface';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -240,6 +245,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'evaluateJavascript';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -267,6 +273,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'postUrl';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -300,6 +307,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'postWebMessage';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -334,6 +342,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'savePassword';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -376,6 +385,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'setHttpAuthUsernamePassword';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -425,6 +435,7 @@ Java.perform(function() {
       send_data.txnType = 'WebView';
       send_data.lib = 'android.webkit.WebView';
       send_data.method = 'savePassword';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */

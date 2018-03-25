@@ -36,6 +36,7 @@ if (NSURLRequest_allowsAnyHTTPSCertificateForHost.address) {
         send_data.txnType = 'SSL Certificate - Accept Any';
         send_data.lib = 'libobjc.a.dylib';
         send_data.method = '+[NSURLRequest allowsAnyHTTPSCertificateForHost:]';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {}

@@ -36,6 +36,7 @@ Java.perform(function() {
       send_data.txnType = 'FLAG_SECURE';
       send_data.lib = 'android.view.Window';
       send_data.method = 'setFlags';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -64,6 +65,7 @@ Java.perform(function() {
       send_data.txnType = 'FLAG_SECURE';
       send_data.lib = 'android.view.Window';
       send_data.method = 'setFlags';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -88,6 +90,7 @@ Java.perform(function() {
       send_data.txnType = 'FLAG_SECURE';
       send_data.lib = 'android.view.SurfaceView';
       send_data.method = 'setSecure';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};

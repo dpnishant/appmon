@@ -77,6 +77,7 @@ Java.perform(function() {
     send_data.txnType = 'HTTP';
     send_data.lib = 'com.android.okhttp.internal.http.HttpURLConnectionImpl';
     send_data.method = 'getInputStream';
+    send_data.trace = trace();
     send_data.artifact = [];
     /*   --- Payload Body --- */
     var data = {};

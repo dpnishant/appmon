@@ -59,6 +59,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'execSQL';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -84,6 +85,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'execSQL';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -120,6 +122,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'getPath';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -145,6 +148,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'insert';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -187,6 +191,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'insertOrThrow';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -228,6 +233,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'insertWithOnConflict';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -284,6 +290,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'openDatabase';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -328,6 +335,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'openDatabase';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -360,6 +368,7 @@ Java.perform(function() {
         send_data.txnType = 'SQLiteDatabase';
         send_data.lib = 'android.database.sqlite.SQLiteDatabase';
         send_data.method = 'openOrCreateDatabase';
+        send_data.trace = trace();
         send_data.artifact = [];
 
         /*   --- Payload Body --- */
@@ -385,6 +394,7 @@ Java.perform(function() {
         send_data.txnType = 'SQLiteDatabase';
         send_data.lib = 'android.database.sqlite.SQLiteDatabase';
         send_data.method = 'openOrCreateDatabase';
+        send_data.trace = trace();
         send_data.artifact = [];
 
         /*   --- Payload Body --- */
@@ -411,6 +421,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'openOrCreateDatabase';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -435,6 +446,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'query';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       //console.log("SQLiteDatabase.query distinct: " + distinct);
@@ -557,6 +569,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'query';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       //console.log("SQLiteDatabase.query table: " + table);
@@ -675,6 +688,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'query';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -800,6 +814,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'query';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -908,6 +923,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'queryWithFactory';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1024,6 +1040,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'queryWithFactory';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1143,6 +1160,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'rawQuery';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1211,6 +1229,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'rawQuery';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1277,6 +1296,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'rawQueryWithFactory';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1350,6 +1370,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'rawQueryWithFactory';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1424,6 +1445,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'update';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1476,6 +1498,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'updateWithOnConflict';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1539,6 +1562,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'validateSql';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1565,6 +1589,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'compileStatement';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1591,6 +1616,7 @@ Java.perform(function() {
       send_data.txnType = 'SQLiteDatabase';
       send_data.lib = 'android.database.sqlite.SQLiteDatabase';
       send_data.method = 'create';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -1630,6 +1656,7 @@ Java.perform(function() {
         send_data.txnType = 'SQLiteDatabase';
         send_data.lib = 'android.database.sqlite.SQLiteDatabase';
         send_data.method = 'deleteDatabase';
+        send_data.trace = trace();
         send_data.artifact = [];
 
         /*   --- Payload Body --- */

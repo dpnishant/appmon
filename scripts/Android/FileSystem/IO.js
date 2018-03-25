@@ -29,6 +29,7 @@ Java.perform(function() {
           send_data.txnType = 'File I/O';
           send_data.lib = 'android.content.ContextWrapper';
           send_data.method = 'openFileInput';
+          send_data.trace = trace();
           send_data.artifact = [];
 
           /*   --- Payload Body --- */
@@ -59,6 +60,7 @@ Java.perform(function() {
           send_data.txnType = 'File I/O';
           send_data.lib = 'android.content.ContextWrapper';
           send_data.method = 'openFileOutput';
+          send_data.trace = trace();
           send_data.artifact = [];
 
           /*   --- Payload Body --- */
@@ -90,6 +92,7 @@ Java.perform(function() {
           send_data.txnType = 'File I/O';
           send_data.lib = 'android.content.ContextWrapper';
           send_data.method = 'deleteFile';
+          send_data.trace = trace();
           send_data.artifact = [];
 
           /*   --- Payload Body --- */

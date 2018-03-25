@@ -30,6 +30,7 @@ Java.perform(function() {
           send_data.txnType = 'Storage';
           send_data.lib = 'android.content.ContextWrapper';
           send_data.method = 'getCacheDir';
+          send_data.trace = trace();
           send_data.artifact = [];
 
           /*   --- Payload Body --- */
@@ -55,6 +56,7 @@ Java.perform(function() {
           send_data.txnType = 'Storage';
           send_data.lib = 'android.content.ContextWrapper';
           send_data.method = 'getDataDir';
+          send_data.trace = trace();
           send_data.artifact = [];
 
           /*   --- Payload Body --- */

@@ -57,6 +57,7 @@ Interceptor.attach(Module.findExportByName('libc.so', 'chmod'), {
     send_data.txnType = 'syscall';
     send_data.lib = 'libc.so';
     send_data.method = 'chmod';
+    send_data.trace = trace();
     send_data.artifact = [];
     
     /*   --- Payload Body --- */
@@ -100,6 +101,7 @@ Interceptor.attach(Module.findExportByName('libc.so', 'fchmod'), {
     send_data.txnType = 'syscall';
     send_data.lib = 'libc.so';
     send_data.method = 'fchmod';
+    send_data.trace = trace();
     send_data.artifact = [];
     
     /*   --- Payload Body --- */
@@ -144,6 +146,7 @@ Interceptor.attach(Module.findExportByName('libc.so', 'chown'), {
     send_data.txnType = 'syscall';
     send_data.lib = 'libc.so';
     send_data.method = 'chown';
+    send_data.trace = trace();
     send_data.artifact = [];
     
     /*   --- Payload Body --- */

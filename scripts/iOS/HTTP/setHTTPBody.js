@@ -85,6 +85,7 @@ if (NSMutableURLRequest_setHTTPBody.address) {
           send_data.txnType = 'HTTP POST';
           send_data.lib = 'libobjc.a.dylib';
           send_data.method = '-[NSMutableURLRequest setHTTPBody:]';
+          send_data.trace = trace();
           send_data.artifact = [];
           /*   --- Payload Body --- */
           var data = {};

@@ -143,6 +143,11 @@ def init_opts():
 def merge_scripts(path):
     global merged_script_path
     script_source = ''
+    if os.path.isfile(merged_script_path):
+        source = ''
+        with codecs.open(merged_script_path, 'r', 'utf-8') as f:
+            source = f.read()
+        script_source = source
     for root, dirs, files in os.walk(path):
         path = root.split('/')
         for file in files:
@@ -207,6 +212,7 @@ def generate_injection():
         with codecs.open(script_path, 'r', 'utf-8') as f:
             injection_source = f.read()
     elif os.path.isdir(script_path):
+        merge_scripts("scripts/!Common")
         with codecs.open(merge_scripts(script_path), 'r', 'utf-8') as f:
             injection_source = f.read()
     print((colored('[INFO] Building injection...', 'yellow')))

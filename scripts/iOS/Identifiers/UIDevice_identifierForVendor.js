@@ -46,6 +46,7 @@ if (UIDevice_identifierForVendor.address) {
       send_data.txnType = 'Device Indentifier';
       send_data.lib = 'libobjc.a.dylib';
       send_data.method = '-[UIDevice identifierForVendor]';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {}

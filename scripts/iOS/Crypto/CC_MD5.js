@@ -54,6 +54,7 @@ Interceptor.attach(Module.findExportByName('libcommonCrypto.dylib', 'CC_MD5'), {
     send_data.txnType = 'MD5 Hash';
     send_data.lib = 'libcommonCrypto.dylib';
     send_data.method = 'CC_MD5';
+    send_data.trace = trace();
     send_data.artifact = [];
     
     /*   --- Payload Body --- */

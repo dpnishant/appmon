@@ -27,6 +27,7 @@ Interceptor.attach(sqlite3_open, {
       send_data.txnType = 'SQLite';
       send_data.lib = 'libsqlite3.dylib';
       send_data.method = 'sqlite3_open';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */

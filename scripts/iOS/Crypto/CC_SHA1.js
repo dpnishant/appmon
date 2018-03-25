@@ -54,6 +54,7 @@ Interceptor.attach(Module.findExportByName('libcommonCrypto.dylib', 'CC_SHA1'), 
     send_data.txnType = 'SHA1 Hash';
     send_data.lib = 'libcommonCrypto.dylib';
     send_data.method = 'CC_SHA1';
+    send_data.trace = trace();
     send_data.artifact = [];
     
     /*   --- Payload Body --- */

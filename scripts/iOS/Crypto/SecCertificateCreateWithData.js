@@ -46,6 +46,7 @@ Interceptor.attach(Module.findExportByName('Security', 'SecCertificateCreateWith
     send_data.txnType = 'X.509 Certificate';
     send_data.lib = 'Security';
     send_data.method = 'SecCertificateCreateWithData';  //A DER (Distinguished Encoding Rules) representation of an X.509 certificate
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */

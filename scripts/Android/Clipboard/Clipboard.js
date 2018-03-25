@@ -29,6 +29,7 @@ Java.perform(function(argument) {
         send_data.txnType = 'Clipboard';
         send_data.lib = 'android.content.ClipboardManager';
         send_data.method = 'setPrimaryClip';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};
@@ -45,6 +46,7 @@ Java.perform(function(argument) {
         send_data.txnType = 'Clipboard';
         send_data.lib = 'android.content.ClipboardManager';
         send_data.method = 'setPrimaryClip';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};
@@ -61,6 +63,7 @@ Java.perform(function(argument) {
         send_data.txnType = 'Clipboard';
         send_data.lib = 'android.content.ClipboardManager';
         send_data.method = 'setPrimaryClip';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};
@@ -77,6 +80,7 @@ Java.perform(function(argument) {
         send_data.txnType = 'Clipboard';
         send_data.lib = 'android.content.ClipboardManager';
         send_data.method = 'setPrimaryClip';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};
@@ -93,6 +97,7 @@ Java.perform(function(argument) {
         send_data.txnType = 'Clipboard';
         send_data.lib = 'android.content.ClipboardManager';
         send_data.method = 'setPrimaryClip';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};

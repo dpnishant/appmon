@@ -77,6 +77,7 @@ if (NSUserDefaults_standardUserDefaults.address) {
         send_data.txnType = 'UserDefaults';
         send_data.lib = 'libobjc.a.dylib';
         send_data.method = '+[NSUserDefaults standardUserDefaults]';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};

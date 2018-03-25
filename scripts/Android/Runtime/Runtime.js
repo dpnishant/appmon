@@ -45,6 +45,7 @@ Java.perform(function() {
         send_data.txnType = 'Runtime Command Execution';
         send_data.lib = 'java.lang.Runtime';
         send_data.method = 'exec';
+        send_data.trace = trace();
         send_data.artifact = [];
 
         /*   --- Payload Body --- */
@@ -80,6 +81,7 @@ Java.perform(function() {
         send_data.txnType = 'Runtime Command Execution';
         send_data.lib = 'java.lang.Runtime';
         send_data.method = 'exec';
+        send_data.trace = trace();
         send_data.artifact = [];
 
         /*   --- Payload Body --- */
@@ -115,6 +117,7 @@ Java.perform(function() {
       send_data.txnType = 'Runtime Command Execution';
       send_data.lib = 'java.lang.Runtime';
       send_data.method = 'exec';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -150,6 +153,7 @@ Java.perform(function() {
     send_data.txnType = 'Runtime Command Execution';
     send_data.lib = 'java.lang.Runtime';
     send_data.method = 'exec';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -187,6 +191,7 @@ Java.perform(function() {
   send_data.txnType = 'Runtime Command Execution';
   send_data.lib = 'java.lang.Runtime';
   send_data.method = 'exec';
+  send_data.trace = trace();
   send_data.artifact = [];
 
   /*   --- Payload Body --- */
@@ -222,6 +227,7 @@ send_data.time = new Date();
 send_data.txnType = 'Runtime Command Execution';
 send_data.lib = 'java.lang.Runtime';
 send_data.method = 'exec';
+send_data.trace = trace();
 send_data.artifact = [];
 
 /*   --- Payload Body --- */
@@ -258,6 +264,7 @@ if (Runtime.loadLibrary) {
     send_data.txnType = 'Runtime Load Library';
     send_data.lib = 'java.lang.Runtime';
     send_data.method = 'loadLibrary';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -279,6 +286,7 @@ if (Runtime.loadLibrary) {
     send_data.txnType = 'Runtime Load Library';
     send_data.lib = 'java.lang.Runtime';
     send_data.method = 'loadLibrary';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -303,6 +311,7 @@ if (Runtime.load) {
     send_data.txnType = 'Runtime Load Library';
     send_data.lib = 'java.lang.Runtime';
     send_data.method = 'load';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -325,6 +334,7 @@ if (Runtime.load) {
     send_data.txnType = 'Runtime Load Library';
     send_data.lib = 'java.lang.Runtime';
     send_data.method = 'load';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */

@@ -61,6 +61,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.MessageDigest';
       send_data.method = 'digest';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -92,6 +93,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.MessageDigest';
       send_data.method = 'digest';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -122,6 +124,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.MessageDigest';
       send_data.method = 'update';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -144,6 +147,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.MessageDigest';
       send_data.method = 'update';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -165,6 +169,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.MessageDigest';
       send_data.method = 'update';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -186,6 +191,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.MessageDigest';
       send_data.method = 'update';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
