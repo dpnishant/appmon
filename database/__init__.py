@@ -15,7 +15,7 @@
  # limitations under the License.
 ###
 
-import dataset, json, time, htmlentities
+import dataset, json, time
 import platform as platform_module
 from xml.sax.saxutils import escape
 
