@@ -36,8 +36,8 @@ def save_to_database(db_path, str_json):
       module=str_json['lib'],
       remark=''))
   except Exception as e:
-    print str(e)
-    print str_json
+    print(str(e))
+    print(str_json)
 
 def stringify(data):
   str_data = ""

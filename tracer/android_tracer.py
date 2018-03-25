@@ -19,7 +19,7 @@
 import os, sys, frida, re, argparse, codecs, json
 from termcolor import colored
 
-print """
+print("""
      ___      .______   .______   .___  ___.   ______   .__   __. 
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
    /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
@@ -28,7 +28,7 @@ print """
 /__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
                         github.com/dpnishant
                                                                   
-"""
+""")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", action="store", dest="app_name", default="",
@@ -54,7 +54,7 @@ classCandidates = []
 method = results.method_name
 
 if len(className) >= 1 and len(className) < 3:
-    print colored("[ERROR] Class Name should be at least 3 characters", "red")
+    print(colored("[ERROR] Class Name should be at least 3 characters", "red"))
     sys.exit(1)
 
 def on_message(message, data):
@@ -63,12 +63,12 @@ def on_message(message, data):
         if payload["type"] == "classEnum":
             if "overloads" in payload and "className" in payload and "methodName" in payload and "argCount" in payload:
               classCandidates.append([ payload["className"], payload["overloads"], payload["methodName"], payload["argCount"] ])
-              print '[FOUND] "%s" in "%s"' % (colored(payload['methodName'], "yellow", attrs=["bold"]), colored(payload['className'], "magenta", attrs=["bold"]))
+              print('[FOUND] "%s" in "%s"' % (colored(payload['methodName'], "yellow", attrs=["bold"]), colored(payload['className'], "magenta", attrs=["bold"])))
             elif "className" in payload and not "overloads" in payload and not "methodName" in payload:
-              print '[FOUND] "%s"' % colored(payload['className'], "magenta", attrs=["bold"])
+              print('[FOUND] "%s"' % colored(payload['className'], "magenta", attrs=["bold"]))
         elif payload['type'] == "methodTrace":
             payload['overloadIndex']
-            print "%(methodName)s \n\tCalled by: %(caller)s \n\tDefined at: %(className)s [%(overloadIndex)s]\n" % { "methodName": colored(payload['methodName'], "green", attrs=["bold"]), "caller": colored(payload['caller'].split("class ")[1], "blue", attrs=["bold"]), "className": colored(payload['className'], "magenta", attrs=["bold"]), "overloadIndex": colored(payload['overloadIndex'], "red", attrs=["bold"]) }
+            print("%(methodName)s \n\tCalled by: %(caller)s \n\tDefined at: %(className)s [%(overloadIndex)s]\n" % { "methodName": colored(payload['methodName'], "green", attrs=["bold"]), "caller": colored(payload['caller'].split("class ")[1], "blue", attrs=["bold"]), "className": colored(payload['className'], "magenta", attrs=["bold"]), "overloadIndex": colored(payload['overloadIndex'], "red", attrs=["bold"]) })
 
 def build_search_script(className, method):
     if className and className != "" and not method or method == "":
@@ -160,14 +160,14 @@ def begin_instrumentation(appName, script_source):
     try:
         session = device.attach(appName)
     except Exception as e:
-        print colored('[ERROR]: ' + str(e), "red")
+        print(colored('[ERROR]: ' + str(e), "red"))
         sys.exit()
     try:
         script = session.create_script(script_source)
         script.on('message', on_message)
         script.load()
     except Exception as e:
-        print colored('[ERROR]: ' + str(e), "red")
+        print(colored('[ERROR]: ' + str(e), "red"))
         sys.exit()
 
 def enumerate_overloads(overloadIndx, currentClassName, overload_count, methodName):
@@ -304,9 +304,9 @@ def generate_tracer_js(scriptName, txtScript):
     return tracer_file_path
 
 if not method or method == "" and not className or className == "":
-    print colored('Enumerating loaded classes...', "green", attrs=["bold"])    
+    print(colored('Enumerating loaded classes...', "green", attrs=["bold"]))    
 else:
-    print 'Searching method "%s" in loaded classes...' % colored(method, "green", attrs=["bold"])
+    print('Searching method "%s" in loaded classes...' % colored(method, "green", attrs=["bold"]))
 
 begin_instrumentation(appName, build_search_script(className, method))
 
@@ -315,11 +315,11 @@ if len(classCandidates) > 0:
     for script in build_trace_script(classCandidates, method):
         tracer_script_source += script
     begin_instrumentation(appName, tracer_script_source)
-    print colored("\nTracing methods...\n", "blue", attrs=["bold"])
+    print(colored("\nTracing methods...\n", "blue", attrs=["bold"]))
     try:
         sys.stdin.readlines()
     except KeyboardInterrupt:
         sys.exit()
 else:
-    print colored('Didn\'t find anything...quitting!', "red")
+    print(colored('Didn\'t find anything...quitting!', "red"))
     sys.exit()
