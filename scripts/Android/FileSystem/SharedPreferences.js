@@ -29,6 +29,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'contains';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -58,6 +59,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'getInt';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -88,6 +90,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'getFloat';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -117,6 +120,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'getLong';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -147,6 +151,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'getBoolean';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -176,6 +181,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'getString';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -205,6 +211,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'getStringSet';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -233,6 +240,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl';
     send_data.method = 'putString';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -262,6 +270,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl$EditorImpl';
     send_data.method = 'putStringSet';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -291,6 +300,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl$EditorImpl';
     send_data.method = 'putInt';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -320,6 +330,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl$EditorImpl';
     send_data.method = 'putFloat';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -348,6 +359,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl$EditorImpl';
     send_data.method = 'putBoolean';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -377,6 +389,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl$EditorImpl';
     send_data.method = 'putLong';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */
@@ -405,6 +418,7 @@ Java.perform(function() {
     send_data.txnType = 'SharedPreferences';
     send_data.lib = 'android.app.SharedPreferencesImpl$EditorImpl';
     send_data.method = 'remove';
+    send_data.trace = trace();
     send_data.artifact = [];
 
     /*   --- Payload Body --- */

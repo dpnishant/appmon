@@ -22,7 +22,7 @@ from termcolor import colored
 import database as db
 import platform as platform_module
 
-print """
+print("""
      ___      .______   .______   .___  ___.   ______   .__   __. 
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
    /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
@@ -31,7 +31,7 @@ print """
 /__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
                         github.com/dpnishant
                                                                   
-"""
+""")
 
 app = Flask(__name__, static_url_path='/static')
 #app.debug = True
@@ -143,6 +143,11 @@ def init_opts():
 def merge_scripts(path):
     global merged_script_path
     script_source = ''
+    if os.path.isfile(merged_script_path):
+        source = ''
+        with codecs.open(merged_script_path, 'r', 'utf-8') as f:
+            source = f.read()
+        script_source = source
     for root, dirs, files in os.walk(path):
         path = root.split('/')
         for file in files:
@@ -158,7 +163,7 @@ def merge_scripts(path):
 
 
 def _exit_():
-    print colored('[INFO] Exiting...', 'green')
+    print((colored('[INFO] Exiting...', 'green')))
     try:
         os.remove(merged_script_path)
     except Exception as e:
@@ -172,13 +177,13 @@ def writeBinFile(fname, data):
 
 
 def list_processes(session):
-    print 'PID\tProcesses\n', '===\t========='
+    print(('PID\tProcesses\n', '===\t========='))
     for app in session.enumerate_processes():
-        print "%s\t%s" % (app.pid, app.name)
+        print(("%s\t%s" % (app.pid, app.name)))
 
 
 def on_detached():
-    print colored('[WARNING] "%s" has terminated!' % (app_name), 'red')
+    print((colored('[WARNING] "%s" has terminated!' % (app_name), 'red')))
 
 
 def on_message(message, data):
@@ -196,9 +201,9 @@ def on_message(message, data):
         db.save_to_database(writePath, message['payload'])
         #writePath = os.path.join(output_dir, app_name + '.json')
         #writeBinFile(writePath, message['payload']) #writeBinFile(writePath, binascii.unhexlify(message['payload']))
-        print colored('[%s] Dumped to %s' % (current_time, writePath), 'green')
+        print((colored('[%s] Dumped to %s' % (current_time, writePath), 'green')))
     elif message['type'] == 'error':
-        print(message['stack'])
+        print((message['stack']))
 
 
 def generate_injection():
@@ -207,9 +212,10 @@ def generate_injection():
         with codecs.open(script_path, 'r', 'utf-8') as f:
             injection_source = f.read()
     elif os.path.isdir(script_path):
+        merge_scripts("scripts/!Common")
         with codecs.open(merge_scripts(script_path), 'r', 'utf-8') as f:
             injection_source = f.read()
-    print colored('[INFO] Building injection...', 'yellow')
+    print((colored('[INFO] Building injection...', 'yellow')))
     return injection_source
 
 
@@ -261,7 +267,7 @@ rpc.exports = {
             script.unload()
             return app_name
     except Exception as e:
-        print colored("[ERROR] " + str(e), "red")
+        print((colored("[ERROR] " + str(e), "red")))
         traceback.print_exc()
 
 
@@ -288,7 +294,7 @@ rpc.exports = {
         session.detach()
         return bundleID
     except Exception as e:
-        print colored("[ERROR] " + str(e), "red")
+        print((colored("[ERROR] " + str(e), "red")))
         traceback.print_exc()
 
 def init_session():
@@ -298,38 +304,38 @@ def init_session():
             try:
                 device = frida.get_usb_device(3) # added timeout to wait for 3 seconds
             except Exception as e:
-                print colored(str(e), "red")
+                print((colored(str(e), "red")))
                 traceback.print_exc()
                 if platform == 'android':
-                    print colored("Troubleshooting Help", "blue")
-                    print colored("HINT: Is USB Debugging enabled?", "blue")
-                    print colored("HINT: Is `frida-server` running on mobile device (with +x permissions)?", "blue")
-                    print colored("HINT: Is `adb` daemon running?", "blue")
+                    print((colored("Troubleshooting Help", "blue")))
+                    print((colored("HINT: Is USB Debugging enabled?", "blue")))
+                    print((colored("HINT: Is `frida-server` running on mobile device (with +x permissions)?", "blue")))
+                    print((colored("HINT: Is `adb` daemon running?", "blue")))
                     sys.exit(1)
                 elif platform == "ios":
-                    print colored("Troubleshooting Help", "blue")
-                    print colored("HINT: Have you installed `frida` module from Cydia?", "blue")
-                    print colored("HINT: Have used `ipa_installer` to inject the `FridaGadget` shared lbrary?", "blue")
+                    print((colored("Troubleshooting Help", "blue")))
+                    print((colored("HINT: Have you installed `frida` module from Cydia?", "blue")))
+                    print((colored("HINT: Have used `ipa_installer` to inject the `FridaGadget` shared lbrary?", "blue")))
                     sys.exit(1)
         elif platform == 'iossim':
             try:
                 device = frida.get_remote_device()
             except Exception as e:
                 # print traceback.print_exc()
-                print colored("Troubleshooting Help", "blue")
-                print colored("HINT: Have you successfully integrated the FridaGadget dylib with the XCode Project?", "blue")
-                print colored("HINT: Do you see a message similar to \"[Frida INFO] Listening on 127.0.0.1 TCP port 27042\" on XCode console logs?", "blue")
+                print((colored("Troubleshooting Help", "blue")))
+                print((colored("HINT: Have you successfully integrated the FridaGadget dylib with the XCode Project?", "blue")))
+                print((colored("HINT: Do you see a message similar to \"[Frida INFO] Listening on 127.0.0.1 TCP port 27042\" on XCode console logs?", "blue")))
                 sys.exit(1)
         elif platform == 'macos':
             device = frida.get_local_device()
         else:
-            print colored('[ERROR] Unsupported Platform', 'red')
+            print((colored('[ERROR] Unsupported Platform', 'red')))
             sys.exit(1)
         pid = None
         if app_name:
             try:
                 if platform == 'android' and spawn == 1:
-                    print colored("Now Spawning %s" % app_name, "green")
+                    print((colored("Now Spawning %s" % app_name, "green")))
                     pid = device.spawn([app_name])
                     #time.sleep(5)
                     session = device.attach(pid)
@@ -337,12 +343,12 @@ def init_session():
                 elif (platform == 'ios' or platform == 'macos') and spawn == 1:
                     bundleID = getBundleID(device, app_name, platform)
                     if bundleID:
-                        print colored("Now Spawning %s" % bundleID, "green")
+                        print((colored("Now Spawning %s" % bundleID, "green")))
                         pid = device.spawn([bundleID])
                         #time.sleep(5)
                         session = device.attach(pid)
                     else:
-                        print colored("[ERROR] Can't spawn %s" % app_name, "red")
+                        print((colored("[ERROR] Can't spawn %s" % app_name, "red")))
                         traceback.print_exc()
                         sys.exit(1)
                 else:
@@ -352,13 +358,13 @@ def init_session():
 
                     session = device.attach(arg_to_attach)
             except Exception as e:
-                print colored('[ERROR] ' + str(e), 'red')
+                print((colored('[ERROR] ' + str(e), 'red')))
                 traceback.print_exc()
         if session:
-            print colored('[INFO] Attached to %s' % (app_name), 'yellow')
+            print((colored('[INFO] Attached to %s' % (app_name), 'yellow')))
             session.on('detached', on_detached)
     except Exception as e:
-        print colored('[ERROR] ' + str(e), 'red')
+        print((colored('[ERROR] ' + str(e), 'red')))
         traceback.print_exc()
         sys.exit(1)
     return device, session, pid
@@ -376,14 +382,14 @@ try:
             app_name = getDisplayName(session, app_name, platform)
         script = session.create_script(generate_injection())
         if script:
-            print colored('[INFO] Instrumentation started...', 'yellow')
+            print((colored('[INFO] Instrumentation started...', 'yellow')))
             script.on('message', on_message)
             script.load()
             if spawn == 1 and pid:
                 device.resume(pid)
             app.run() #Start WebServer
 except Exception as e:
-    print colored('[ERROR] ' + str(e), 'red')
+    print((colored('[ERROR] ' + str(e), 'red')))
     traceback.print_exc()
     sys.exit(1)
 

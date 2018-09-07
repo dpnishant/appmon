@@ -59,6 +59,7 @@ if (NSXMLParser_initWithData.address) {
         send_data.txnType = 'XML';
         send_data.lib = 'libobjc.a.dylib';
         send_data.method = '-[NSXMLParser initWithData:]';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};

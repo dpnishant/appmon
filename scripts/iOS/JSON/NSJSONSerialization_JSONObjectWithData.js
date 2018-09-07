@@ -50,6 +50,7 @@ if (NSJSONSerialization_JSONObjectWithData_options_error.address) {
           send_data.txnType = 'JSON Serialization';
           send_data.lib = 'libobjc.a.dylib';
           send_data.method = '+[NSJSONSerialization JSONObjectWithData:options:error:]';
+          send_data.trace = trace();
           send_data.artifact = [];
           /*   --- Payload Body --- */
           var data = {}

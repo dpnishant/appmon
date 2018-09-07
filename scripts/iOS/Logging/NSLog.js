@@ -41,6 +41,7 @@ Interceptor.attach(NSLog, {
       send_data.txnType = 'Logging';
       send_data.lib = 'Foundation';
       send_data.method = 'NSLog';
+      send_data.trace = trace();
       send_data.artifact = [];
       var data = {};
       data.name = "Log Message";
@@ -84,6 +85,7 @@ Interceptor.attach(NSLog, {
     //   send_data.txnType = 'Logging';
     //   send_data.lib = 'Foundation';
     //   send_data.method = 'NSLogv';
+    //   send_data.trace = trace();
     //   send_data.artifact = [];
     //   var data = {};
     //   data.name = "Log Message";

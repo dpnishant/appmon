@@ -54,6 +54,7 @@ Interceptor.attach(Module.findExportByName('Security', 'SecRandomCopyBytes'), {
     send_data.txnType = 'SecureRandom Generate';
     send_data.lib = 'Security';
     send_data.method = 'SecRandomCopyBytes';
+    send_data.trace = trace();
     send_data.artifact = [];
     
     /*   --- Payload Body --- */

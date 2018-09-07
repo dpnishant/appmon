@@ -56,6 +56,7 @@ if (NSManagedObjectContext_save.address) {
       send_data.txnType = 'Core Data';
       send_data.lib = 'libobjc.a.dylib';
       send_data.method = '-[NSManagedObjectContext save:]';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};

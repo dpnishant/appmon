@@ -93,6 +93,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'getInstance';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -112,6 +113,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'getInstance';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -131,6 +133,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'getInstance';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -160,6 +163,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -203,6 +207,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -247,6 +252,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -290,6 +296,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -333,6 +340,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -376,6 +384,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -419,6 +428,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -462,6 +472,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'init';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -508,6 +519,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -557,6 +569,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -607,6 +620,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -657,6 +671,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -707,6 +722,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -757,6 +773,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -807,6 +824,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'javax.crypto.Cipher';
       send_data.method = 'doFinal';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -852,6 +870,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.SecureRandom';
       send_data.method = 'setSeed';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */
@@ -873,6 +892,7 @@ Java.perform(function() {
       send_data.txnType = 'Crypto';
       send_data.lib = 'java.security.SecureRandom';
       send_data.method = 'setSeed';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */

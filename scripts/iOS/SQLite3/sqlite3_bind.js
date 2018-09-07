@@ -28,6 +28,7 @@ Interceptor.attach(sqlite3_bind_int, {
       send_data.txnType = 'SQLite';
       send_data.lib = 'libsqlite3.dylib';
       send_data.method = 'sqlite3_bind_int';
+      send_data.trace = trace();
       send_data.artifact = [];
       if (!sql_query.toString().match(/\?\s?[\=\s\,\;]?/gi)) {
         var data = {};
@@ -56,6 +57,7 @@ Interceptor.attach(sqlite3_bind_text, {
       send_data.txnType = 'SQLite';
       send_data.lib = 'libsqlite3.dylib';
       send_data.method = 'sqlite3_bind_text';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */

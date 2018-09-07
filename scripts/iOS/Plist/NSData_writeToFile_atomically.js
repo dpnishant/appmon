@@ -43,6 +43,7 @@ if (NSDataWriteToFile.address) {
         send_data.txnType = 'Core Data';
         send_data.lib = 'libobjc.a.dylib';
         send_data.method = '-[NSData writeToFile:atomically:]';
+        send_data.trace = trace();
         send_data.artifact = [];
         /*   --- Payload Body --- */
         var data = {};

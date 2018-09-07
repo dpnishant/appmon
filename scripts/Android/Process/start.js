@@ -44,6 +44,7 @@ Java.perform(function() {
       send_data.txnType = 'Process';
       send_data.lib = 'android.os.Process';
       send_data.method = 'start';
+      send_data.trace = trace();
       send_data.artifact = [];
 
       /*   --- Payload Body --- */

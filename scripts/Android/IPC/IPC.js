@@ -30,6 +30,7 @@ Java.perform(function() {
       send_data.txnType = 'Broadcast Sent';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'sendBroadcast';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -69,6 +70,7 @@ Java.perform(function() {
       send_data.txnType = 'Broadcast Sent';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'sendBroadcast';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -116,6 +118,7 @@ Java.perform(function() {
       send_data.txnType = 'Sticky Broadcast Sent';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'sendStickyBroadcast';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -153,6 +156,7 @@ Java.perform(function() {
       send_data.txnType = 'Activity Started';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'startActivity';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -176,6 +180,7 @@ Java.perform(function() {
       send_data.txnType = 'Activity Started';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'startActivity';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -207,6 +212,7 @@ Java.perform(function() {
       send_data.txnType = 'Service Started';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'startService';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};
@@ -230,6 +236,7 @@ Java.perform(function() {
       send_data.txnType = 'Service Stopped';
       send_data.lib = 'android.content.ContextWrapper';
       send_data.method = 'stopService';
+      send_data.trace = trace();
       send_data.artifact = [];
       /*   --- Payload Body --- */
       var data = {};

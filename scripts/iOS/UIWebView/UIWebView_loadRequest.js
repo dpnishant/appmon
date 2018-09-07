@@ -37,6 +37,7 @@ if (UIWebView_loadRequest.address) {
           send_data.txnType = 'UIWebView';
           send_data.lib = 'libobjc.a.dylib';
           send_data.method = '-[UIWebView loadRequest:]';
+          send_data.trace = trace();
           send_data.artifact = [];
           /*   --- Payload Body --- */
           var data = {};
