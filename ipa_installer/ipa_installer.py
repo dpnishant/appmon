@@ -58,7 +58,7 @@ def getDeveloperId():
             return id.split(" ")[0]
         else:
             print "No \"iPhone Developer\" identity found!"
-            devID = raw("Enter \"iPhone Developer\" Identity Hash: ")
+            devID = raw_input("Enter \"iPhone Developer\" Identity Hash: ")
             return devID
 
 def getMobileProvisionFile():
