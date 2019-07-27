@@ -64,16 +64,21 @@ def getDeveloperId():
 def getMobileProvisionFile():
     PATH = "/Users/%s/Library/Developer/Xcode/DerivedData" % pwd.getpwuid(os.getuid())[0]
     mobileprovision_path = [os.path.join(dp, f) for dp, dn, filenames in os.walk(PATH) for f in filenames if os.path.splitext(f)[1] == '.mobileprovision']
-    if len(mobileprovision_path) > 1:
+    if len(mobileprovision_path) == 1:
+        mobileprovision_path = mobileprovision_path[0]
+        if not os.path.isfile(mobileprovision_path):
+            mobileprovision_path = raw_input('Provide the path to "embedded.mobileprovision" file: ')
+            return mobileprovision_path
+    elif len(mobileprovision_path) > 1:
         for path in mobileprovision_path:
             print "%s: %s" % (str(mobileprovision_path.index(path)), path)
         path_index = raw_input('Choose Provision file for IPA re-signing? (e.g. 0, 1...): ')
         mobileprovision_path = mobileprovision_path[int(path_index)]
+        return mobileprovision_path
     else:
-        mobileprovision_path = mobileprovision_path[0]
-    if not os.path.isfile(mobileprovision_path):
-        mobileprovision_path = raw_input('Provide the path to "embedded.mobileprovision" file: ')
-    return mobileprovision_path
+        mobileprovision_path = raw_input('Provide the absolute path to "embedded.mobileprovision" file: ')
+        return mobileprovision_path
+    
 
 def getMachOExecutable(app_path):
     try:
