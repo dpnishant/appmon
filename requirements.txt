@@ -16,4 +16,4 @@ python-editor==1.0.3
 six==1.11.0
 SQLAlchemy==1.2.12
 termcolor==1.1.0
-Werkzeug==0.14.1
+Werkzeug==0.15.3
