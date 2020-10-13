@@ -25,7 +25,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--apk', action='store', dest='apk_path', default='', help='''(absolute) path to APK''')
 parser.add_argument('-v', action='version', version='AppMon APK Builder v0.1, Copyright 2016 Nishant Das Patnaik')
 
-print """
+print("""
      ___      .______   .______   .___  ___.   ______   .__   __. 
     /   \     |   _  \  |   _  \  |   \/   |  /  __  \  |  \ |  | 
    /  ^  \    |  |_)  | |  |_)  | |  \  /  | |  |  |  | |   \|  | 
@@ -34,7 +34,7 @@ print """
 /__/     \__\ | _|      | _|      |__|  |__|  \______/  |__| \__| 
 					    github.com/dpnishant
                                                                   
-"""
+""")
 
 if len(sys.argv) < 3:
     parser.print_help()
@@ -47,7 +47,7 @@ aligned_apk_path = ""
 renamed_apk_path = ""
 
 if not os.path.isfile(apk_path):
-    print "[E] File doesn't exist: %s\n[*] Quitting!" % (apk_path)
+    print("[E] File doesn't exist: %s\n[*] Quitting!" % (apk_path))
     sys.exit(1)
 
 SMALI_DIRECT_METHODS = """    .method static constructor <clinit>()V
@@ -79,18 +79,18 @@ method_end = 0
 constructor_start = 0
 constructor_end = 0
 prologue_start = 0
-header_range = range(0, 0)
-footer_range = range(0, 0)
+header_range = list(range(0, 0))
+footer_range = list(range(0, 0))
 header_block = ""
 footer_block = ""
 
 try:
 	if os.path.isdir(WORK_DIR):
-		print "[I] Preparing work directory..."
+		print("[I] Preparing work directory...")
 		shutil.rmtree(WORK_DIR)
 	os.makedirs(WORK_DIR)
 
-	print "[I] Expanding APK..."
+	print("[I] Expanding APK...")
 	apk_dump = subprocess.check_output(["aapt", "dump", "badging", apk_path])
 	apk_permissions = subprocess.check_output(["aapt", "dump", "permissions", apk_path])
 	package_name = apk_dump.split("package: name=")[1].split(" ")[0].strip("'\"\n\t ")
@@ -98,7 +98,7 @@ try:
         try:
             launchable_activity = apk_dump.split("launchable-activity: name=")[1].split(" ")[0].strip("'\"\n\t ")
         except IndexError:
-            print "No launchable activity found"
+            print("No launchable activity found")
             sys.exit(1)
         launchable_activity_path = os.path.join(WORK_DIR, package_name, "smali", launchable_activity.replace(".", "/") + ".smali")
 
@@ -108,7 +108,7 @@ try:
 	subprocess.call(["mv", package_name, WORK_DIR])
 
 	if not "uses-permission: name='android.permission.INTERNET'" in apk_permissions:
-		print "[I] APK needs INTERNET permission"
+		print("[I] APK needs INTERNET permission")
 		with codecs.open(manifest_file_path, 'r', 'utf-8') as f:
 			manifest_file_contents = f.readlines()
 
@@ -120,7 +120,7 @@ try:
 					f.write(manifest_file_contents)
 				break
 		
-	print "[I] Searching .smali"
+	print("[I] Searching .smali")
 	with codecs.open(launchable_activity_path, 'r', 'utf-8') as f:
 		file_contents = f.readlines()
 	
@@ -147,8 +147,8 @@ try:
 				prologue_start = cursor
 				marker = cursor + 1
 	
-	header_range = range(0, marker)
-	footer_range = range(marker, len(file_contents))
+	header_range = list(range(0, marker))
+	footer_range = list(range(marker, len(file_contents)))
 
 	for line_num in header_range:
 		header_block += file_contents[line_num]
@@ -160,18 +160,18 @@ try:
 	else:
 		renegerated_smali = header_block + SMALI_DIRECT_METHODS + footer_block
 
-	print "[I] Patching .smali" 
+	print("[I] Patching .smali") 
 	with codecs.open(launchable_activity_path, 'w', 'utf-8') as f:
 		f.write(renegerated_smali)
 
-	print "[I] Injecting libs"
+	print("[I] Injecting libs")
 	lib_dir = os.path.join(WORK_DIR, package_name, "lib")
 	if not os.path.isdir(lib_dir):
 		os.makedirs(lib_dir)
 
 	unzip_output = subprocess.check_output(["unzip", LIB_FILE_PATH, "-d", lib_dir])
 
-	print "[I] Building APK"
+	print("[I] Building APK")
 	shutil.rmtree(os.path.join(WORK_DIR, package_name, "original/META-INF"))
 	build_apk_output = subprocess.check_output(["apktool", "build", os.path.join(WORK_DIR, package_name)])
 
@@ -181,40 +181,40 @@ try:
 	renamed_apk_path = "%s/%s.apk" % (os.path.join(WORK_DIR, package_name, "dist"), os.path.basename(apk_path).split(".apk")[0] + "-appmon")
 	appmon_apk_path = os.path.join(os.getcwd(), os.path.basename(apk_path).split(".apk")[0] + "-appmon.apk")
 
-	print "[I] Aligning APK"
+	print("[I] Aligning APK")
 	subprocess.check_output(["zipalign", "-v", "-p", "4", new_apk_path, aligned_apk_path])
 
 	align_verify = subprocess.check_output(["zipalign", "-v", "-c", "4", aligned_apk_path])
 	align_verify.strip(" \r\n\t")
 	if not "Verification succesful" in align_verify:
-		print "[E] alignment verification failed"
+		print("[E] alignment verification failed")
 	else:
-		print "[I] APK alignment verified"
+		print("[I] APK alignment verified")
 
 
 	# 
-	print "[I] Signing APK"
+	print("[I] Signing APK")
 	sign_status = subprocess.check_output(["apksigner", "sign", "--verbose", "--ks", "appmon.keystore", "--ks-pass", "pass:appmon", "--out", signed_apk_path, aligned_apk_path])
 	
 	if not "Signed" in sign_status:
-		print "[E] APK signing error %s" % (sign_status)
+		print("[E] APK signing error %s" % (sign_status))
 
 	
 	sign_verify = subprocess.check_output(["apksigner", "verify", "--verbose", signed_apk_path])
 
 	if not "Verified using v1 scheme (JAR signing): true" in sign_verify and not "Verified using v2 scheme (APK Signature Scheme v2): true" in sign_verify:
-		print sign_verify
+		print(sign_verify)
 	else:
-		print "[I] APK signature verified"
+		print("[I] APK signature verified")
 
-	print "[I] Housekeeping"
+	print("[I] Housekeeping")
 	subprocess.call(["mv", signed_apk_path, renamed_apk_path])
 	subprocess.call(["mv", renamed_apk_path, os.getcwd()])
 	subprocess.call(["rm", new_apk_path, aligned_apk_path])
 
 
 	if os.path.isfile(appmon_apk_path):
-		print "[I] Ready: %s" % (appmon_apk_path)
+		print("[I] Ready: %s" % (appmon_apk_path))
 
 except Exception as e:
 	traceback.print_exc()
