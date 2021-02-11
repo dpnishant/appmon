@@ -14,6 +14,6 @@ normality==0.6.1
 python-dateutil==2.7.3
 python-editor==1.0.3
 six==1.11.0
-SQLAlchemy==1.2.12
+SQLAlchemy==1.3.0
 termcolor==1.1.0
 Werkzeug==0.15.3
