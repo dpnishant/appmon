@@ -26,7 +26,7 @@ New/Experimental Features
 Documentation
 =============
 Follow the documentation below to learn more.
-[Click Here](https://dpnishant.github.com/appmon/)
+[Click Here](https://dpnishant.github.io/appmon/)
 
 
 Credits
