@@ -18,425 +18,78 @@
 -->
 
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet">
+    <title>Appmon framework UI - Monitor</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/googleapis_com_css_family_Cabin.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/DataTables-1.10.11/datatables.min.css"/>
 
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.8/js/jquery.dataTables.min.js"></script>
-    
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css"/>
-    
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/t/zf-5.5.2/jqc-1.12.0,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,fc-3.2.1,fh-3.1.1,kt-2.1.1,r-2.0.2,rr-1.1.1,sc-1.4.1,se-1.1.2/datatables.min.css"/>
-    
-    <script type="text/javascript" src="https://cdn.datatables.net/t/zf-5.5.2/jqc-1.12.0,jszip-2.5.0,pdfmake-0.1.18,dt-1.10.11,b-1.1.2,b-colvis-1.1.2,b-flash-1.1.2,b-html5-1.1.2,b-print-1.1.2,cr-1.3.1,fc-3.2.1,fh-3.1.1,kt-2.1.1,r-2.0.2,rr-1.1.1,sc-1.4.1,se-1.1.2/datatables.min.js"></script>
+    <!-- Overrides, should be loaded after all other css -->
+    <link rel="stylesheet" type="text/css" href="/static/css/custom-styles.css">
 
-<style>
+    <script type="text/javascript" src="/static/js/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/DataTables-1.10.11/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/DataTables-1.10.11/datatables.min.js"></script>
 
-.header {
-    table-layout: fixed !important;
-    width: 100% !important;
-    background: none !important;
-    border: none !important;
-    margin-bottom: 0;
-    padding: 0;
-    margin: 0;
-}
-
-.desc {
-    font-family: 'Cabin', sans-serif !important;
-    font-size: 170% !important;
-    color: #ffffff !important;
-    text-align: right !important;
-    width: 50% !important;
-}
-
-.logo {
-    margin-top: -4%;
-    margin-left: -4%;
-    display: block;
-}
-
-.footer {
-    font-family: 'Cabin', sans-serif;
-    font-size: 170%;
-    color: #D1D1D1;
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    font-size: 18px;
-}
-
-#tblResultView thead {
-    display:table-header-group
-}
-
-#colSearchContainer {
-    width: 15%;
-    padding: 0px;
-    margin: 0px;
-}
-
-.dataTables_filter {
-    float: left;
-}
-.dt-buttons.button-group {
-    float: left;
-}
-
-.dataTables_filter label {
-    color: #fff;
-    display: none;
-}
-
-#tblResultView_filter.searchbox_visible {
-    float: left;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
-}
-
-#tblResultView_filter.searchbox_visible input {
-    height: 1.75rem;
-}
-
-div.dataTables_wrapper div.dataTables_filter input {
-    margin-left: 0.9rem;
-}
-
-.dataTables_filter {
-    background: #008cba none repeat scroll 0 0;
-    float: left;
-    padding-left: 1.75rem;
-    padding-right: 1.75rem;
-    padding-top: 0.72rem;
-    padding-bottom: 0.72rem;
-}
-
-.search-button {
-    color: #fff;
-    cursor: pointer;
-    float: left;
-    padding: 0px;
-}
-
-#tblResultView td {
-    font-family: Consolas, monaco, monospace;
-    font-size: 10pt;
-    vertical-align: top;
-    word-wrap: break-word;
- }
-
-body {
-    font-family: Consolas, monaco, monospace;
-    font-size: 10pt;
-}
-
-#tblResultView table {
-    table-layout: fixed;
-    width:auto;
-    padding: 0px;
-    margin: 0px;
-}
-
-.navbar-default {
-    background-color: #337ab7;
-    border-color: #2e6da4;
-}
-
-.navbar-default .navbar-brand {
-    color: #ffffff;
-}
-
-.navbar {
-    border-radius: 0px;
-}
-
-a.back-to-top {
-    display: none;
-    width: 60px;
-    height: 60px;
-    text-indent: -9999px;
-    position: fixed;
-    z-index: 999;
-    right: 45%;
-    bottom: 5%;
-    background: #FFE3B9 url("/static/img/to-top.png") no-repeat center 43%;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
-}
-
-a.back-to-bottom {
-    display: none;
-    width: 60px;
-    height: 60px;
-    text-indent: -9999px;
-    position: fixed;
-    z-index: 999;
-    right: 50%;
-    bottom: 5%;
-    background: #FFE3B9 url("/static/img/to-bottom.png") no-repeat center 43%;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    border-radius: 30px;
-}
-
-</style>
-
+    <!-- 'DataTables' - initialization and settings -->
+    <script type="text/javascript" src="/static/js/datatables-init.js"></script>
+    <script type="text/javascript" src="/static/js/theme-loader.js"></script>
+    <script type="text/javascript" src="/static/js/scroller.js"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <table class="header">
-                    <tbody>
-                        <tr>
-                <td>
-                    <a class="navbar-brand" href="http://dpnishant.github.com/appmon" target="_blank">
-                    <img class="logo" src="/static/img/logo.png" alt="AppMon"/>
-                </a>
-            </td>
-                <td class="desc">Runtime security profiling framework </td>
-            </tr>
-        </tbody></table>
+    <div id="root_container">
+        <nav id="header_container" class="navbar navbar-default top-header fixed">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <table class="header">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div>
+                                        <div class="header-right-icon">
+                                            <a class="navbar-brand" href="https://github.com/dpnishant/appmon" target="_blank">
+                                                <img class="logo" src="/static/img/logo.png" alt="AppMon"/>
+                                            </a>
+                                        </div>
+                                        <div class="header-right">
+                                            <span class="desc">Runtime security profiling framework</span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+        </nav>
+        {% autoescape false %}
+
+        <div id="content_container">
+            <table id="tblResultView" class="display" cellspacing="0">
+                <tbody>
+                    <thead>
+                        <tr id="tb_header">
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>Time</th>
+                            <th>Hook</th>
+                            <th>Module</th>
+                            <th>Method</th>
+                            <th>Artifact</th>
+                            <th>Remark</th>
+                        </tr>
+                    </thead>
+                </tbody>
+            </table>
+            <div id="colSearchContainer"></div>
         </div>
-    </nav>
-    {% autoescape false %}
-    <table id="tblResultView" class="display" cellspacing="0">
-        <thead>
-            <tr>
-                <th>Operation</th>
-                <th>Module</th>
-                <th>Method</th>
-                <th>Artifact</th>
-                <th>Time</th>
-                <th>Sequence</th>
-                <th>Remark</th>
-            </tr>
-        </thead>
-        </tbody>
-    </table>
-    <div id="colSearchContainer" ></div>
-    {% endautoescape %}
-    <script>
+        {% endautoescape %}
 
-    jQuery.fn.dataTableExt.oApi.fnTruncateCells = function (oSettings, aiColumnMaxChars) {
-    /*
-    * Type:        Plugin for DataTables (www.datatables.net) JQuery plugin.
-    * Name:        dataTableExt.oApi.fnTruncateCells
-    * Version:     1.0.0
-    * Description: Truncates table cells to length specified in <th data-maxChars> attribute. 
-    *              Puts ellipses in place of last 3 characters, and pre-truncated
-    *              cell data in cell's title attribute.
-    * Inputs:      object:oSettings - dataTables settings object
-    *              array: aoColumnMaxChars - an array, element 0 being left most, containing a positive integer or null for each column.
-    *              Null means do not truncate column, positive integer means to only allow that many characters to display in the column text. 
-    *
-    * Returns:     JQuery
-    * Usage:       $('#example').dataTable().fnTruncateCells();
-    * Requires:   DataTables 1.7.0+
-    *
-    * Author:      Justin Pate
-    * Created:     26/7/2012
-    * Language:    Javascript
-    * License:     GPL v2 or BSD 3 point style
-    * Contact:     justin.pate /AT\ gmail.com
-    * Documentation: https://bitbucket.org/JustinP8/datatables.truncatecells/src
-    */
-    this.each(function (i) {
-        $.fn.dataTableExt.iApiIndex = i;
-        var baseFunction = (oSettings.fnRowCallback) ? oSettings.fnRowCallback : function () { };
-        oSettings.fnRowCallback = function (nRow) {
-            baseFunction(nRow);
-            $('td', nRow).each(function (index) {
-                var maxChars = (typeof aiColumnMaxChars !== 'undefined') ? aiColumnMaxChars[index] : oSettings.aoColumns[index].nTh.getAttribute("data-maxChars");
-                if (maxChars) {
-                    var unfilteredText = $(this).text();
-                    if (unfilteredText.length > maxChars && maxChars > 3) {
-                        $(this).attr("title", unfilteredText);
-                        $(this).html(unfilteredText.substring(0, maxChars) + "...");
-                    }
-                }
-            });
-            return nRow;
-        };
-        return this;
-    });
-    return this;
-};
-
-    function get_LastRowId() {
-        var max = 0;
-        $("td[data-dt-column='0']").each(function() {
-            $this = parseInt($(this).text());
-            if ($this > max) 
-                max = $this;
-        });
-        //console.log(max);
-        return max;
-    }
-
-    function ui_rearrange() {
-        $( "#tblResultView_filter").prepend("<div class=\"search-button\"><i class=\"fa fa-search\"></i></div>" );
-        $('.search-button').click(function() {
-
-            $('.dataTables_filter label').slideToggle("fast");
-            var box = $('.dataTables_filter input').clone(true, true);
-            $('label').html(box);
-            if ( $('.dataTables_filter input').is(':visible') ) {
-                $("#tblResultView_filter").addClass('searchbox_visible');
-                $("div.dataTables_wrapper div.dataTables_filter input").addClass('searchbox_visible');
-            } else {
-            $('#tblResultView_filter').removeClass("searchbox_visible");
-            $('div.dataTables_filter input').removeClass( "searchbox_visible");
-        }
-        $('.dataTables_filter input').focus();
-    });
-    }
-
-    $(document).ready(function() {
-        /*
-        $.extend( true, $.fn.dataTable.defaults, {
-            column: {
-                render: $.fn.dataTable.render.text()
-            }
-        });
-        */
-        $('#tblResultView').DataTable({
-            ajax: {
-                "url": "/api/fetch",
-                "data": function (d) {
-                    d.id = get_LastRowId(),
-                    d.app = "{{ app_name }}"
-                }
-            },
-            search: {
-                "caseInsensitive": true,
-                "smart": true
-            },
-            bAutoWidth: false,
-            autoWidth: false,
-            colReorder: true,
-            scrollY: true,
-            scrollX: true,
-            dom: 'Bfrtip',
-            lengthMenu: [
-                [ 15, 30, 50, 100, -1 ],
-                [ '15 rows', '30 rows', '50 rows', '100 rows', 'Show all' ]
-            ],
-            buttons: [
-            {
-                extend:    'copyHtml5',
-                text:      '<i class="fa fa-files-o"></i>',
-                titleAttr: 'Copy'
-            },
-            {
-                extend:    'excelHtml5',
-                text:      '<i class="fa fa-file-excel-o"></i>',
-                titleAttr: 'Excel'
-            },
-            {
-                extend:    'csvHtml5',
-                text:      '<i class="fa fa-file-text-o"></i>',
-                titleAttr: 'CSV'
-            },
-            {
-                extend:    'pdfHtml5',
-                text:      '<i class="fa fa-file-pdf-o"></i>',
-                titleAttr: 'PDF'
-            },
-            {
-                extend: 'pageLength',
-                text: '<i class="fa fa-bars"></i>',
-                titleAttr: 'Table Length'
-            },
-            {
-                extend: 'colvis',
-                text: '<i class="fa fa-eye-slash"></i>',
-                postfixButtons: ['colvisRestore']
-            },
-            {
-                text: 'Refresh',
-                action: function ( e, dt, node, config ) {
-                    dt.ajax.reload();
-                }
-            }
-            ],
-        });        
-
-        ui_rearrange();
-
-        $('#tblResultView').dataTable().fnTruncateCells([30, 30, 30, 30, 30, 30, 30]);
-
-
-        //var refresh = window.setInterval($('#tblResultView').DataTable().ajax.reload, 2000);
-        
-        /*
-
-        // DataTable
-        var table = $('#tblResultView').DataTable();
-        
-        // Setup - add a text input to each footer cell
-        
-        // $('#tblResultView thead th').each(function () {
-        //    var title = $(this).text();
-        //   $('#colSearchContainer').html($('#colSearchContainer').html() + '<input type="text" placeholder="Search ' + title + '" />' );
-        // });
-
-        // Apply the search
-        
-        table.columns().every( function () {
-        var that = this;
-        $('input', this.footer() ).on( 'keyup change', function () {
-            if (that.search() !== this.value ) {
-                that.search(this.value).draw();
-            }
-        });
-    });
-    */
-    });
-</script>
-<script type="text/javascript">
-    $('body').prepend('<a href="#" class="back-to-top">Back to Top</a>');
-    $('body').prepend('<a href="#" class="back-to-bottom">Back to Bottom</a>');
-
-</script>
-<script>
-var amountScrolledForTop = 500;
-var amountScrolledForBottom = 1500;
-$(window).scroll(function() {
-    if ( $(window).scrollTop() > amountScrolledForTop ) {
-        $('a.back-to-top').fadeIn('slow');
-    } else {
-        $('a.back-to-top').fadeOut('slow');
-    }
-
-    if ( $(window).scrollTop() > amountScrolledForBottom ) {
-        $('a.back-to-bottom').fadeIn('slow');
-    } else {
-        $('a.back-to-bottom').fadeOut('slow');
-    }
-});
-
-
-$('a.back-to-top').click(function() {
-    $('html, body').animate({
-        scrollTop: 0
-    }, 700);
-    return false;
-});
-
-$('a.back-to-bottom').click(function() {
-    $('html, body').animate({
-        scrollTop: $(document).height()
-    }, 700);
-    return false;
-});
-</script>
+        <div id="footer_container" class="bottom-footer"></div>
+    </div>
 </body>
 </html>

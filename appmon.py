@@ -21,6 +21,7 @@ from flask import Flask, request, render_template
 from termcolor import colored
 import database as db
 import platform as platform_module
+from urllib.parse import unquote
 
 print("""
      ___      .______   .______   .___  ___.   ______   .__   __.
@@ -35,6 +36,7 @@ print("""
 
 app = Flask(__name__, static_url_path='/static')
 #app.debug = True
+console_logging = True
 
 device = ''
 session = ''
@@ -56,16 +58,19 @@ def add_header(r):
     return r
 
 
-@app.route('/api/fetch', methods=['GET'])
-def serve_json():
-    index = request.args.get('id')
-    if request.args.get('reportdb'):
-        db_name = request.args.get('reportdb')
-    else:
-        db_name = request.args.get('app')
-    response = db.read_from_database(db_name, index)
-    #response = open('static/data.json').read()
-    return response
+@app.route('/', methods=['GET'])
+def landing_page():
+    global APP_LIST, DB_MAP
+    APP_LIST.clear()
+
+    for root, dirs, files in os.walk(output_dir):
+        path = root.split(os.sep)
+        for file in files:
+            file_path = os.path.join(root, file)
+            if file_path.endswith('.db'):
+                APP_LIST.append(file.replace('.db', ''))
+
+    return render_template('index.html', apps=APP_LIST)
 
 
 @app.route('/monitor/', methods=['GET'])
@@ -74,19 +79,32 @@ def monitor_page():
     return render_template('monitor.html', app_name=app_name)
 
 
-@app.route('/', methods=['GET'])
-def landing_page():
-    global APP_LIST, DB_MAP
+@app.route('/api/fetch', methods=['GET'])
+def read_db():
+    index = request.args.get('id')
+    if request.args.get('reportdb'):
+        db_name = request.args.get('reportdb')
+    else:
+        db_name = request.args.get('app')
+    grouped = request.args.get('grouped')
+    db_name = unquote(db_name)
+    db_path = os.path.join(output_dir, str(db_name) + '.db')
+    #print('db_path: %s, index: %s' % (db_path, index), flush=True)
+    response = db.read_from_database(db_path, index, grouped)
+    #response = open('static/data.json').read()
+    return response
 
-    app_dumps_dir = os.path.join('.','app_dumps')
-    for root, dirs, files in os.walk(app_dumps_dir):
-        path = root.split(os.sep)
-        for file in files:
-            file_path = os.path.join(root, file)
-            if file_path.endswith('.db'):
-                APP_LIST.append(file.replace('.db', ''))
-
-    return render_template('index.html', apps=APP_LIST)
+@app.route('/api/clear_table', methods=['GET'])
+def clear_db():
+    if request.args.get('reportdb'):
+        db_name = request.args.get('reportdb')
+    else:
+        db_name = request.args.get('app')
+    # URL decode
+    db_name = unquote(db_name)
+    db_path = os.path.join(output_dir, str(db_name) + '.db')
+    response = str(db.delete_all_from_table(db_path))
+    return response
 
 
 def init_opts():
@@ -196,9 +214,11 @@ def on_message(message, data):
         db.save_to_database(writePath, message['payload'])
         #writePath = os.path.join(output_dir, app_name + '.json')
         #writeBinFile(writePath, message['payload']) #writeBinFile(writePath, binascii.unhexlify(message['payload']))
-        print((colored('[%s] Dumped to %s' % (current_time, writePath), 'green')))
+        if console_logging:
+            print(colored('[%s] Dumped to %s' % (current_time, writePath), 'green'), flush=True)
+            print(message['payload'], flush=True)
     elif message['type'] == 'error':
-        print((message['stack']))
+        print(colored("[INTERNAL FRIDA ERROR]: \n" + message['stack'], "red"), flush=True)
 
 
 def generate_injection():

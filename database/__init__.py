@@ -18,26 +18,38 @@
 import dataset, json, time, htmlentities
 import platform as platform_module
 from xml.sax.saxutils import escape
+from termcolor import colored
+
+table_name = 'api_captures'
 
 def save_to_database(db_path, str_json):
   try:
     str_json = json.loads(str_json.replace("\n", "<br />").replace("\r", "<br />"), strict=False)
     db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_")))
-    table = db['api_captures']
-    os_string = platform_module.system()
-    if os_string == "Windows":
-        formatted_time = time.strftime('%b %d %Y %I:%M %p', time.localtime())
-    else:
-        formatted_time = time.strftime('%b %d %Y %l:%M %p', time.localtime())
-    table.insert(dict(time=formatted_time,
+    table = db[table_name]
+    table.insert(dict(time=time.strftime('%b %d %Y %H:%M:%S', time.localtime()),
       operation=str_json['txnType'],
       artifact=json.dumps(str_json['artifact']),
       method=str_json['method'],
       module=str_json['lib'],
       remark=''))
   except Exception as e:
-    print(str(e))
-    print(str_json)
+    print(str(e), flush=True)
+    print(str_json, flush=True)
+
+def delete_all_from_table(db_path):
+  try:
+    db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_") + '?check_same_thread=False'))
+    table = db[table_name]
+    db.begin()
+    table.delete()
+    db.commit()
+    db.close()
+    print(colored('Table "%s" in database "%s" has been cleared!' % (table_name, db_path), 'cyan'), flush=True)
+    return True
+  except Exception as e:
+    print(str(e), flush=True)
+    return False
 
 def stringify(data):
   str_data = ""
@@ -50,19 +62,22 @@ def stringify(data):
     except Exception as e:
       return data
 
-def read_from_database(db_path, index=0):
+def read_from_database(db_path, index=0, grouped_by=''):
   result_set = {}
   parent_holder = []
-  db = dataset.connect('sqlite:///./app_dumps/%s.db' % (db_path))
-  api_captures = db.query('SELECT * FROM api_captures GROUP BY artifact')
+  db = dataset.connect('sqlite:///%s' % (db_path.replace("'", "_") + '?check_same_thread=False'))
+  query_str = 'SELECT * FROM ' + table_name + (' GROUP BY ' + grouped_by if grouped_by != '' else '')
+  api_captures = db.query(query_str)
   for capture in api_captures:
-    child_holder = []
-    child_holder.append(capture['operation'])
-    child_holder.append(capture['module'])
-    child_holder.append(capture['method'])
+    child_holder = {}
+    child_holder['id'] = capture['id']
+    child_holder['time'] = capture['time']
+    child_holder['operation'] = capture['operation']
+    child_holder['module'] = capture['module']
+    child_holder['method'] = capture['method']
     str_artifact = ''
     artifacts = json.loads(capture['artifact'])
-    
+
     for artifact in artifacts:
       if "name" in artifact:
         artifact_name = artifact['name']
@@ -81,10 +96,8 @@ def read_from_database(db_path, index=0):
 
     #print str_artifact
 
-    child_holder.append(str_artifact)
-    child_holder.append(capture['time'])
-    child_holder.append(capture['id'])
-    child_holder.append(capture['remark'])
+    child_holder['artifact'] = str_artifact
+    child_holder['remark'] = capture['remark']
     parent_holder.append(child_holder)
   result_set['data'] = parent_holder
   return json.dumps(result_set)

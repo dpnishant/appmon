@@ -1,0 +1,45 @@
+:root {
+    --main-color-foreground: rgb(34, 34, 34);
+    --main-color-background: rgb(240, 240, 240);
+
+    --theme-colorset-20: rgb(20, 20, 20);
+    --theme-colorset-30: rgb(30, 30, 30);
+    --theme-colorset-40: rgb(30, 30, 30);
+    --theme-colorset-50: rgb(50, 50, 50);
+    --theme-colorset-170: rgb(170, 170, 170);
+    --theme-colorset-180: rgb(180, 180, 180);
+    --theme-colorset-200: rgb(200, 200, 200);
+
+    --header-foreground: rgb(120, 120, 120);
+    --header-background: rgb(220, 220, 220);
+    --header-border: rgb(200, 200, 200);
+    --header-border-side: rgb(60, 60, 60);
+
+    --footer-foreground: rgb(34, 34, 34);
+    --footer-background: rgb(220, 220, 220);
+    --footer-border: rgb(200, 200, 200);
+
+    --table-header-foreground: rgb(34, 34, 34);
+    --table-header-background: rgb(245, 245, 245);
+
+    --table-foreground: rgb(34, 34, 34);
+    --table-row-odd-background: rgb(255, 255, 255);
+    --table-row-even-background: rgb(250, 250, 250);
+    --table-border: rgb(221, 221, 221);
+
+    --top-panel-button-foreground: rgb(30, 30, 30);
+    --top-panel-button-background: rgb(220, 220, 220);
+    --top-panel-button-hover-foreground: rgb(30, 30, 30);
+    --top-panel-button-hover-background: rgb(200, 200, 200);
+    --top-panel-button-border: rgb(200, 200, 200);
+    --top-panel-button-seearch-foreground: rgb(80, 80, 80);
+    --top-panel-button-dropdown-icon: rgb(80, 80, 80);
+    --top-panel-button-dropdown-menu-foreground: rgb(34, 34, 34);
+    --top-panel-button-dropdown-menu-background: rgb(255, 255, 255);
+    --top-panel-button-dropdown-menu-border: rgb(120, 120, 120);
+    --top-panel-button-dropdown-menu-hover-background: rgb(225, 225, 225);
+
+    --pagination-button-hover-foreground: rgb(35, 82, 124);
+
+    --scroll-button-background: rgb(255, 220, 165);
+}

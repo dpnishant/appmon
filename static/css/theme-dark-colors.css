@@ -1,0 +1,141 @@
+:root {
+    --main-color-foreground: rgb(190, 190, 190);
+    --main-color-background: rgb(28, 28, 28);
+
+    --theme-colorset-20: rgb(20, 20, 20);
+    --theme-colorset-30: rgb(30, 30, 30);
+    --theme-colorset-40: rgb(30, 30, 30);
+    --theme-colorset-50: rgb(50, 50, 50);
+    --theme-colorset-170: rgb(170, 170, 170);
+    --theme-colorset-180: rgb(180, 180, 180);
+    --theme-colorset-200: rgb(200, 200, 200);
+
+    --header-foreground: rgb(140, 140, 140);
+    --header-background: rgb(60, 60, 60);
+    --header-border: rgb(80, 80, 80);
+    --header-border-side: rgb(59, 59, 59);
+
+    --footer-foreground: rgb(190, 190, 190);
+    --footer-background: rgb(60, 60, 60);
+    --footer-border: rgb(200, 200, 200);
+
+    --table-header-foreground: rgb(190, 190, 190);
+    --table-header-background: rgb(36, 36, 36);
+
+    --table-foreground: rgb(34, 34, 34);
+    --table-row-odd-background: rgb(28, 28, 33);
+    --table-row-even-background: rgb(31, 31, 31);
+    --table-border: rgb(60, 60, 60);
+
+    --top-panel-button-foreground: rgb(190, 190, 190);
+    --top-panel-button-background: rgb(60, 60, 60);
+    --top-panel-button-hover-foreground: rgb(191, 191, 191);
+    --top-panel-button-hover-background: rgb(70, 70, 70);
+    --top-panel-button-border: rgb(80, 80, 80);
+    --top-panel-button-seearch-foreground: rgb(190, 190, 190);
+    --top-panel-button-dropdown-icon: rgb(120, 120, 120);
+    --top-panel-button-dropdown-menu-foreground: rgb(190, 190, 190);
+    --top-panel-button-dropdown-menu-background: rgb(28, 28, 33);
+    --top-panel-button-dropdown-menu-border: rgb(77, 77, 77);
+    --top-panel-button-dropdown-menu-hover-background: rgb(43, 43, 43);
+
+    --pagination-button-hover-foreground: rgb(156, 194, 227);
+
+    --scroll-button-background: rgb(100, 85, 60);
+}
+
+body {
+    background: var(--theme-colorset-30) !Important;
+}
+
+ul.pagination li a {
+    border-color: var(--theme-colorset-50);
+}
+
+ul.pagination li:hover a, ul.pagination li a:focus, ul.pagination li:hover button, ul.pagination li button:focus {
+    background: var(--theme-colorset-50);
+}
+
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+    z-index: 2;
+    color: var(--pagination-button-hover-foreground);
+    border-color: var(--theme-colorset-50);
+}
+
+ul.pagination li a, ul.pagination li button {
+    color: var(--footer-foreground) !Important;
+}
+.pagination > .disabled > a, .pagination > .disabled > a:focus, .pagination > .disabled > a:hover, .pagination > .disabled > span, .pagination > .disabled > span:focus, .pagination > .disabled > span:hover {
+    color: rgb(191, 191, 191) !Important;
+    cursor: not-allowed;
+    background-color: rgb(28, 28, 33) !Important;
+    border-color: rgb(59, 59, 59) !Important;
+}
+
+input[type="text"], input[type="password"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="week"], input[type="email"], input[type="number"], input[type="search"], input[type="tel"], input[type="time"], input[type="url"], input[type="color"], textarea {
+    background-color: rgb(28, 28, 33) !Important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px inset !Important;
+    color: rgba(191, 191, 191, 0.75) !Important;
+    border-top: 1px solid rgb(77, 77, 77) !Important;
+    border-right: 1px solid rgb(77, 77, 77) !Important;
+    border-bottom: 1px solid rgb(77, 77, 77) !Important;
+    border-left: 1px solid rgb(77, 77, 77) !Important;
+}
+
+
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-button {
+}
+
+::-webkit-scrollbar-track {
+    background-color: #646464 !important;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #3e4346 !important;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #242424 !important;
+    border: 2px solid #3e4346 !important;
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--theme-colorset-30) !important;
+}
+
+html.no-touch {
+}
+
+::-webkit-resizer {
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+    background: linear-gradient(130deg, #696969 40%, rgba(255, 0, 0, 0) 41%), linear-gradient(230deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(0deg, #696969 40%, rgba(0, 0, 0, .8) 31%);
+    background-color: #b6b6b6;
+}
+
+::-webkit-scrollbar-button:vertical:end:increment {
+    background: linear-gradient(310deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(50deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(180deg, #696969 40%, rgba(0, 0, 0, .8) 31%);
+    background-color: #b6b6b6;
+}
+
+::-webkit-scrollbar-button:horizontal:end:increment {
+    background: linear-gradient(210deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(330deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(90deg, #696969 30%, rgba(0, 0, 0, .8) 31%);
+    background-color: #b6b6b6;
+}
+
+::-webkit-scrollbar-button:horizontal:start:decrement {
+    background: linear-gradient(30deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(150deg, #696969 40%, rgba(0, 0, 0, 0) 41%), linear-gradient(270deg, #696969 30%, rgba(0, 0, 0, .8) 31%);
+    background-color: #b6b6b6;
+}
+
+::selection {
+    background: rgba(60, 170, 255, 0.4);
+    color: #fff;
+}

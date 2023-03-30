@@ -15,114 +15,69 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<head>
-<link href="https://fonts.googleapis.com/css?family=Cabin:700" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
-<style>
+	<head>
+		<title>Appmon framework UI - Home</title>
+		<link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
 
-#logo {
-	margin-top: -4%;
-	margin-left: -4%;
-    display: block;
-}
+		<link rel="stylesheet" type="text/css" href="/static/css/googleapis_com_css_family_Cabin.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/DataTables-1.10.11/datatables.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/static/css/bootstrap-select.min.css">
 
-.footer {
-	font-family: 'Cabin', sans-serif;
-	font-size: 170%;
-	color: #D1D1D1;
-    position: absolute;
-    bottom: 8px;
-    right: 16px;
-    font-size: 18px;
-}
+		<!-- Overrides, should be loaded after all other css -->
+		<link rel="stylesheet" type="text/css" href="/static/css/custom-styles.css">
 
-.logotable {
-	table-layout: fixed;
-	width: 100%;
-}
+		<script type="text/javascript" src="/static/js/jquery-1.12.0.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/static/js/bootstrap-select.min.js"></script>
+		<script type="text/javascript" src="/static/js/theme-loader.js"></script>
+	</head>
 
-.logotable td {
-	font-family: 'Cabin', sans-serif;
-	font-size: 170%;
-	color: #ffffff;
-	text-align: right;
-	width: 50%;
-}
-
-.menu_container {
-  position: absolute;
-  margin: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100px;
-  height: 100px;
-  float: left;
-}
-
-.navbar-default {
-  background-color: #337ab7;
-  border-color: #2e6da4;
-}
-.navbar-default .navbar-brand {
-  color: #337ab7;
-}
-.navbar-default .navbar-brand:hover,
-.navbar-default .navbar-brand:focus {
-  color: #ffffff;
-}
-
-.navbar {
-    border-radius: 0px;
-}
-
-p .btn_container {
-	float: right;
-}
-
-</style>
-</head>
-
-<body>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<table class="logotable">
-					<tbody>
-						<tr>
-				<td>
-					<a class="navbar-brand" href="http://dpnishant.github.com/appmon" target="_blank">
-					<img id="logo" src="/static/img/logo.png" alt="AppMon"/>
-				</a>
-			</td>
-				<td class="intro"> Runtime security profiling framework </td>
-			</tr>
-		</tbody></table>
+	<body>
+		<div id="root_container">
+			<nav id="header_container" class="navbar navbar-default top-header fixed">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<table class="header">
+							<tbody>
+							<tr>
+								<td>
+									<div>
+										<div class="header-right-icon">
+											<a class="navbar-brand" href="https://github.com/dpnishant/appmon" target="_blank">
+												<img class="logo" src="/static/img/logo.png" alt="AppMon"/>
+											</a>
+										</div>
+										<div class="header-right">
+											<span class="desc">Runtime security profiling framework</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</nav>
+			<div class="menu_container" id="divmenucontainer">
+				<p>
+					<select class="selectpicker show-tick show-menu-arrow" id="selectMenu" data-live-search="true" title="Select an App..." data-style="btn-success" data-width="auto">
+						{% for app in apps %}
+							<option>{{ app }}</option>
+						{% endfor %}
+					</select>
+				</p>
+				<p>
+					<button class="btn btn-primary btn-block" id="btnNext">Next</button>
+				</p>
 			</div>
+			<script type="text/javascript">
+				$('#btnNext').click(function() {
+					window.location= '/monitor?app=' + $('#selectMenu').val();
+				});
+			</script>
+			<span class="footer">Nishant Das Patnaik</span>
 		</div>
-	</nav>
-	<div class="menu_container" id="divmenucontainer">
-		<p>
-			<select class="selectpicker show-tick show-menu-arrow" id="selectMenu" data-live-search="true" title="Select an App..." data-style="btn-success" data-width="auto">
-			{% for app in apps %}
-			<option>{{ app }}</option>
-			{% endfor %}
-		</select>
-	</p>
-	<p class="btn_container">
-		<button class="btn btn-primary btn-block" id="btnNext">Next</button>
-	</p>
-	</div>
-	<script type="text/javascript">
-	$('#btnNext').click(function(){
-        window.location= '/monitor?app=' + $('#selectMenu').val();
-    });
-	</script>
-<span class="footer"> Nishant Das Patnaik </span>
-</body>
+	</body>
 </html>
